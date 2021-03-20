@@ -14,8 +14,8 @@ AppState appStateReducer(AppState state, dynamic action) {
     var _outdatedHistory = state.allCommoditiesHistory;
     //
     Map<String, List<PriceCheck>> _updatedCommoditiesHistory =
-        allCommoditiesHistoryUpdateReducer(
-            newestUpdates: _newestUpdates, outdatedHistory: _outdatedHistory);
+    allCommoditiesHistoryUpdateReducer(
+        newestUpdates: _newestUpdates, outdatedHistory: _outdatedHistory);
     //
     Map<String, double> _updatedPricesInterestedIn =
     interestedPricesUpdateReducer(

@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return  MaterialApp(
         title: 'Redux ToDo Demo',
+        theme: ThemeData.dark(),
         home: const Home(),
     );
   }

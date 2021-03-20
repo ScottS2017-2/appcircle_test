@@ -21,19 +21,16 @@ class _HomeState extends State<Home> {
 
   /// This code is completely optional, and is used to change the color &
   /// text of the AppBar each time you swipe
-  String titleString = 'Redux Example';
-  Color appBarColor = const Color(0xFFA13565);
+  String titleString = 'Crypto Alert System - Provider';
 
   void setTitle(int page) {
     if (page == 0) {
       setState(() {
-        titleString = 'Redux Example';
-        appBarColor = const Color(0xFFA13565);
+        titleString = 'Crypto Alert System - Provider';
       });
     } else if (page == 1) {
       setState(() {
-        titleString = 'Provider Example';
-        appBarColor = const Color(0xFFA00084);
+        titleString = 'Crypto Alert System - Redux';
       });
     }
   }
@@ -42,7 +39,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appBarColor,
         title: Text(titleString),
       ),
       body: PageView(
