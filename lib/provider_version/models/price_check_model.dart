@@ -1,11 +1,9 @@
-import 'package:flutter/foundation.dart';
-
 class PriceCheck {
   PriceCheck({
-    @required this.symbol,
-    @required this.price24h,
-    @required this.volume24h,
-    @required this.lastTradePrice,
+    required this.symbol,
+    required this.price24h,
+    required this.volume24h,
+    required this.lastTradePrice,
   });
 
   DateTime time = DateTime.now();

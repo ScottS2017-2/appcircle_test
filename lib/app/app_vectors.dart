@@ -1,3 +1,3 @@
-class AppVectors {
-  final String mySVG = 'PathToYourSVG/YourImage.svg';
-}
+const Map<String, String> appVectors  = {
+  //  'myVectorGraphic' : 'assets/vectors/XXXXXXXXXXXXXX.jpg',
+};

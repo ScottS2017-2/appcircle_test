@@ -44,7 +44,7 @@ class AppTheme {
     ),
   );
 
-  static TextTheme _getTextTheme({@required Brightness brightness}) {
+  static TextTheme _getTextTheme({required Brightness brightness}) {
     final themeData = ThemeData(brightness: brightness);
 
     return GoogleFonts.exo2TextTheme(themeData.textTheme).copyWith(

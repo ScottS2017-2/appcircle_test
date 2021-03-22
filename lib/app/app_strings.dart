@@ -1,4 +1,4 @@
-Map<String, String> appStrings  = {
+const Map<String, String> appStrings  = {
    'AAVE' : 'Aave',
    'ALGO' : 'ALGO',
    'BCH' : 'Bitcoin Cash',
