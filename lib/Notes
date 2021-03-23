@@ -1,0 +1,4 @@
+To use the Binance web socket at:
+https://github.com/binance/binance-spot-api-docs/blob/master/web-socket-streams.md
+This is the syntax:
+wss://stream.binance.com:9443/ws/xrpbusd@ticker

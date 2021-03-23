@@ -39,49 +39,6 @@ class _HomeState extends State<Home> {
     }
   }
 
-  final _leftSlideOut = FractionallySizedBox(
-    heightFactor: 0.8,
-    widthFactor: 0.5,
-    child: Container(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.red,
-            ),
-            child: Container(
-              alignment: Alignment.center,
-              child: Text(
-                'Left Header',
-                style: appTextStyles['appBarTextStyle']!
-                    .copyWith(color: Colors.white, fontSize: 18),
-              ),
-            ),
-          ),
-          ListTile(
-            title: const Text('First Item'),
-            onTap: () {
-              // TODO implement me
-            },
-          ),
-          ListTile(
-            title: const Text('Second Item'),
-            onTap: () {
-              // TODO implement me
-            },
-          ),
-          ListTile(
-            title: const Text('Third Item'),
-            onTap: () {
-              // TODO implement me
-            },
-          ),
-        ],
-      ),
-    ),
-  );
-
   @override
   void initState() {
     super.initState();
@@ -94,43 +51,9 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: Text(titleString),
       ),
-      body: Stack(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Flexible(
-                child: PageView(
-                  onPageChanged: setTitle,
-                  children: pages,
-                ),
-              ),
-              Container(
-                height: 50,
-                child: Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () => {},
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.pressed))
-                              return Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(0.5);
-                            return null; // Use the component's default.
-                          },
-                        ),
-                      ),
-                      child: Text('Open Drawer'),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
+      body: PageView(
+        onPageChanged: setTitle,
+        children: pages,
       ),
     );
   }

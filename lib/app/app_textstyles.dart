@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 
-Map<String, TextStyle> appTextStyles = {
-  'appBarTextStyle': TextStyle(
+/// Text Styles
+class AppTextStyles {
+  const AppTextStyles._();
+
+  static const TextStyle appBarTextStyle = TextStyle(
     color: AppColors.whiteTextColor,
     shadows: [
       Shadow(
@@ -11,68 +14,65 @@ Map<String, TextStyle> appTextStyles = {
         blurRadius: 1,
       ),
     ],
-  ),
-  //
-  // *****************
-  // Use copyWith to change colors, font families, etc.
-  // *****************
-  'normal36': TextStyle(fontSize: 36, fontWeight: FontWeight.normal),
-  'bold36': TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-  'italic36': TextStyle(fontSize: 36, fontStyle: FontStyle.italic),
-  'boldItalic36': TextStyle(
-      fontSize: 36, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-  //
-  'normal30': TextStyle(fontSize: 30, fontWeight: FontWeight.normal),
-  'bold30': TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-  'italic30': TextStyle(fontSize: 30, fontStyle: FontStyle.italic),
-  'boldItalic30': TextStyle(
-      fontSize: 30, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-  //
-  'normal24': TextStyle(fontSize: 24, fontWeight: FontWeight.normal),
-  'bold24': TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-  'italic24': TextStyle(fontSize: 24, fontStyle: FontStyle.italic),
-  'boldItalic24': TextStyle(
-      fontSize: 24, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-  //
-  'normal18': TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-  'bold18': TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-  'italic18': TextStyle(fontSize: 18, fontStyle: FontStyle.italic),
-  'boldItalic18': TextStyle(
-      fontSize: 18, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-  //
-  'normal16': TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-  'bold16': TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-  'italic16': TextStyle(fontSize: 16, fontStyle: FontStyle.italic),
-  'boldItalic16': TextStyle(
-      fontSize: 16, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-  //
-  'normal14': TextStyle(fontSize: 14, fontWeight: FontWeight.normal),
-  'bold14': TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-  'italic14': TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
-  'boldItalic14': TextStyle(
-      fontSize: 14, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-  //
-  'normal12': TextStyle(fontSize: 12, fontWeight: FontWeight.normal),
-  'bold12': TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-  'italic12': TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
-  'boldItalic12': TextStyle(
-      fontSize: 12, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-  //
-  'normal10': TextStyle(fontSize: 10, fontWeight: FontWeight.normal),
-  'bold10': TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-  'italic10': TextStyle(fontSize: 10, fontStyle: FontStyle.italic),
-  'boldItalic10': TextStyle(
-      fontSize: 10, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-  //
-  'normal8': TextStyle(fontSize: 8, fontWeight: FontWeight.normal),
-  'bold8': TextStyle(fontSize: 8, fontWeight: FontWeight.bold),
-  'italic8': TextStyle(fontSize: 8, fontStyle: FontStyle.italic),
-  'boldItalic8': TextStyle(
-      fontSize: 8, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-  //
-  'normal6': TextStyle(fontSize: 6, fontWeight: FontWeight.normal),
-  'bold6': TextStyle(fontSize: 6, fontWeight: FontWeight.bold),
-  'italic6': TextStyle(fontSize: 6, fontStyle: FontStyle.italic),
-  'boldItalic6': TextStyle(
-      fontSize: 6, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
-};
+  );
+
+  static const TextStyle normal36 =  TextStyle(fontSize: 36.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold36 = TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic36 =  TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic36 =
+  TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal30 =  TextStyle(fontSize: 30.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold30 =  TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic30 =  TextStyle(fontSize: 30.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic30 =
+  TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal24 =  TextStyle(fontSize: 24.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold24 =  TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic24 =  TextStyle(fontSize: 24.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic24 =
+  TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal18 =  TextStyle(fontSize: 18.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold18 =  TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic18 =  TextStyle(fontSize: 18.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic18 =
+  TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal16 =  TextStyle(fontSize: 16.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold16 =  TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic16 =  TextStyle(fontSize: 16.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic16 =
+  TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal14 =  TextStyle(fontSize: 14.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold14 =  TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic14 =  TextStyle(fontSize: 14.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic14 =
+  TextStyle(fontSize: 14.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal12 =  TextStyle(fontSize: 12.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold12 =  TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic12 =  TextStyle(fontSize: 12.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic12 =
+  TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal10 =  TextStyle(fontSize: 10.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold10 =  TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic10 =  TextStyle(fontSize: 10.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic10 =
+  TextStyle(fontSize: 10.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal8 =  TextStyle(fontSize: 8.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold8 =  TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic8 =  TextStyle(fontSize: 8.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic8 =
+  TextStyle(fontSize: 8.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal6 =  TextStyle(fontSize: 6.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold6 =  TextStyle(fontSize: 6.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic6 =  TextStyle(fontSize: 6.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic6 =
+  TextStyle(fontSize: 6.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+}
