@@ -19,7 +19,7 @@ class _ProviderHomeState extends State<ProviderHome> {
 
   void toggleSideSlides(){
     setState(() {
-      _slidesPosition == 0 ? _slidesPosition = -200 : _slidesPosition = 0;
+      _slidesPosition == 35 ? _slidesPosition = -200 : _slidesPosition = 35;
     });
   }
 

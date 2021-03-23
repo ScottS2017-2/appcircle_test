@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Redux ToDo Demo',
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: ChangeNotifierProvider(
         create: (BuildContext context) => AppStateModel.initialState(),
         child: Home(),
