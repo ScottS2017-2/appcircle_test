@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
 import 'package:crypto_tracker_redux/redux_version/models/price_check.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
@@ -19,7 +17,7 @@ AppState appStateReducer(AppState state, dynamic action) {
     //
     Map<String, double> _updatedPricesInterestedIn =
     interestedPricesUpdateReducer(
-        oldPricesInterestedInList: _oldPricesInterestedInList, newestUpdates: _newestUpdates);
+        oldPricesInterestedInList: _oldPricesInterestedInList, newestUpdates: _newestUpdates!);
     //
     return state.copyWith(
       isLoading: false,
@@ -32,31 +30,31 @@ AppState appStateReducer(AppState state, dynamic action) {
 }
 
 Map<String, List<PriceCheck>> allCommoditiesHistoryUpdateReducer({
-  @required Map<String, PriceCheck> newestUpdates,
-  @required Map<String, List<PriceCheck>> outdatedHistory,
+  required Map<String, PriceCheck>? newestUpdates,
+  required Map<String, List<PriceCheck>> outdatedHistory,
 }) {
-  var _result = Map.from(outdatedHistory);
+  Map<String, List<PriceCheck>> _result = Map.from(outdatedHistory);
 
   // Add each new listing to the result
-  for (String key in newestUpdates.keys) {
+  for (String key in newestUpdates!.keys) {
     var temp = PriceCheck(
-      symbol: newestUpdates[key].symbol,
-      lastTradePrice: newestUpdates[key].lastTradePrice,
-      price24h: newestUpdates[key].price24h,
-      volume24h: newestUpdates[key].volume24h,
+      symbol: newestUpdates[key]!.symbol,
+      lastTradePrice: newestUpdates[key]!.lastTradePrice,
+      price24h: newestUpdates[key]!.price24h,
+      volume24h: newestUpdates[key]!.volume24h,
     );
-    _result['${temp.symbol}'].add(temp);
+    _result['${temp.symbol}']!.add(temp);
   }
   return _result;
 }
 
 Map<String, double> interestedPricesUpdateReducer({
-  @required Map<String, double> oldPricesInterestedInList,
-  @required Map<String, PriceCheck> newestUpdates,
+  required Map<String, double> oldPricesInterestedInList,
+  required Map<String, PriceCheck> newestUpdates,
 }) {
   var _result = oldPricesInterestedInList;
   for (String key in oldPricesInterestedInList.keys) {
-    _result[key] = newestUpdates[key].lastTradePrice;
+    _result[key] = newestUpdates[key]!.lastTradePrice;
   }
   return _result;
 }

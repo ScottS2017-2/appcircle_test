@@ -41,12 +41,12 @@ Future<List<dynamic>> getTicker() async {
 Future<List<dynamic>> appStateMiddleware(
     Store<AppState> store, action, NextDispatcher next) async {
   // _result is abstraction for debugging
-  List<dynamic> _result;
+  late List<dynamic> _result;
   if (action is AddPriceCheckAction) {
     // Get the latest PriceChecks
     await getTicker().then((value) {
       _result = value;
     });
-    return _result;
   }
+  return _result;
 }

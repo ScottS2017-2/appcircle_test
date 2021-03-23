@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
 import 'package:crypto_tracker_redux/redux_version/models/price_check.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
@@ -13,10 +11,10 @@ class ViewModel {
   final bool isLoading;
 
   ViewModel({
-    @required this.allCommoditiesHistory,
-    @required this.interestedInPrices,
-    @required this.onGetPriceCheck,
-    @required this.isLoading,
+    required this.allCommoditiesHistory,
+    required this.interestedInPrices,
+    required this.onGetPriceCheck,
+    required this.isLoading,
   });
 
   factory ViewModel.create(Store<AppState> store) {

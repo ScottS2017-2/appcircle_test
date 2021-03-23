@@ -9,8 +9,8 @@ import 'package:redux/redux.dart';
 
 class ReduxHome extends StatelessWidget {
   ReduxHome({
-    Key key,
-    @required this.store,
+    Key? key,
+    required this.store,
   }) : super(key: key);
 
   final Store<AppState> store;

@@ -56,7 +56,7 @@ class _ProviderHomeState extends State<ProviderHome> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              '${appStrings[currencyInterestedIn]} is currently \n${value.padRight(2)} ${appStrings[denomination]}',
+                              '${unabbreviatedTerms[currencyInterestedIn]} is currently \n${value.padRight(2)} ${unabbreviatedTerms[denomination]}',
                               textAlign: TextAlign.center,
                               style: appTextStyles['normal24'],
                             ),

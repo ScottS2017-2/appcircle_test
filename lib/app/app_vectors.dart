@@ -1,3 +1,3 @@
-const Map<String, String> appVectors  = {
-  //  'myVectorGraphic' : 'assets/vectors/XXXXXXXXXXXXXX.jpg',
-};
+class AppVectors{
+  static const String firstImage = 'assets/vectors/firstExample.jpg';
+}

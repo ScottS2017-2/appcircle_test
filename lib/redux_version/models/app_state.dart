@@ -4,9 +4,9 @@ import 'package:crypto_tracker_redux/redux_version/models/price_check.dart';
 
 class AppState {
   AppState({
-    @required this.allCommoditiesHistory,
-    @required this.interestedInPrices,
-    @required this.isLoading,
+    required this.allCommoditiesHistory,
+    required this.interestedInPrices,
+    required this.isLoading,
   });
 
   final Map<String, List<PriceCheck>> allCommoditiesHistory;
@@ -14,9 +14,9 @@ class AppState {
   final bool isLoading;
 
   AppState copyWith({
-    Map<String, List<PriceCheck>> allCommoditiesHistory,
-    Map<String, double> interestedInPrices,
-    bool isLoading,
+    Map<String, List<PriceCheck>>? allCommoditiesHistory,
+    Map<String, double>? interestedInPrices,
+    bool? isLoading,
   }) {
     var _newAppState = AppState(
       allCommoditiesHistory:

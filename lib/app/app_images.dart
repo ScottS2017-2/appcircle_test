@@ -1,3 +1,3 @@
-  const Map<String, String> appImages  = {
-  //  'sampleImageListing' : 'assets/images/XXXXXXXXXXXXXX.jpg',
-  };
+class AppImages{
+  static const String firstImage = 'assets/images/firstExample.jpg';
+}

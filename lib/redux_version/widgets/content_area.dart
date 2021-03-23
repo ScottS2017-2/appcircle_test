@@ -8,9 +8,9 @@ import 'package:redux/redux.dart';
 
 class ContentArea extends StatefulWidget {
   const ContentArea({
-    Key key,
-    @required this.viewModel,
-    @required this.store,
+    Key? key,
+    required this.viewModel,
+    required this.store,
 }) : super(key:key);
 
   final ViewModel viewModel;

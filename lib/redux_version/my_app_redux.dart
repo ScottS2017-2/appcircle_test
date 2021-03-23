@@ -11,7 +11,7 @@ import 'package:redux/redux.dart';
 
 class MyAppRedux extends StatelessWidget {
   const MyAppRedux({
-    Key key,
+    Key? key,
   }) : super(key: key);
 
   @override

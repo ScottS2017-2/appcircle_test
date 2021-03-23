@@ -3,10 +3,10 @@ import 'package:crypto_tracker_redux/app/app_colors.dart';
 
 Map<String, TextStyle> appTextStyles = {
   'appBarTextStyle': TextStyle(
-    color: appColors['whiteTextColor'],
+    color: AppColors.whiteTextColor,
     shadows: [
       Shadow(
-        color: appColors['dropShadowColor']!,
+        color: AppColors.dropShadowColor,
         offset: Offset(2, 2),
         blurRadius: 1,
       ),
