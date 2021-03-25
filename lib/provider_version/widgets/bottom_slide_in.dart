@@ -19,7 +19,7 @@ class BottomSlideIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final interestedInPrices =
-    context.select((AppStateModel appState) => appState.interestedInPrices);
+        context.select((AppStateModel appState) => appState.interestedInPrices);
     return Container(
       height: height,
       width: width,
@@ -84,44 +84,58 @@ class BottomSlideIn extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: interestedInPrices.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        ////////////////////////////////////////////////
-                        // Separate the commodity and denomination strings
-                       String key = interestedInPrices.keys.elementAt(index);
-                        final regex = RegExp(r'^([A-z]+)-([A-z]+)$');
-                        final regexMatch = regex.firstMatch(key);
-                        final currencyInterestedIn = regexMatch!.group(1);
-                        final denomination = regexMatch.group(2);
-                        ////////////////////////////////////////////////
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8),
-                              margin: const EdgeInsets.only(left: 8, right: 8, top: 16),
-                              decoration: BoxDecoration(
-                                color: AppColors.silver,
-                                boxShadow: [
-                                  const BoxShadow(
-                                    color: AppColors.dropShadowColor,
-                                    blurRadius: 1,
-                                    offset: Offset(1, 1),
-                                  ),
-                                ],
+                  Consumer<AppStateModel>(
+                    builder: (context, appState, child) {
+                      return Expanded(
+                        child: ListView.builder(
+                          itemCount: interestedInPrices.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            ////////////////////////////////////////////////
+                            // Separate the commodity and denomination strings
+                            String key =
+                                interestedInPrices.keys.elementAt(index);
+                            final regex = RegExp(r'^([A-z]+)-([A-z]+)$');
+                            final regexMatch = regex.firstMatch(key);
+                            final currencyInterestedIn = regexMatch!.group(1);
+                            final denomination = regexMatch.group(2);
+                            ////////////////////////////////////////////////
+                            final abbreviatedCommodityName = AppStrings
+                                .commoditiesHistory.keys
+                                .elementAt(index);
+                            final fullCommodityName =
+                                '${AppStrings.unabbreviatedTerms[abbreviatedCommodityName]}';
+                            return GestureDetector(
+                              onTap: () {
+                                Provider.of<AppStateModel>(context,
+                                        listen: false)
+                                    .removeFromInterestedInPrices(key);
+                              },
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8),
+                                margin: const EdgeInsets.only(
+                                    left: 8, right: 8, top: 16),
+                                decoration: BoxDecoration(
+                                  color: AppColors.silver,
+                                  boxShadow: [
+                                    const BoxShadow(
+                                      color: AppColors.dropShadowColor,
+                                      blurRadius: 1,
+                                      offset: Offset(1, 1),
+                                    ),
+                                  ],
+                                ),
+                                child: Text(
+                                  '${AppStrings.unabbreviatedTerms[currencyInterestedIn]} in ${AppStrings.unabbreviatedTerms[denomination]}',
+                                  textAlign: TextAlign.left,
+                                  style: AppTextStyles.normal12,
+                                ),
                               ),
-                              child: Text(
-                                '${AppStrings.unabbreviatedTerms[currencyInterestedIn]} in ${AppStrings.unabbreviatedTerms[denomination]}',
-                                textAlign: TextAlign.left,
-                                style: AppTextStyles.normal12,
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
+                            );
+                          },
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

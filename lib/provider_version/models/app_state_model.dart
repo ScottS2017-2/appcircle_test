@@ -196,4 +196,9 @@ class AppStateModel extends ChangeNotifier {
     interestedInPrices.putIfAbsent('$commodity-$denomination', () => 0);
     fetchAndProcessUpdates(outdatedHistory: allCommoditiesHistory);
   }
+  void removeFromInterestedInPrices(String commodity){
+    interestedInPrices.remove(commodity);
+    notifyListeners();
+  }
+
 }
