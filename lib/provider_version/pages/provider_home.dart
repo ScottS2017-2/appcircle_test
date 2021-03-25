@@ -18,7 +18,6 @@ class ProviderHome extends StatefulWidget {
 
 class _ProviderHomeState extends State<ProviderHome>{
 
-  // TODO change this to an offstage
   bool onStage = false;
 
   static const double _largeScreenTopSlideHeight = 300;
@@ -97,7 +96,7 @@ class _ProviderHomeState extends State<ProviderHome>{
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Text(
-                                  '${AppStrings.unabbreviatedTerms[currencyInterestedIn]} is currently \n${value.padRight(2)} ${AppStrings.unabbreviatedTerms[denomination]}',
+                                  '${AppStrings.unabbreviatedTerms[currencyInterestedIn]}:\n${value.padRight(2)} ${AppStrings.unabbreviatedTerms[denomination]}',
                                   textAlign: TextAlign.center,
                                   style: AppTextStyles.normal24,
                                 ),
@@ -135,7 +134,11 @@ class _ProviderHomeState extends State<ProviderHome>{
                     child: Text('Update Prices'),
                   ),
                   ElevatedButton(
-                    onPressed: () => toggleSideSlides(),
+                    onPressed: () {
+                      Provider.of<AppStateModel>(context, listen: false)
+                          .denominationsApplicableToCurrentCommodity = [];
+                      toggleSideSlides();
+                    },
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.resolveWith<Color?>(

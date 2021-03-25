@@ -7,7 +7,7 @@ import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:provider/provider.dart';
 
 class TopSlideIn extends StatelessWidget {
-  const TopSlideIn({
+  TopSlideIn({
     Key? key,
     required this.height,
     required this.width,
@@ -15,6 +15,7 @@ class TopSlideIn extends StatelessWidget {
 
   final double height;
   final double width;
+  var currentlySelectedCommodity = '';
 
   @override
   Widget build(BuildContext context) {
@@ -91,8 +92,12 @@ class TopSlideIn extends StatelessWidget {
                   final abbreviatedCommodityName = AppStrings.commoditiesHistory.keys.elementAt(index);
                   final fullCommodityName ='${AppStrings.unabbreviatedTerms[abbreviatedCommodityName]}';
                   return TextButton(
-                    onPressed: () => Provider.of<AppStateModel>(context, listen: false)
-                    .updateDenominationsApplicableToCurrentCommodity(abbreviatedCommodityName),
+                    onPressed: () {
+                      currentlySelectedCommodity = abbreviatedCommodityName;
+                      Provider.of<AppStateModel>(context, listen: false)
+                          .updateDenominationsApplicableToCurrentCommodity(
+                          abbreviatedCommodityName);
+                    },
                     style: ButtonStyle(
                       padding: ButtonStyleButton.allOrNull<EdgeInsetsGeometry>(
                           EdgeInsets.all(0)),
@@ -149,12 +154,20 @@ class TopSlideIn extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: ListView.builder(
+              child: denominationsApplicableToCurrentCommodity.length == 0 ?
+                  Center(
+                    child: Text(
+                      'Select a Commodity from Above',
+                    ),
+                  ) :
+              ListView.builder(
                 itemCount: denominationsApplicableToCurrentCommodity.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final fullDenominationName ='${AppStrings.unabbreviatedTerms[denominationsApplicableToCurrentCommodity[index]]}';
+                  final abbreviatedDenominationName = denominationsApplicableToCurrentCommodity[index];
+                  final fullDenominationName ='${AppStrings.unabbreviatedTerms[abbreviatedDenominationName]}';
                   return TextButton(
-                    onPressed: () => {},
+                    onPressed: () => Provider.of<AppStateModel>(context, listen: false)
+                      .updateInterestedInPrices( currentlySelectedCommodity,abbreviatedDenominationName),
                     child: Text(
                       fullDenominationName,
                       textAlign: TextAlign.center,

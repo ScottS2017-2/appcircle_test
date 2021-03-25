@@ -29,7 +29,7 @@ class AppStrings {
   // Full names
   static const Map<String, String> unabbreviatedTerms = {
     AAVE: 'Aave',
-    LEND: 'Aave Coin',
+    LEND: 'LEND',
     ALGO: 'ALGO',
     BCH: 'Bitcoin Cash',
     BTC: 'Bitcoin',

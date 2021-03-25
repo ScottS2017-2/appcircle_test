@@ -99,18 +99,8 @@ class AppStateModel extends ChangeNotifier {
           'YFI-USD': [],
           'YFI-USDT': [],
         },
-        interestedInPrices = <String, double>{
-          'BTC-USD': 0,
-          'ETH-USD': 0,
-        },
-        denominationsApplicableToCurrentCommodity = [
-          AppStrings.BTC,
-          AppStrings.ETH,
-          AppStrings.EUR,
-          AppStrings.PAX,
-          AppStrings.USD,
-          AppStrings.USDT,
-        ];
+        interestedInPrices = <String, double>{ },
+        denominationsApplicableToCurrentCommodity = [];
 
   // AppState.fromJson(Map json)
   //     : allCommoditiesHistory = (json['allCommoditiesHistory'] as List)
@@ -149,7 +139,6 @@ class AppStateModel extends ChangeNotifier {
     _jsonData = json.decode(_body) as List;
     _data =
         _jsonData.map((jsonObject) => PriceCheck.fromJson(jsonObject)).toList();
-
     return _data;
   }
 
@@ -201,5 +190,10 @@ class AppStateModel extends ChangeNotifier {
       denominationsApplicableToCurrentCommodity.add(temp);
     }
     notifyListeners();
+  }
+
+  void updateInterestedInPrices(String commodity, String denomination){
+    interestedInPrices.putIfAbsent('$commodity-$denomination', () => 0);
+    fetchAndProcessUpdates(outdatedHistory: allCommoditiesHistory);
   }
 }
