@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
-
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
+import 'package:crypto_tracker_redux/main.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
-
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BottomSlideIn extends StatelessWidget {
@@ -19,8 +18,6 @@ class BottomSlideIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final interestedInPrices =
-    context.select((AppStateModel appState) => appState.interestedInPrices);
     return Container(
       height: height,
       width: width,
@@ -58,11 +55,7 @@ class BottomSlideIn extends StatelessWidget {
         children: [
           Text(
             AppStrings.following,
-            style: Theme
-                .of(context)
-                .textTheme
-                .headline5!
-                .copyWith(color: AppColors.offWhitePageBackground, shadows: [
+            style: Theme.of(context).textTheme.headline5!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
               BoxShadow(
                 color: AppColors.blackTextColor,
                 blurRadius: 2,
@@ -86,27 +79,22 @@ class BottomSlideIn extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Consumer<AppStateModel>(
-                    builder: (context, appState, child) {
-                      return Expanded(
-                        child: ListView.builder(
-                          itemCount: interestedInPrices.length,
+                  Expanded(
+                    child: Builder(
+                      builder: (BuildContext context) {
+                        final interestedInPricesSymbols =
+                            context.select((AppStateModel appState) => appState.interestedInPrices.keys.toList());
+                        return ListView.builder(
+                          itemCount: interestedInPricesSymbols.length,
                           itemBuilder: (BuildContext context, int index) {
-                            final  currentCombination = interestedInPrices.keys.elementAt(index);
-                            final splitStrings = currentCombination.split('-');
-                            final currencyInterestedIn = splitStrings[0];
-                            final denomination = splitStrings[1];
+                            final symbol = interestedInPricesSymbols[index];
                             return GestureDetector(
                               onTap: () {
-                                Provider.of<AppStateModel>(context,
-                                    listen: false)
-                                    .removeFromInterestedInPrices(currentCombination);
+                                MyApp.appStateOf(context).removeFromInterestedInPrices(symbol);
                               },
                               child: Container(
-                                padding:
-                                const EdgeInsets.symmetric(horizontal: 8),
-                                margin: const EdgeInsets.only(
-                                    left: 8, right: 8, top: 16),
+                                padding: const EdgeInsets.symmetric(horizontal: 8),
+                                margin: const EdgeInsets.only(left: 8, right: 8, top: 16),
                                 decoration: BoxDecoration(
                                   color: AppColors.silver,
                                   boxShadow: [
@@ -118,18 +106,16 @@ class BottomSlideIn extends StatelessWidget {
                                   ],
                                 ),
                                 child: Text(
-                                  '${AppStrings
-                                      .unabbreviatedTerms[currencyInterestedIn]} in ${AppStrings
-                                      .unabbreviatedTerms[denomination]}',
+                                  '${symbol.commodityFull} in ${symbol.denominationFull}',
                                   textAlign: TextAlign.left,
                                   style: AppTextStyles.normal12,
                                 ),
                               ),
                             );
                           },
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),

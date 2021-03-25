@@ -2,7 +2,6 @@ import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
 import 'package:crypto_tracker_redux/redux_version/models/price_check.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 
-
 AppState appStateReducer(AppState state, dynamic action) {
   if (action is AddPriceCheckAction) {
     // Fetch new prices for everything
@@ -12,11 +11,9 @@ AppState appStateReducer(AppState state, dynamic action) {
     var _outdatedHistory = state.allCommoditiesHistory;
     //
     Map<String, List<PriceCheck>> _updatedCommoditiesHistory =
-    allCommoditiesHistoryUpdateReducer(
-        newestUpdates: _newestUpdates, outdatedHistory: _outdatedHistory);
+        allCommoditiesHistoryUpdateReducer(newestUpdates: _newestUpdates, outdatedHistory: _outdatedHistory);
     //
-    Map<String, double> _updatedPricesInterestedIn =
-    interestedPricesUpdateReducer(
+    Map<String, double> _updatedPricesInterestedIn = interestedPricesUpdateReducer(
         oldPricesInterestedInList: _oldPricesInterestedInList, newestUpdates: _newestUpdates!);
     //
     return state.copyWith(

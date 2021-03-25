@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 import 'package:crypto_tracker_redux/redux_version/models/price_check.dart';
 
 class AppState {
@@ -19,8 +17,7 @@ class AppState {
     bool? isLoading,
   }) {
     var _newAppState = AppState(
-      allCommoditiesHistory:
-          allCommoditiesHistory ?? this.allCommoditiesHistory,
+      allCommoditiesHistory: allCommoditiesHistory ?? this.allCommoditiesHistory,
       interestedInPrices: interestedInPrices ?? this.interestedInPrices,
       isLoading: isLoading ?? this.isLoading,
     );

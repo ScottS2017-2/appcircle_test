@@ -1,11 +1,9 @@
-import 'package:flutter/material.dart';
-
 import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
 import 'package:crypto_tracker_redux/redux_version/pages/redux_home.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/middleware.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/reducers.dart';
-
+import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 

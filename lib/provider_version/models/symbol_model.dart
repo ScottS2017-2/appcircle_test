@@ -1,8 +1,11 @@
+import 'package:crypto_tracker_redux/app/app_strings.dart';
+
 class SymbolModel {
   const SymbolModel(
     this.commodity,
     this.denomination,
   );
+
   final String commodity;
   final String denomination;
 
@@ -12,6 +15,10 @@ class SymbolModel {
     final denomination = splitStrings[1];
     return SymbolModel(commodity, denomination);
   }
+
+  String get commodityFull => AppStrings.unabbreviatedTerms[commodity] ?? commodity;
+
+  String get denominationFull => AppStrings.unabbreviatedTerms[denomination] ?? denomination;
 
   @override
   String toString() {

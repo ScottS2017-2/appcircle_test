@@ -1,7 +1,6 @@
 import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
 import 'package:crypto_tracker_redux/redux_version/models/price_check.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
-
 import 'package:redux/redux.dart';
 
 class ViewModel {

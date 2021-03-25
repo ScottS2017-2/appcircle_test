@@ -1,9 +1,10 @@
-import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
-import 'package:flutter/material.dart';
 import 'package:crypto_tracker_redux/app/app_colors.dart';
-import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
-
+import 'package:crypto_tracker_redux/app/app_textstyles.dart';
+import 'package:crypto_tracker_redux/main.dart';
+import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
+import 'package:crypto_tracker_redux/provider_version/models/symbol_model.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TopSlideIn extends StatelessWidget {
@@ -15,12 +16,9 @@ class TopSlideIn extends StatelessWidget {
 
   final double height;
   final double width;
-  var currentlySelectedCommodity = '';
 
   @override
   Widget build(BuildContext context) {
-    final denominationsApplicableToCurrentCommodity =
-    context.select((AppStateModel appState) => appState.denominationsApplicableToCurrentCommodity);
     return Container(
       height: height,
       width: width,
@@ -58,10 +56,7 @@ class TopSlideIn extends StatelessWidget {
         children: [
           Text(
             'Commodities',
-            style: Theme.of(context)
-                .textTheme
-                .headline5!
-                .copyWith(color: AppColors.offWhitePageBackground, shadows: [
+            style: Theme.of(context).textTheme.headline5!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
               BoxShadow(
                 color: AppColors.blackTextColor,
                 blurRadius: 2,
@@ -86,36 +81,46 @@ class TopSlideIn extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: ListView.builder(
-                itemCount: AppStrings.commoditiesHistory.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final abbreviatedCommodityName = AppStrings.commoditiesHistory.keys.elementAt(index);
-                  final fullCommodityName ='${AppStrings.unabbreviatedTerms[abbreviatedCommodityName]}';
-                  return TextButton(
-                    onPressed: () {
-                      currentlySelectedCommodity = abbreviatedCommodityName;
-                      Provider.of<AppStateModel>(context, listen: false)
-                          .updateDenominationsApplicableToCurrentCommodity(
-                          abbreviatedCommodityName);
+              child: Builder(
+                builder: (BuildContext context) {
+                  final commoditiesHistoryKeys =
+                      context.select((AppStateModel appState) => appState.allCommoditiesHistory.keys.toList());
+                  final uniqueCommodities = commoditiesHistoryKeys.fold<List<SymbolModel>>(
+                    <SymbolModel>[],
+                    (List<SymbolModel> prev, SymbolModel symbol) {
+                      if (prev.any((element) => element.commodity == symbol.commodity)) {
+                        return prev;
+                      }
+                      prev.add(symbol);
+                      return prev;
                     },
-                    style: ButtonStyle(
-                      padding: ButtonStyleButton.allOrNull<EdgeInsetsGeometry>(
-                          EdgeInsets.all(0)),
-                      backgroundColor:
-                          MaterialStateProperty.resolveWith<Color?>(
-                        (Set<MaterialState> states) {
-                          Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withOpacity(0.5);
+                  );
+                  uniqueCommodities.sort((SymbolModel left, SymbolModel right) {
+                    return left.commodityFull.toLowerCase().compareTo(right.commodityFull.toLowerCase());
+                  });
+                  return ListView.builder(
+                    itemCount: uniqueCommodities.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final symbol = uniqueCommodities[index];
+                      return TextButton(
+                        onPressed: () {
+                          MyApp.appStateOf(context).updateDenominationsApplicableToCurrentCommodity(symbol);
                         },
-                      ),
-                    ),
-                    child: Text(
-                      fullCommodityName,
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.normal12,
-                    ),
+                        style: ButtonStyle(
+                          padding: ButtonStyleButton.allOrNull<EdgeInsetsGeometry>(EdgeInsets.all(0)),
+                          backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+                            (Set<MaterialState> states) {
+                              Theme.of(context).colorScheme.primary.withOpacity(0.5);
+                            },
+                          ),
+                        ),
+                        child: Text(
+                          symbol.commodityFull,
+                          textAlign: TextAlign.center,
+                          style: AppTextStyles.normal12,
+                        ),
+                      );
+                    },
                   );
                 },
               ),
@@ -126,10 +131,7 @@ class TopSlideIn extends StatelessWidget {
           ),
           Text(
             'Denominations',
-            style: Theme.of(context)
-                .textTheme
-                .headline5!
-                .copyWith(color: AppColors.offWhitePageBackground, shadows: [
+            style: Theme.of(context).textTheme.headline5!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
               BoxShadow(
                 color: AppColors.blackTextColor,
                 blurRadius: 2,
@@ -154,26 +156,31 @@ class TopSlideIn extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: denominationsApplicableToCurrentCommodity.length == 0 ?
-                  Center(
-                    child: Text(
-                      'Select a Commodity from Above',
-                    ),
-                  ) :
-              ListView.builder(
-                itemCount: denominationsApplicableToCurrentCommodity.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final abbreviatedDenominationName = denominationsApplicableToCurrentCommodity[index];
-                  final fullDenominationName ='${AppStrings.unabbreviatedTerms[abbreviatedDenominationName]}';
-                  return TextButton(
-                    onPressed: () => Provider.of<AppStateModel>(context, listen: false)
-                      .updateInterestedInPrices( currentlySelectedCommodity,abbreviatedDenominationName),
-                    child: Text(
-                      fullDenominationName,
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.normal12,
-                    ),
+              child: Builder(
+                builder: (BuildContext context) {
+                  final denominations = context.select(
+                    (AppStateModel appState) => appState.denominationsApplicableToCurrentCommodity,
                   );
+                  if (denominations.isEmpty) {
+                    return Center(
+                      child: Text('Select a Commodity from Above'),
+                    );
+                  } else {
+                    return ListView.builder(
+                      itemCount: denominations.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final symbol = denominations[index];
+                        return TextButton(
+                          onPressed: () => MyApp.appStateOf(context).updateInterestedInPrices(symbol),
+                          child: Text(
+                            symbol.denominationFull,
+                            textAlign: TextAlign.center,
+                            style: AppTextStyles.normal12,
+                          ),
+                        );
+                      },
+                    );
+                  }
                 },
               ),
             ),

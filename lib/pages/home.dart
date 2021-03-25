@@ -1,4 +1,3 @@
-import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/provider_version/pages/provider_home.dart';
 import 'package:crypto_tracker_redux/redux_version/my_app_redux.dart';
@@ -19,9 +18,9 @@ class _HomeState extends State<Home> {
 
   List<Widget> pages = [
     ChangeNotifierProvider(
-  create: (BuildContext context) => AppStateModel.initialState(),
-  child: ProviderHome(),
-  ),
+      create: (BuildContext context) => AppStateModel(),
+      child: ProviderHome(),
+    ),
     const MyAppRedux(),
   ];
 
@@ -46,7 +45,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: Text(titleString),

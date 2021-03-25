@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-
   // General Colors
   static const Color whiteTextColor = Color(0xDDFFFFFF);
   static const Color blackTextColor = Color(0xFF111111);

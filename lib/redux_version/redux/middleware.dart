@@ -5,10 +5,8 @@ import 'dart:io';
 import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
 import 'package:crypto_tracker_redux/redux_version/models/price_check.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
-
 import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
-
 
 // Returns a list of the latest PriceCheck objects
 Future<List<dynamic>> getTicker() async {
@@ -32,14 +30,12 @@ Future<List<dynamic>> getTicker() async {
     print(e);
   }
   _jsonData = json.decode(_body) as List;
-  _data =
-      _jsonData.map((jsonObject) => PriceCheck.fromJson(jsonObject)).toList();
+  _data = _jsonData.map((jsonObject) => PriceCheck.fromJson(jsonObject)).toList();
 
   return _data;
 }
 
-Future<List<dynamic>> appStateMiddleware(
-    Store<AppState> store, action, NextDispatcher next) async {
+Future<List<dynamic>> appStateMiddleware(Store<AppState> store, action, NextDispatcher next) async {
   // _result is abstraction for debugging
   late List<dynamic> _result;
   if (action is AddPriceCheckAction) {
