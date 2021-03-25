@@ -36,7 +36,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Redux ToDo Demo',
-      theme: ThemeData.light(),
+      theme: ThemeData(
+        brightness: Brightness.light,
+        primaryColor: Colors.indigo,
+        accentColor: Colors.pinkAccent,
+      ),
       home: Home(),
     );
   }

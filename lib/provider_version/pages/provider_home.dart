@@ -60,8 +60,6 @@ class _ProviderHomeState extends State<ProviderHome> {
         builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return ErrorWidget(snapshot.error!);
           }
           return Stack(
             fit: StackFit.expand,
@@ -72,41 +70,37 @@ class _ProviderHomeState extends State<ProviderHome> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Consumer<AppStateModel>(
-                      builder: (context, appState, child) {
-                        return Expanded(
-                          child: Builder(
-                            builder: (BuildContext context) {
-                              final interestedInPrices = context
-                                  .select((AppStateModel appState) => appState.interestedInPrices.values.toList());
-                              return ListView.builder(
-                                itemCount: interestedInPrices.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final value = interestedInPrices[index];
-                                  return Card(
-                                    borderOnForeground: true,
-                                    color: Colors.grey,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: <Widget>[
-                                          Text(
-                                            '${value.symbol.commodityFull}:\n'
-                                            '${value.lastTradePrice.toString().padRight(2)} ${value.symbol.denominationFull}',
-                                            textAlign: TextAlign.center,
-                                            style: AppTextStyles.normal24,
-                                          ),
-                                        ],
+                    Expanded(
+                      child: Builder(
+                        builder: (BuildContext context) {
+                          final interestedInPrices =
+                              context.select((AppStateModel appState) => appState.interestedInPrices.values.toList());
+                          return ListView.builder(
+                            itemCount: interestedInPrices.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              final value = interestedInPrices[index];
+                              return Card(
+                                borderOnForeground: true,
+                                color: Colors.grey,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Text(
+                                        '${value.symbol.commodityFull}:\n'
+                                        '${value.lastTradePrice.toString().padRight(2)} ${value.symbol.denominationFull}',
+                                        textAlign: TextAlign.center,
+                                        style: AppTextStyles.normal24,
                                       ),
-                                    ),
-                                  );
-                                },
+                                    ],
+                                  ),
+                                ),
                               );
                             },
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -220,6 +214,53 @@ class _ProviderHomeState extends State<ProviderHome> {
                   }
                   return _result;
                 },
+              ),
+              Positioned(
+                left: 0.0,
+                right: 0.0,
+                top: 0.0,
+                child: Builder(builder: (BuildContext context) {
+                  final connected = context.select((AppStateModel appState) => appState.isConnected);
+                  return AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 500),
+                    layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {
+                      return Stack(
+                        fit: StackFit.passthrough,
+                        children: <Widget>[
+                          ...previousChildren,
+                          if (currentChild != null) currentChild,
+                        ],
+                      );
+                    },
+                    transitionBuilder: (Widget child, Animation<double> animation) {
+                      return SizeTransition(
+                        sizeFactor: animation,
+                        axisAlignment: 1.0,
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: child,
+                        ),
+                      );
+                    },
+                    child: Builder(
+                      key: Key('banner-$connected'),
+                      builder: (BuildContext context) {
+                        if (!connected) {
+                          return Container(
+                            color: Theme.of(context).accentColor,
+                            padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+                            child: Text(
+                              'Sorry, not connected',
+                              style: Theme.of(context).accentTextTheme.bodyText2,
+                            ),
+                          );
+                        } else {
+                          return SizedBox();
+                        }
+                      },
+                    ),
+                  );
+                }),
               ),
             ],
           );

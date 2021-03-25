@@ -15,23 +15,38 @@ class AppStateModel extends ChangeNotifier {
   List<SymbolModel> denominationsApplicableToCurrentCommodity = [];
   Timer? _timer;
 
+  bool _isConnected = true;
+
+  bool get isConnected => _isConnected;
+
+  Future<void> manualUpdatePrices() => _fetchAndProcessUpdates();
+
+  Future<void> _fetchAndProcessUpdates() async {
+    await _getTicker().then((newestUpdates) {
+      _addUpdatesToHistory(newestUpdates);
+      _isConnected = true;
+          _timer?.cancel();
+      _startUpdateTimer();
+    }, onError: _onFetchError);
+  }
+
+  void _onFetchError(dynamic error, StackTrace stackTrace) {
+    _isConnected = (error is! SocketException);
+    notifyListeners();
+    print('$error\n$stackTrace');
+  }
+
   // Returns a list of the latest PriceCheck objects
   Future<List<PriceCheck>> _getTicker() async {
-    try {
-      final url = Uri.parse('https://api.blockchain.com/v3/exchange/tickers');
-      final response = await http.get(url);
-      if (response.statusCode != 200) {
-        throw HttpException('${response.statusCode}: ${response.reasonPhrase}', uri: url);
-      }
-      final jsonData = json.decode(response.body) as List<dynamic>;
-      return jsonData //
-          .map((jsonObject) => PriceCheck.fromJson(jsonObject))
-          .toList();
-    } catch (e) {
-      // TODO If any other error handling is desired, do it here
-      print(e);
-      rethrow;
+    final url = Uri.parse('https://api.blockchain.com/v3/exchange/tickers');
+    final response = await http.get(url);
+    if (response.statusCode != 200) {
+      throw HttpException('${response.statusCode}: ${response.reasonPhrase}', uri: url);
     }
+    final jsonData = json.decode(response.body) as List<dynamic>;
+    return jsonData //
+        .map((jsonObject) => PriceCheck.fromJson(jsonObject))
+        .toList();
   }
 
   void _addUpdatesToHistory(List<PriceCheck> newestUpdates) {
@@ -44,15 +59,6 @@ class AppStateModel extends ChangeNotifier {
       }
     }
     notifyListeners();
-  }
-
-  Future<void> manualUpdatePrices() => _fetchAndProcessUpdates();
-
-  Future<void> _fetchAndProcessUpdates() async {
-    final newestUpdates = await _getTicker();
-    _addUpdatesToHistory(newestUpdates);
-    _timer?.cancel();
-    _startUpdateTimer();
   }
 
   void _startUpdateTimer() {
