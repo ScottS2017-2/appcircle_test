@@ -7,7 +7,6 @@ class AppStrings {
   static const String ALGO = 'ALGO';
   static const String BCH = 'BCH';
   static const String BTC = 'BTC';
-  static const String BUSD = 'BUSD';
   static const String DGLD = 'DGLD';
   static const String ENJ = 'ENJ';
   static const String ETH = 'ETH';
@@ -25,45 +24,11 @@ class AppStrings {
   static const String XRP = 'XRP';
   static const String YFI = 'YFI';
 
-  // Commodities
-  static const List<String> commoditiesList = [
-    AAVE,
-    LEND,
-    ALGO,
-    BUSD,
-    BCH,
-    BTC,
-    DGLD,
-    ENJ,
-    ETH,
-    LTC,
-    OGN,
-    PAX,
-    USDT,
-    WDGLD,
-    XRP,
-    YFI,
-  ];
-
-  // Denominations
-  static const List<String> denominationsList = [
-    BTC,
-    GBP,
-    ETH,
-    EUR,
-    PAX,
-    USDT,
-    TRY,
-    USD,
-
-  ];
-
   // Full names
   static const Map<String, String> unabbreviatedTerms = {
     AAVE: 'Aave',
     LEND: 'Aave Coin',
     ALGO: 'ALGO',
-    BUSD: 'Binance USD',
     BCH: 'Bitcoin Cash',
     BTC: 'Bitcoin',
     GBP: 'British Pounds',
@@ -81,5 +46,25 @@ class AppStrings {
     WDGLD: 'wrapped-DGLD',
     XRP: 'XRP',
     YFI: 'yearn.finance',
+  };
+
+  // Commodities to Denominations Map
+  static const Map<String, List<String>> commoditiesAndTheirDenominations = {
+    AAVE: [USDT, USD],
+    LEND: [USDT, USD],
+    ALGO: [BTC, USD, USDT],
+    BCH: [BTC, ETH, EUR, PAX, USD, USDT],
+    BTC: [EUR, GBP, PAX, TRY, USD, USDT],
+    DGLD: [BTC, USD],
+    ENJ: [USD, USDT],
+    ETH: [BTC, EUR, GBP, PAX, TRY, USD, USDT],
+    LTC: [BTC, EUR, PAX, TRY, USD, USDT],
+    OGN: [USD, USDT],
+    PAX: [EUR, USD],
+    XLM: [BTC, ETH, EUR, PAX, USD],
+    USDT: [EUR, GBP, TRY, USD],
+    WDGLD: [BTC, DGLD, USD],
+    XRP: [EUR, USD],
+    YFI: [USD, USDT],
   };
 }

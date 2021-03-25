@@ -86,12 +86,25 @@ class TopSlideIn extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: ListView.builder(
-                itemCount: AppStrings.commoditiesList.length,
+                itemCount: AppStrings.commoditiesAndTheirDenominations.length,
                 itemBuilder: (BuildContext context, int index) {
                   return TextButton(
                     onPressed: () => {},
+                    style: ButtonStyle(
+padding: ButtonStyleButton.allOrNull<EdgeInsetsGeometry>(EdgeInsets.all(0)),
+                      backgroundColor:
+                      MaterialStateProperty.resolveWith<Color?>(
+
+                            (Set<MaterialState> states) {
+                              Theme.of(context)
+                                  .colorScheme
+                                  .primary
+                                  .withOpacity(0.5);
+                        },
+                      ),
+                    ),
                     child: Text(
-                      '${AppStrings.unabbreviatedTerms[AppStrings.commoditiesList[index]]}',
+                      '${AppStrings.unabbreviatedTerms[AppStrings.commoditiesAndTheirDenominations[index]]}',
                       textAlign: TextAlign.center,
                       style: AppTextStyles.normal12,
                     ),
@@ -100,7 +113,22 @@ class TopSlideIn extends StatelessWidget {
               ),
             ),
           ),
-
+          SizedBox(
+            height: 16,
+          ),
+          Text(
+            'Denominations',
+            style: Theme.of(context)
+                .textTheme
+                .headline5!
+                .copyWith(color: AppColors.offWhitePageBackground, shadows: [
+              BoxShadow(
+                color: AppColors.blackTextColor,
+                blurRadius: 2,
+                offset: Offset(1, 1),
+              ),
+            ]),
+          ),
           SizedBox(
             height: 16,
           ),
