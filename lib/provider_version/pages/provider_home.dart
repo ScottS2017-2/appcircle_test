@@ -1,7 +1,9 @@
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
-import 'package:crypto_tracker_redux/provider_version/widgets/SideSlideIn.dart';
+import 'package:crypto_tracker_redux/provider_version/widgets/top_slide_in.dart';
+import 'package:crypto_tracker_redux/provider_version/widgets/bottom_slide_in.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,12 +16,32 @@ class ProviderHome extends StatefulWidget {
   _ProviderHomeState createState() => _ProviderHomeState();
 }
 
-class _ProviderHomeState extends State<ProviderHome> {
-  double _slidesPosition = -200;
+class _ProviderHomeState extends State<ProviderHome>{
 
-  void toggleSideSlides(){
+  // TODO change this to an offstage
+  bool onStage = false;
+
+  static const double _largeScreenTopSlideHeight = 300;
+  static const double _largeScreenTopSlideWidth = 600;
+  static const double _largeScreenBottomSlideHeight = 600;
+  static const double _largeScreenBottomSlideWidth = 600;
+  static const double _largeScreenTopSlideExtendedPosition = -1;
+  static const double _largeScreenTopSlideRetractedPosition = -2;
+  static const double _largeScreenBottomSlideExtendedPosition = 4.0;
+  static const double _largeScreenBottomSlideRetractedPosition = .4;
+
+  static const double _smallScreenTopSlideHeight = 400;
+  static const double _smallScreenTopSlideWidth = 300;
+  static const double _smallScreenBottomSlideHeight = 200;
+  static const double _smallScreenBottomSlideWidth = 300;
+  static const double _smallScreenTopSlideExtendedPosition = -1.1;
+  static const double _smallScreenTopSlideRetractedPosition = -4.75;
+  static const double _smallScreenBottomSlideExtendedPosition = .75;
+  static const double _smallScreenBottomSlideRetractedPosition = 2;
+
+  void toggleSideSlides() {
     setState(() {
-      _slidesPosition == 35 ? _slidesPosition = -200 : _slidesPosition = 35;
+      onStage = !onStage;
     });
   }
 
@@ -29,7 +51,13 @@ class _ProviderHomeState extends State<ProviderHome> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+
     // Fetch the values we care about
     final interestedInPrices =
         context.select((AppStateModel appState) => appState.interestedInPrices);
@@ -51,12 +79,15 @@ class _ProviderHomeState extends State<ProviderHome> {
                     child: ListView.builder(
                       itemCount: interestedInPrices.length,
                       itemBuilder: (BuildContext context, int index) {
+                        ////////////////////////////////////////////////
+                        // Separate the commodity and denomination strings
                         String key = interestedInPrices.keys.elementAt(index);
                         String value = interestedInPrices[key].toString();
                         final regex = RegExp(r'^([A-z]+)-([A-z]+)$');
                         final regexMatch = regex.firstMatch(key);
                         final currencyInterestedIn = regexMatch!.group(1);
                         final denomination = regexMatch.group(2);
+                        ////////////////////////////////////////////////
                         return Card(
                           borderOnForeground: true,
                           color: Colors.grey,
@@ -125,17 +156,65 @@ class _ProviderHomeState extends State<ProviderHome> {
             ],
           ),
         ),
-        AnimatedPositioned(
-          child: SideSlideIn(),
-          duration: Duration(milliseconds: 300),
-          top: 0,
-          left: _slidesPosition,
-        ),
-        AnimatedPositioned(
-          child: SideSlideIn(),
-          duration: Duration(milliseconds: 300),
-          top: 0,
-          right: _slidesPosition,
+        LayoutBuilder(
+          builder: (context, BoxConstraints constraints) {
+            late Widget _result;
+            // If the screen width > 1440
+            if (constraints.maxHeight > 1440) {
+              _result = Stack(
+                fit: StackFit.expand,
+                children: [
+                  AnimatedContainer(
+                    alignment: Alignment(0, onStage == false ? _largeScreenTopSlideExtendedPosition : _largeScreenTopSlideRetractedPosition),
+                    duration: Duration(milliseconds: 300),
+                    child: TopSlideIn(
+                      height: _largeScreenTopSlideHeight,
+                      width: _largeScreenTopSlideWidth,
+                    ),
+                  ),
+                  AnimatedContainer(
+                    alignment: Alignment(0, onStage == true ? _largeScreenBottomSlideExtendedPosition : _largeScreenBottomSlideRetractedPosition),
+                    duration: Duration(milliseconds: 300),
+                    child: BottomSlideIn(
+                      height: _largeScreenBottomSlideHeight,
+                      width: _largeScreenBottomSlideWidth,
+                    ),
+                  ),
+                ],
+              );
+            } else  if (constraints.maxHeight <= 1140) {
+              _result = Stack(
+                fit: StackFit.expand,
+                children: [
+                  Offstage(
+                    offstage: false,
+                    child: AnimatedContainer(
+                      alignment: Alignment(0, onStage == true ? _smallScreenTopSlideExtendedPosition : _smallScreenTopSlideRetractedPosition),
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeOutBack,
+                      child: TopSlideIn(
+                        height: _smallScreenTopSlideHeight,
+                        width: _smallScreenTopSlideWidth,
+                      ),
+                    ),
+                  ),
+                  Offstage(
+                    offstage: false,
+                    child: AnimatedContainer(
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.easeOutBack,
+                      alignment: Alignment(0, onStage == true ? _smallScreenBottomSlideExtendedPosition : _smallScreenBottomSlideRetractedPosition),
+                      child: BottomSlideIn(
+                        height: _smallScreenBottomSlideHeight,
+                        width: _smallScreenBottomSlideWidth,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+            return _result;
+          },
         ),
       ],
     );

@@ -88,8 +88,8 @@ class AppStateModel extends ChangeNotifier {
           'YFI-USDT': [],
         },
         interestedInPrices = <String, double>{
-          'BTC-USD': 100,
-          'ETH-USD': 50,
+          'BTC-USD': 0,
+          'ETH-USD': 0,
         };
 
   // AppState.fromJson(Map json)

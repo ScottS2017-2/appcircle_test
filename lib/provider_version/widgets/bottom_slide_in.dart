@@ -6,21 +6,23 @@ import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dar
 
 import 'package:provider/provider.dart';
 
-class SideSlideIn extends StatelessWidget {
-  const SideSlideIn({
+class BottomSlideIn extends StatelessWidget {
+  const BottomSlideIn({
     Key? key,
-    this.color = const Color(0xFFEEEEEE),
+    required this.height,
+    required this.width,
   }) : super(key: key);
 
-  final Color color;
+  final double height;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     final interestedInPrices =
     context.select((AppStateModel appState) => appState.interestedInPrices);
     return Container(
-      height: 400,
-      width: 150,
+      height: height,
+      width: width,
       margin: const EdgeInsets.only(top: 30, bottom: 30),
       padding: const EdgeInsets.all(20),
       alignment: Alignment.topCenter,
@@ -34,31 +36,30 @@ class SideSlideIn extends StatelessWidget {
         boxShadow: [
           const BoxShadow(
             color: Colors.black87,
-            blurRadius: 12,
+            blurRadius: 8,
             offset: Offset(4, 6),
           ),
         ],
-        gradient: const SweepGradient(
+        gradient: const LinearGradient(
           colors: [
-            Color(0xFF0185D0),
             Color(0xFFB7459C),
-            Color(0xFFFF3780),
+            Color(0xFF0185D0),
           ],
           stops: [
-            0.5,
-            0.75,
+            0,
             1,
           ],
-          center: Alignment(0.0, 1.0),
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
         ),
       ),
       child: Column(
         children: [
           Text(
-            'Commodities',
+            AppStrings.following,
             style: Theme.of(context)
                 .textTheme
-                .subtitle1!
+                .headline5!
                 .copyWith(color: AppColors.offWhitePageBackground, shadows: [
               BoxShadow(
                 color: AppColors.blackTextColor,
@@ -81,73 +82,48 @@ class SideSlideIn extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: ListView.builder(
-                itemCount: interestedInPrices.length,
-                itemBuilder: (BuildContext context, int index) {
-                  String key = interestedInPrices.keys.elementAt(index);
-                  final regex = RegExp(r'^([A-z]+)-([A-z]+)$');
-                  final regexMatch = regex.firstMatch(key);
-                  final currencyInterestedIn = regexMatch!.group(1);
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                        decoration: BoxDecoration(
-                          color: AppColors.silver,
-                          boxShadow: [
-                            const BoxShadow(
-                              color: AppColors.dropShadowColor,
-                              blurRadius: 1,
-                              offset: Offset(1, 1),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: interestedInPrices.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        ////////////////////////////////////////////////
+                        // Separate the commodity and denomination strings
+                       String key = interestedInPrices.keys.elementAt(index);
+                        final regex = RegExp(r'^([A-z]+)-([A-z]+)$');
+                        final regexMatch = regex.firstMatch(key);
+                        final currencyInterestedIn = regexMatch!.group(1);
+                        final denomination = regexMatch.group(2);
+                        ////////////////////////////////////////////////
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
+                              margin: const EdgeInsets.only(left: 8, right: 8, top: 16),
+                              decoration: BoxDecoration(
+                                color: AppColors.silver,
+                                boxShadow: [
+                                  const BoxShadow(
+                                    color: AppColors.dropShadowColor,
+                                    blurRadius: 1,
+                                    offset: Offset(1, 1),
+                                  ),
+                                ],
+                              ),
+                              child: Text(
+                                '${AppStrings.unabbreviatedTerms[currencyInterestedIn]} in ${AppStrings.unabbreviatedTerms[denomination]}',
+                                textAlign: TextAlign.left,
+                                style: AppTextStyles.normal12,
+                              ),
                             ),
                           ],
-                        ),
-                        child: Text(
-                          '${AppStrings.unabbreviatedTerms[currencyInterestedIn]}',
-                          textAlign: TextAlign.left,
-                          style: AppTextStyles.normal12,
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Center(
-                          child: Text(
-                            'in',
-                            textAlign: TextAlign.left,
-                            style: AppTextStyles.normal12,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8),
-                        margin: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                        decoration: BoxDecoration(
-                          color: AppColors.silver,
-                          boxShadow: [
-                            const BoxShadow(
-                              color: AppColors.dropShadowColor,
-                              blurRadius: 1,
-                              offset: Offset(1, 1),
-                            ),
-                          ],
-                        ),
-                        child: Text(
-                          'Denom',
-                          textAlign: TextAlign.left,
-                          style: AppTextStyles.normal12,
-                        ),
-                      ),
-                      Container(
-                        height: 1,
-                        width: double.infinity,
-                        margin: const EdgeInsets.only(top: 12, left: 8, right: 8, bottom: 4),
-                        color: AppColors.dropShadowColor,
-                      ),
-                    ],
-                  );
-                },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
