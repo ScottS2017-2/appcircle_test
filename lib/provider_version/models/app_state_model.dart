@@ -33,7 +33,9 @@ class AppStateModel extends ChangeNotifier {
       allCommoditiesHistory:
           allCommoditiesHistory ?? this.allCommoditiesHistory,
       interestedInPrices: interestedInPrices ?? this.interestedInPrices,
-      denominationsApplicableToCurrentCommodity: denominationsApplicableToCurrentCommodity ?? this.denominationsApplicableToCurrentCommodity,
+      denominationsApplicableToCurrentCommodity:
+          denominationsApplicableToCurrentCommodity ??
+              this.denominationsApplicableToCurrentCommodity,
     );
     return _newAppState;
   }
@@ -187,5 +189,17 @@ class AppStateModel extends ChangeNotifier {
         outdatedHistory: outdatedHistory,
       );
     });
+  }
+
+  void updateDenominationsApplicableToCurrentCommodity(String commodity) {
+    denominationsApplicableToCurrentCommodity = [];
+
+    for (int i = 0; i < AppStrings.commoditiesHistory[commodity]!.length; i++) {
+      String temp =
+          '${AppStrings.commoditiesHistory[commodity]!.keys.elementAt(i)}';
+
+      denominationsApplicableToCurrentCommodity.add(temp);
+    }
+    notifyListeners();
   }
 }

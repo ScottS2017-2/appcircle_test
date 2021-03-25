@@ -88,9 +88,11 @@ class TopSlideIn extends StatelessWidget {
               child: ListView.builder(
                 itemCount: AppStrings.commoditiesHistory.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final fullCommodityName ='${AppStrings.unabbreviatedTerms[AppStrings.commoditiesHistory.keys.elementAt(index)]}';
+                  final abbreviatedCommodityName = AppStrings.commoditiesHistory.keys.elementAt(index);
+                  final fullCommodityName ='${AppStrings.unabbreviatedTerms[abbreviatedCommodityName]}';
                   return TextButton(
-                    onPressed: () => {},
+                    onPressed: () => Provider.of<AppStateModel>(context, listen: false)
+                    .updateDenominationsApplicableToCurrentCommodity(abbreviatedCommodityName),
                     style: ButtonStyle(
                       padding: ButtonStyleButton.allOrNull<EdgeInsetsGeometry>(
                           EdgeInsets.all(0)),
