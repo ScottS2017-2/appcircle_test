@@ -1,3 +1,5 @@
+import 'package:crypto_tracker_redux/provider_version/models/price_check_model.dart';
+
 class AppStrings {
   // Common Strings
   static const String following = 'Following';
@@ -48,23 +50,94 @@ class AppStrings {
     YFI: 'yearn.finance',
   };
 
-  // Commodities to Denominations Map
-  static const Map<String, List<String>> commoditiesAndTheirDenominations = {
-    AAVE: [USDT, USD],
-    LEND: [USDT, USD],
-    ALGO: [BTC, USD, USDT],
-    BCH: [BTC, ETH, EUR, PAX, USD, USDT],
-    BTC: [EUR, GBP, PAX, TRY, USD, USDT],
-    DGLD: [BTC, USD],
-    ENJ: [USD, USDT],
-    ETH: [BTC, EUR, GBP, PAX, TRY, USD, USDT],
-    LTC: [BTC, EUR, PAX, TRY, USD, USDT],
-    OGN: [USD, USDT],
-    PAX: [EUR, USD],
-    XLM: [BTC, ETH, EUR, PAX, USD],
-    USDT: [EUR, GBP, TRY, USD],
-    WDGLD: [BTC, DGLD, USD],
-    XRP: [EUR, USD],
-    YFI: [USD, USDT],
+  static const Map<String, Map<String, List<PriceCheck>>> commoditiesHistory = {
+    AAVE: {
+      USDT: <PriceCheck>[],
+      USD: <PriceCheck>[],
+    },
+    LEND: {
+      USDT: <PriceCheck>[],
+      USD: <PriceCheck>[],
+    },
+    ALGO: {
+      BTC: <PriceCheck>[],
+      USD: <PriceCheck>[],
+      USDT: <PriceCheck>[],
+    },
+    BCH: {
+      BTC: <PriceCheck>[],
+      ETH: <PriceCheck>[],
+      EUR: <PriceCheck>[],
+      PAX: <PriceCheck>[],
+      USD: <PriceCheck>[],
+      USDT: <PriceCheck>[]
+    },
+    BTC: {
+      EUR: <PriceCheck>[],
+      GBP: <PriceCheck>[],
+      PAX: <PriceCheck>[],
+      TRY: <PriceCheck>[],
+      USD: <PriceCheck>[],
+      USDT: <PriceCheck>[]
+    },
+    DGLD: {
+      BTC: <PriceCheck>[],
+      USD: <PriceCheck>[],
+    },
+    ENJ: {
+      USD: <PriceCheck>[],
+      USDT: <PriceCheck>[],
+    },
+    ETH: {
+      BTC: <PriceCheck>[],
+      EUR: <PriceCheck>[],
+      GBP: <PriceCheck>[],
+      PAX: <PriceCheck>[],
+      TRY: <PriceCheck>[],
+      USD: <PriceCheck>[],
+      USDT: <PriceCheck>[]
+    },
+    LTC: {
+      BTC: <PriceCheck>[],
+      EUR: <PriceCheck>[],
+      PAX: <PriceCheck>[],
+      TRY: <PriceCheck>[],
+      USD: <PriceCheck>[],
+      USDT: <PriceCheck>[]
+    },
+    OGN: {
+      USD: <PriceCheck>[],
+      USDT: <PriceCheck>[],
+    },
+    PAX: {
+      EUR: <PriceCheck>[],
+      USD: <PriceCheck>[],
+    },
+    XLM: {
+      BTC: <PriceCheck>[],
+      ETH: <PriceCheck>[],
+      EUR: <PriceCheck>[],
+      PAX: <PriceCheck>[],
+      USD: <PriceCheck>[]
+    },
+    USDT: {
+      EUR: <PriceCheck>[],
+      GBP: <PriceCheck>[],
+      TRY: <PriceCheck>[],
+      USD: <PriceCheck>[]
+    },
+    WDGLD: {
+      BTC: <PriceCheck>[],
+      DGLD: <PriceCheck>[],
+      USD: <PriceCheck>[],
+    },
+    XRP: {
+      EUR: <PriceCheck>[],
+      USD: <PriceCheck>[],
+    },
+    YFI: {
+      USD: <PriceCheck>[],
+      USDT: <PriceCheck>[],
+    },
   };
 }

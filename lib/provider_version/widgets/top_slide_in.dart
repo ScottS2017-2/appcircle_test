@@ -1,8 +1,8 @@
+import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:flutter/material.dart';
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
-import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 
 import 'package:provider/provider.dart';
 
@@ -18,8 +18,8 @@ class TopSlideIn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final interestedInPrices =
-        context.select((AppStateModel appState) => appState.interestedInPrices);
+    final denominationsApplicableToCurrentCommodity =
+    context.select((AppStateModel appState) => appState.denominationsApplicableToCurrentCommodity);
     return Container(
       height: height,
       width: width,
@@ -86,25 +86,26 @@ class TopSlideIn extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: ListView.builder(
-                itemCount: AppStrings.commoditiesAndTheirDenominations.length,
+                itemCount: AppStrings.commoditiesHistory.length,
                 itemBuilder: (BuildContext context, int index) {
+                  final fullCommodityName ='${AppStrings.unabbreviatedTerms[AppStrings.commoditiesHistory.keys.elementAt(index)]}';
                   return TextButton(
                     onPressed: () => {},
                     style: ButtonStyle(
-padding: ButtonStyleButton.allOrNull<EdgeInsetsGeometry>(EdgeInsets.all(0)),
+                      padding: ButtonStyleButton.allOrNull<EdgeInsetsGeometry>(
+                          EdgeInsets.all(0)),
                       backgroundColor:
-                      MaterialStateProperty.resolveWith<Color?>(
-
-                            (Set<MaterialState> states) {
-                              Theme.of(context)
-                                  .colorScheme
-                                  .primary
-                                  .withOpacity(0.5);
+                          MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                          Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withOpacity(0.5);
                         },
                       ),
                     ),
                     child: Text(
-                      '${AppStrings.unabbreviatedTerms[AppStrings.commoditiesAndTheirDenominations[index]]}',
+                      fullCommodityName,
                       textAlign: TextAlign.center,
                       style: AppTextStyles.normal12,
                     ),
@@ -147,12 +148,13 @@ padding: ButtonStyleButton.allOrNull<EdgeInsetsGeometry>(EdgeInsets.all(0)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: ListView.builder(
-                itemCount: AppStrings.denominationsList.length,
+                itemCount: denominationsApplicableToCurrentCommodity.length,
                 itemBuilder: (BuildContext context, int index) {
+                  final fullDenominationName ='${AppStrings.unabbreviatedTerms[denominationsApplicableToCurrentCommodity[index]]}';
                   return TextButton(
                     onPressed: () => {},
                     child: Text(
-                      '${AppStrings.unabbreviatedTerms[AppStrings.denominationsList[index]]}',
+                      fullDenominationName,
                       textAlign: TextAlign.center,
                       style: AppTextStyles.normal12,
                     ),
@@ -164,56 +166,5 @@ padding: ButtonStyleButton.allOrNull<EdgeInsetsGeometry>(EdgeInsets.all(0)),
         ],
       ),
     );
-
-    // return Container(
-    //   height: 500,
-    //   width: 175,
-    //   decoration: BoxDecoration(
-    //     color: AppColors.blackTextColor,
-    //     border: Border.all(
-    //       color: AppColors.blackTextColor,
-    //       width: 2,
-    //     ),
-    //     borderRadius: const BorderRadius.all(
-    //       Radius.circular(20),
-    //     ),
-    //   ),
-    //   child: ListView(
-    //     padding: EdgeInsets.zero,
-    //     children: <Widget>[
-    //       Container(
-    //         decoration: BoxDecoration(
-    //           color: color,
-    //         ),
-    //         child: Container(
-    //           alignment: Alignment.center,
-    //           child: Text(
-    //             'Left Header',
-    //             style: AppTextStyles.appBarTextStyle
-    //                 .copyWith(color: Colors.white, fontSize: 18),
-    //           ),
-    //         ),
-    //       ),
-    //       ListTile(
-    //         title: const Text('First Item'),
-    //         onTap: () {
-    //           // TODO implement me
-    //         },
-    //       ),
-    //       ListTile(
-    //         title: const Text('Second Item'),
-    //         onTap: () {
-    //           // TODO implement me
-    //         },
-    //       ),
-    //       ListTile(
-    //         title: const Text('Third Item'),
-    //         onTap: () {
-    //           // TODO implement me
-    //         },
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }

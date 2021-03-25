@@ -1,6 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:crypto_tracker_redux/app/app_strings.dart';
+import 'package:crypto_tracker_redux/app/app_strings.dart';
+import 'package:crypto_tracker_redux/app/app_strings.dart';
+import 'package:crypto_tracker_redux/app/app_strings.dart';
+import 'package:crypto_tracker_redux/app/app_strings.dart';
+import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:crypto_tracker_redux/provider_version/models/price_check_model.dart';
 import 'package:http/http.dart' as http;
@@ -9,21 +15,25 @@ class AppStateModel extends ChangeNotifier {
   AppStateModel({
     required this.allCommoditiesHistory,
     required this.interestedInPrices,
+    required this.denominationsApplicableToCurrentCommodity,
   });
 
   Map<String, List<PriceCheck>> allCommoditiesHistory;
   Map<String, double> interestedInPrices;
+  List<String> denominationsApplicableToCurrentCommodity;
   // TODO change to minutes
   int refreshRateInSeconds = 10;
 
   AppStateModel copyWith({
     Map<String, List<PriceCheck>>? allCommoditiesHistory,
     Map<String, double>? interestedInPrices,
+    List<String>? denominationsApplicableToCurrentCommodity,
   }) {
     var _newAppState = AppStateModel(
       allCommoditiesHistory:
           allCommoditiesHistory ?? this.allCommoditiesHistory,
       interestedInPrices: interestedInPrices ?? this.interestedInPrices,
+      denominationsApplicableToCurrentCommodity: denominationsApplicableToCurrentCommodity ?? this.denominationsApplicableToCurrentCommodity,
     );
     return _newAppState;
   }
@@ -90,7 +100,15 @@ class AppStateModel extends ChangeNotifier {
         interestedInPrices = <String, double>{
           'BTC-USD': 0,
           'ETH-USD': 0,
-        };
+        },
+        denominationsApplicableToCurrentCommodity = [
+          AppStrings.BTC,
+          AppStrings.ETH,
+          AppStrings.EUR,
+          AppStrings.PAX,
+          AppStrings.USD,
+          AppStrings.USDT,
+        ];
 
   // AppState.fromJson(Map json)
   //     : allCommoditiesHistory = (json['allCommoditiesHistory'] as List)
@@ -154,7 +172,8 @@ class AppStateModel extends ChangeNotifier {
 
     Map<String, double> _replacementWatchList = interestedInPrices;
     for (String key in interestedInPrices.keys) {
-      _replacementWatchList[key] = _replacementHistory[key]!.last.lastTradePrice;
+      _replacementWatchList[key] =
+          _replacementHistory[key]!.last.lastTradePrice;
     }
     interestedInPrices = _replacementWatchList;
     notifyListeners();
@@ -168,6 +187,5 @@ class AppStateModel extends ChangeNotifier {
         outdatedHistory: outdatedHistory,
       );
     });
-
   }
 }
