@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
@@ -38,11 +40,14 @@ class _ProviderHomeState extends State<ProviderHome>{
   static const double _smallScreenBottomSlideExtendedPosition = .75;
   static const double _smallScreenBottomSlideRetractedPosition = 2;
 
+
+
   void toggleSideSlides() {
     setState(() {
       onStage = !onStage;
     });
   }
+
 
   @override
   void initState() {
@@ -56,6 +61,8 @@ class _ProviderHomeState extends State<ProviderHome>{
 
   @override
   Widget build(BuildContext context) {
+
+
 
     // Fetch the values we care about
     final interestedInPrices =

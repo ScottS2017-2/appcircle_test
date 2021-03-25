@@ -2,11 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
-import 'package:crypto_tracker_redux/app/app_strings.dart';
-import 'package:crypto_tracker_redux/app/app_strings.dart';
-import 'package:crypto_tracker_redux/app/app_strings.dart';
-import 'package:crypto_tracker_redux/app/app_strings.dart';
-import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:flutter/foundation.dart';
 import 'package:crypto_tracker_redux/provider_version/models/price_check_model.dart';
 import 'package:http/http.dart' as http;
@@ -21,8 +16,7 @@ class AppStateModel extends ChangeNotifier {
   Map<String, List<PriceCheck>> allCommoditiesHistory;
   Map<String, double> interestedInPrices;
   List<String> denominationsApplicableToCurrentCommodity;
-  // TODO change to minutes
-  int refreshRateInSeconds = 10;
+  Timer? _timer;
 
   AppStateModel copyWith({
     Map<String, List<PriceCheck>>? allCommoditiesHistory,
@@ -99,7 +93,7 @@ class AppStateModel extends ChangeNotifier {
           'YFI-USD': [],
           'YFI-USDT': [],
         },
-        interestedInPrices = <String, double>{ },
+        interestedInPrices = <String, double>{},
         denominationsApplicableToCurrentCommodity = [];
 
   // AppState.fromJson(Map json)
@@ -177,6 +171,8 @@ class AppStateModel extends ChangeNotifier {
         newestUpdates: value,
         outdatedHistory: outdatedHistory,
       );
+      _timer?.cancel();
+      _startUpdateTimer();
     });
   }
 
@@ -192,13 +188,26 @@ class AppStateModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateInterestedInPrices(String commodity, String denomination){
+  void updateInterestedInPrices(String commodity, String denomination) {
     interestedInPrices.putIfAbsent('$commodity-$denomination', () => 0);
     fetchAndProcessUpdates(outdatedHistory: allCommoditiesHistory);
   }
-  void removeFromInterestedInPrices(String commodity){
+
+  void removeFromInterestedInPrices(String commodity) {
     interestedInPrices.remove(commodity);
+    if (interestedInPrices.isEmpty) {
+      _timer?.cancel();
+    } else {
+      _timer?.cancel();
+      _startUpdateTimer();
+    }
     notifyListeners();
   }
 
+  void _startUpdateTimer() {
+    _timer = Timer(Duration(seconds: 5), () {
+      print('Timer tick');
+      fetchAndProcessUpdates(outdatedHistory: allCommoditiesHistory);
+    });
+  }
 }
