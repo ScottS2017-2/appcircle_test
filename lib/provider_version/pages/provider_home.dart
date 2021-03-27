@@ -66,7 +66,7 @@ class _ProviderHomeState extends State<ProviderHome> {
             fit: StackFit.expand,
             children: [
               Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -95,13 +95,12 @@ class _ProviderHomeState extends State<ProviderHome> {
                                     borderRadius: BorderRadius.circular(8),
                                     gradient: LinearGradient(
                                       colors: [
-                                        Theme.of(context).primaryColor,
                                         AppColors.oliveAccent,
                                         Theme.of(context).primaryColor,
                                       ],
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      stops: [0, 0.5, 1],
+                                      begin: Alignment(-2, -1.75),
+                                      end: Alignment(2, 1.75),
+                                      stops: [0, 1],
                                     ),
                                   ),
                                   child: Container(
@@ -156,80 +155,27 @@ class _ProviderHomeState extends State<ProviderHome> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        GestureDetector(
-                          onTap: () => MyApp.appStateOf(context).manualUpdatePrices(),
-                          child: Container(
-                            height: 48,
-                            margin: const EdgeInsets.only(bottom: 16),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              margin: const EdgeInsets.all(1),
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: FittedBox(
-                                child: Text(
-                                  'Update Prices',
-                                  style: AppTextStyles.normal24.copyWith(
-                                    color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
-                                    shadows: [
-                                      Shadow(
-                                        color: AppColors.dropShadowColor,
-                                        offset: Offset(2, 2),
-                                        blurRadius: 1,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: CustomBorderButton(
+                              onPressed: () => MyApp.appStateOf(context).manualUpdatePrices(),
+                              child: Text('Update Prices'),
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            MyApp.appStateOf(context).clearDenominationsApplicableToCurrentCommodity();
-                            toggleSideSlides();
-                          },
-                          child: Container(
-                            height: 48,
-                            margin: const EdgeInsets.only(bottom: 16),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                width: 1,
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              margin: const EdgeInsets.all(1),
-                              padding: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: FittedBox(
-                                child: Text(
-                                  'Edit Watchlist',
-                                  style: AppTextStyles.normal24.copyWith(
-                                    color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
-                                    shadows: [
-                                      Shadow(
-                                        color: AppColors.dropShadowColor,
-                                        offset: Offset(2, 2),
-                                        blurRadius: 1,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                        SizedBox(
+                          width: 16,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: CustomBorderButton(
+                              onPressed: () {
+                                MyApp.appStateOf(context).clearDenominationsApplicableToCurrentCommodity();
+                                toggleSideSlides();
+                              },
+                              child: Text('Edit Watchlist'),
                             ),
                           ),
                         ),
@@ -364,5 +310,79 @@ class _ProviderHomeState extends State<ProviderHome> {
             ],
           );
         });
+  }
+}
+
+class CustomBorderButton extends StatelessWidget {
+  const CustomBorderButton({
+    Key? key,
+    required this.onPressed,
+    required this.child,
+  }) : super(key: key);
+
+  final VoidCallback onPressed;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      borderRadius: BorderRadius.circular(10),
+      elevation: 2,
+      child: InkWell(
+        onTap: onPressed,
+        child: Ink(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: LinearGradient(
+              colors: [
+                AppColors.oliveAccent,
+                Theme.of(context).primaryColor,
+              ],
+              begin: Alignment(-2, -1.75),
+              end: Alignment(2, 1.75),
+              stops: [0, 1],
+            ),
+          ),
+          child: Stack(
+            fit: StackFit.passthrough,
+            children: [
+              Positioned.fill(
+                child: Padding(
+                  padding: const EdgeInsets.all(1),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                      ),
+                      borderRadius: BorderRadius.circular(9),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(12),
+                height: 48,
+                child: FittedBox(
+                  child: DefaultTextStyle.merge(
+                    style: AppTextStyles.normal24.copyWith(
+                      color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
+                      shadows: [
+                        Shadow(
+                          color: AppColors.dropShadowColor,
+                          offset: Offset(2, 2),
+                          blurRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: child,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

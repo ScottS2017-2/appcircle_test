@@ -41,14 +41,15 @@ class TopSlideIn extends StatelessWidget {
         ],
         gradient: LinearGradient(
           colors: [
+            AppColors.oliveAccent,
             Theme.of(context).primaryColor,
-          Theme.of(context).accentColor,
+
           ],
           stops: [
             0,
             1,
           ],
-          begin: Alignment.topLeft,
+          begin: Alignment(-1.0, -1.75),
           end: Alignment.bottomRight,
         ),
       ),
@@ -98,7 +99,8 @@ class TopSlideIn extends StatelessWidget {
                   uniqueCommodities.sort((SymbolModel left, SymbolModel right) {
                     return left.commodityFull.toLowerCase().compareTo(right.commodityFull.toLowerCase());
                   });
-                  return ListView.builder(
+                  return ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
                     itemCount: uniqueCommodities.length,
                     itemBuilder: (BuildContext context, int index) {
                       final symbol = uniqueCommodities[index];
@@ -107,17 +109,32 @@ class TopSlideIn extends StatelessWidget {
                           MyApp.appStateOf(context).updateDenominationsApplicableToCurrentCommodity(symbol);
                         },
                         style: ButtonStyle(
-                          padding: ButtonStyleButton.allOrNull<EdgeInsetsGeometry>(EdgeInsets.all(0)),
-                          backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                            (Set<MaterialState> states) {
-                              Theme.of(context).colorScheme.primary.withOpacity(0.5);
-                            },
-                          ),
+                          overlayColor: MaterialStateProperty.resolveWith((states) {
+                            if (states.contains(MaterialState.pressed)) {
+                              return Theme.of(context).primaryColor.withOpacity(.3);
+                            } else {
+                              Theme.of(context).primaryColor.withOpacity(.3);
+                            }
+                          }),
                         ),
                         child: Text(
                           symbol.commodityFull,
                           textAlign: TextAlign.center,
-                          style: AppTextStyles.normal12,
+                          style: AppTextStyles.normal16.copyWith(color: AppColors.blackTextColor),
+                        ),
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                        ),
+                        child: Divider(
+                          height: 2,
+                          indent: 0,
+                          endIndent: 0,
+                          thickness: 2,
+                          color: Theme.of(context).primaryColor.withOpacity(0.5),
                         ),
                       );
                     },
@@ -163,19 +180,48 @@ class TopSlideIn extends StatelessWidget {
                   );
                   if (denominations.isEmpty) {
                     return Center(
-                      child: Text('Select a Commodity from Above'),
+                      child: FittedBox(
+                        child: Text(
+                          'Select a Commodity from Above',
+                          style: AppTextStyles.normal16,
+                        ),
+                      ),
                     );
                   } else {
-                    return ListView.builder(
+                    return ListView.separated(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       itemCount: denominations.length,
                       itemBuilder: (BuildContext context, int index) {
                         final symbol = denominations[index];
                         return TextButton(
                           onPressed: () => MyApp.appStateOf(context).updateInterestedInPrices(symbol),
+                          style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.resolveWith((states) {
+                              if (states.contains(MaterialState.pressed)) {
+                                return Theme.of(context).primaryColor.withOpacity(.3);
+                              } else {
+                                Theme.of(context).primaryColor.withOpacity(.3);
+                              }
+                            }),
+                          ),
                           child: Text(
                             symbol.denominationFull,
                             textAlign: TextAlign.center,
-                            style: AppTextStyles.normal12,
+                            style: AppTextStyles.normal16.copyWith(color: AppColors.blackTextColor),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) {
+                        return Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16,
+                          ),
+                          child: Divider(
+                            height: 2,
+                            indent: 0,
+                            endIndent: 0,
+                            thickness: 2,
+                            color: Theme.of(context).primaryColor.withOpacity(0.5),
                           ),
                         );
                       },

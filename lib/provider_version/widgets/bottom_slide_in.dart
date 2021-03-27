@@ -40,14 +40,15 @@ class BottomSlideIn extends StatelessWidget {
         ],
         gradient: LinearGradient(
           colors: [
+            AppColors.oliveAccent,
             Theme.of(context).primaryColor,
-            Theme.of(context).accentColor,
+
           ],
           stops: [
             0,
             1,
           ],
-          begin: Alignment.topLeft,
+          begin: Alignment(-1.0, -1.75),
           end: Alignment.bottomRight,
         ),
       ),
@@ -84,32 +85,42 @@ class BottomSlideIn extends StatelessWidget {
                       builder: (BuildContext context) {
                         final interestedInPricesSymbols =
                             context.select((AppStateModel appState) => appState.interestedInPrices.keys.toList());
-                        return ListView.builder(
+                        return ListView.separated(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
                           itemCount: interestedInPricesSymbols.length,
                           itemBuilder: (BuildContext context, int index) {
                             final symbol = interestedInPricesSymbols[index];
-                            return GestureDetector(
-                              onTap: () {
+                            return TextButton(
+                              onPressed: () {
                                 MyApp.appStateOf(context).removeFromInterestedInPrices(symbol);
                               },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8),
-                                margin: const EdgeInsets.only(left: 8, right: 8, top: 16),
-                                decoration: BoxDecoration(
-                                  color: AppColors.silver,
-                                  boxShadow: [
-                                    const BoxShadow(
-                                      color: AppColors.dropShadowColor,
-                                      blurRadius: 1,
-                                      offset: Offset(1, 1),
-                                    ),
-                                  ],
-                                ),
-                                child: Text(
-                                  '${symbol.commodityFull} in ${symbol.denominationFull}',
-                                  textAlign: TextAlign.left,
-                                  style: AppTextStyles.normal12,
-                                ),
+                              style: ButtonStyle(
+                                overlayColor: MaterialStateProperty.resolveWith((states) {
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return Theme.of(context).primaryColor.withOpacity(.3);
+                                  } else {
+                                    Theme.of(context).primaryColor.withOpacity(.3);
+                                  }
+                                }),
+                              ),
+                              child: Text(
+                                '${symbol.commodityFull} in ${symbol.denominationFull}',
+                                textAlign: TextAlign.center,
+                                style: AppTextStyles.normal16.copyWith(color: AppColors.blackTextColor),
+                              ),
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              child: Divider(
+                                height: 2,
+                                indent: 0,
+                                endIndent: 0,
+                                thickness: 2,
+                                color: Theme.of(context).primaryColor.withOpacity(0.5),
                               ),
                             );
                           },
