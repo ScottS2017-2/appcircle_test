@@ -1,3 +1,4 @@
+import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/main.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
@@ -79,21 +80,71 @@ class _ProviderHomeState extends State<ProviderHome> {
                             itemCount: interestedInPrices.length,
                             itemBuilder: (BuildContext context, int index) {
                               final value = interestedInPrices[index];
-                              return Card(
-                                borderOnForeground: true,
-                                color: Colors.grey,
+                              return Container(
+                                margin: const EdgeInsets.only(bottom: 16),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
                                 child: Container(
-                                  alignment: Alignment.center,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Text(
-                                        '${value.symbol.commodityFull}:\n'
-                                        '${value.lastTradePrice.toString().padRight(2)} ${value.symbol.denominationFull}',
-                                        textAlign: TextAlign.center,
-                                        style: AppTextStyles.normal24,
-                                      ),
-                                    ],
+                                  margin: const EdgeInsets.all(1),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Theme.of(context).primaryColor,
+                                        AppColors.oliveAccent,
+                                        Theme.of(context).primaryColor,
+                                      ],
+                                      begin: Alignment.centerLeft,
+                                      end: Alignment.centerRight,
+                                      stops: [0, 0.5, 1],
+                                    ),
+                                  ),
+                                  child: Container(
+                                    padding: const EdgeInsets.symmetric(vertical: 8),
+                                    alignment: Alignment.center,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Column(
+                                          children: [
+                                            Text(
+                                              '${value.symbol.commodityFull.toUpperCase()}',
+                                              textAlign: TextAlign.center,
+                                              style: AppTextStyles.boldItalic26.copyWith(
+                                                color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
+                                                shadows: [
+                                                  Shadow(
+                                                    color: AppColors.dropShadowColor,
+                                                    offset: Offset(2, 2),
+                                                    blurRadius: 1,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Text(
+                                              '${value.lastTradePrice.toString().padRight(2)} ${value.symbol.denominationFull}',
+                                              textAlign: TextAlign.center,
+                                              style: AppTextStyles.normal24.copyWith(
+                                                //
+                                                color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
+                                                shadows: [
+                                                  Shadow(
+                                                    color: AppColors.dropShadowColor,
+                                                    offset: Offset(2, 2),
+                                                    blurRadius: 1,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
@@ -105,34 +156,82 @@ class _ProviderHomeState extends State<ProviderHome> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton(
-                          onPressed: () => MyApp.appStateOf(context).manualUpdatePrices(),
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed))
-                                  return Theme.of(context).colorScheme.primary.withOpacity(0.5);
-                                return null; // Use the component's default.
-                              },
+                        GestureDetector(
+                          onTap: () => MyApp.appStateOf(context).manualUpdatePrices(),
+                          child: Container(
+                            height: 48,
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Container(
+                              margin: const EdgeInsets.all(1),
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: FittedBox(
+                                child: Text(
+                                  'Update Prices',
+                                  style: AppTextStyles.normal24.copyWith(
+                                    color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
+                                    shadows: [
+                                      Shadow(
+                                        color: AppColors.dropShadowColor,
+                                        offset: Offset(2, 2),
+                                        blurRadius: 1,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                          child: Text('Update Prices'),
                         ),
-                        ElevatedButton(
-                          onPressed: () {
+                        GestureDetector(
+                          onTap: () {
                             MyApp.appStateOf(context).clearDenominationsApplicableToCurrentCommodity();
                             toggleSideSlides();
                           },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed))
-                                  return Theme.of(context).colorScheme.primary.withOpacity(0.5);
-                                return null; // Use the component's default.
-                              },
+                          child: Container(
+                            height: 48,
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                width: 1,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Container(
+                              margin: const EdgeInsets.all(1),
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: FittedBox(
+                                child: Text(
+                                  'Edit Watchlist',
+                                  style: AppTextStyles.normal24.copyWith(
+                                    color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
+                                    shadows: [
+                                      Shadow(
+                                        color: AppColors.dropShadowColor,
+                                        offset: Offset(2, 2),
+                                        blurRadius: 1,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                          child: Text('Edit Watchlist'),
                         ),
                       ],
                     ),

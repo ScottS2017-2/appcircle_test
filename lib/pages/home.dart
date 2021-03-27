@@ -1,3 +1,4 @@
+import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/provider_version/pages/provider_home.dart';
 import 'package:crypto_tracker_redux/redux_version/my_app_redux.dart';
@@ -24,19 +25,7 @@ class _HomeState extends State<Home> {
     const MyAppRedux(),
   ];
 
-  String titleString = 'Crypto Alert System - Provider';
-
-  void setTitle(int page) {
-    if (page == 0) {
-      setState(() {
-        titleString = 'Crypto Alert System - Provider';
-      });
-    } else if (page == 1) {
-      setState(() {
-        titleString = 'Crypto Alert System - Redux';
-      });
-    }
-  }
+  String titleString = 'Crypto Alerts';
 
   @override
   void initState() {
@@ -47,10 +36,13 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(titleString),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text(titleString,
+          style: AppTextStyles.appBarTextStyle,),
+        ),
       ),
       body: PageView(
-        onPageChanged: setTitle,
         children: pages,
       ),
     );

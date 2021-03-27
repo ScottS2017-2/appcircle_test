@@ -6,7 +6,9 @@ class AppTextStyles {
   const AppTextStyles._();
 
   static const TextStyle appBarTextStyle = TextStyle(
-    color: AppColors.whiteTextColor,
+    color: AppColors.backgroundWhite,
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
     shadows: [
       Shadow(
         color: AppColors.dropShadowColor,
@@ -27,6 +29,18 @@ class AppTextStyles {
   static const TextStyle italic30 = TextStyle(fontSize: 30.0, fontStyle: FontStyle.italic);
   static const TextStyle boldItalic30 =
       TextStyle(fontSize: 30.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal28 = TextStyle(fontSize: 28.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold28 = TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic28 = TextStyle(fontSize: 28.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic28 =
+      TextStyle(fontSize: 28.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
+  static const TextStyle normal26 = TextStyle(fontSize: 26.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold26 = TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic26 = TextStyle(fontSize: 26.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic26 =
+      TextStyle(fontSize: 26.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
 
   static const TextStyle normal24 = TextStyle(fontSize: 24.0, fontWeight: FontWeight.normal);
   static const TextStyle bold24 = TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold);

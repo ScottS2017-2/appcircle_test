@@ -1,3 +1,4 @@
+import 'package:crypto_tracker_redux/app/app_themes.dart';
 import 'package:crypto_tracker_redux/pages/home.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:flutter/material.dart';
@@ -36,11 +37,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Redux ToDo Demo',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.indigo,
-        accentColor: Colors.pinkAccent,
-      ),
+      theme: AppTheme.light(),
       home: Home(),
     );
   }

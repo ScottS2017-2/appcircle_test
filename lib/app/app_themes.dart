@@ -1,3 +1,4 @@
+import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -6,8 +7,11 @@ class AppTheme {
     final textTheme = _getTextTheme(brightness: Brightness.light);
 
     return ThemeData(
-      primaryColor: _primaryColor,
-      accentColor: _accentColor,
+      backgroundColor: AppColors.backgroundWhite,
+    scaffoldBackgroundColor: AppColors.backgroundWhite,
+      primaryColor: AppColors.xanaduBlue,
+      accentColor: AppColors.darkSienna,
+      buttonColor: AppColors.brownSugar,
       textTheme: textTheme,
       primaryTextTheme: textTheme,
       dividerTheme: _dividerTheme,
@@ -15,22 +19,22 @@ class AppTheme {
     );
   }
 
-  static ThemeData dark() {
-    final textTheme = _getTextTheme(brightness: Brightness.dark);
+// static ThemeData dark() {
+//   final textTheme = _getTextTheme(brightness: Brightness.dark);
 
-    return ThemeData(
-      brightness: Brightness.dark,
-      primaryColor: _primaryColor,
-      accentColor: _accentColor,
-      textTheme: textTheme,
-      primaryTextTheme: textTheme,
-      dividerTheme: _dividerTheme,
-      elevatedButtonTheme: _elevatedButtonTheme,
-    );
-  }
+//   return ThemeData(
+//     brightness: Brightness.dark,
+//     primaryColor: _primaryColor,
+//     accentColor: _accentColor,
+//     textTheme: textTheme,
+//     primaryTextTheme: textTheme,
+//     dividerTheme: _dividerTheme,
+//     elevatedButtonTheme: _elevatedButtonTheme,
+//   );
+// }
 
-  static const _primaryColor = Colors.black;
-  static const _accentColor = Colors.white;
+  // static const _primaryColor = Colors.black;
+  // static const _accentColor = Colors.white;
 
   static const _dividerTheme = DividerThemeData(
     indent: 16,
@@ -39,8 +43,8 @@ class AppTheme {
 
   static final _elevatedButtonTheme = ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
-      primary: _primaryColor,
-      onPrimary: _accentColor,
+      primary: AppColors.xanaduBlue,
+      onPrimary: AppColors.backgroundWhite,
     ),
   );
 

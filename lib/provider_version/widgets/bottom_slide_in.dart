@@ -38,10 +38,10 @@ class BottomSlideIn extends StatelessWidget {
             offset: Offset(4, 6),
           ),
         ],
-        gradient: const LinearGradient(
+        gradient: LinearGradient(
           colors: [
-            Color(0xFFB7459C),
-            Color(0xFF0185D0),
+            Theme.of(context).primaryColor,
+            Theme.of(context).accentColor,
           ],
           stops: [
             0,
