@@ -38,7 +38,10 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Redux ToDo Demo',
       theme: AppTheme.light(),
-      home: Home(),
+        home:ChangeNotifierProvider(
+            create: (BuildContext context) => AppStateModel(),
+            child:Home(),
+        ),
     );
   }
 }

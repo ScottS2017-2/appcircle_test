@@ -1,10 +1,10 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
+import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
-import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
+
 import 'package:crypto_tracker_redux/provider_version/pages/provider_home.dart';
 import 'package:crypto_tracker_redux/redux_version/my_app_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -19,14 +19,11 @@ class _HomeState extends State<Home> {
   );
 
   List<Widget> pages = [
-    ChangeNotifierProvider(
-      create: (BuildContext context) => AppStateModel(),
-      child: ProviderHome(),
-    ),
+    ProviderHome(),
     const MyAppRedux(),
   ];
 
-  String titleString = 'Crypto Alerts';
+  String titleString = AppStrings.appBarTitle;
 
   @override
   void initState() {
@@ -61,7 +58,13 @@ class _HomeState extends State<Home> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         titleString,
-                        style: AppTextStyles.appBarTextStyle,
+                        style: Theme.of(context).textTheme.headline4!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
+                          BoxShadow(
+                            color: AppColors.blackTextColor,
+                            blurRadius: 2,
+                            offset: Offset(1, 1),
+                          ),
+                        ]),
                       ),
                     ),
                   ),

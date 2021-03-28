@@ -5,19 +5,6 @@ import 'package:flutter/material.dart';
 class AppTextStyles {
   const AppTextStyles._();
 
-  static const TextStyle appBarTextStyle = TextStyle(
-    color: AppColors.backgroundWhite,
-    fontSize: 30,
-    fontWeight: FontWeight.bold,
-    shadows: [
-      Shadow(
-        color: AppColors.dropShadowColor,
-        offset: Offset(2, 2),
-        blurRadius: 1,
-      ),
-    ],
-  );
-
   static const TextStyle normal36 = TextStyle(fontSize: 36.0, fontWeight: FontWeight.normal);
   static const TextStyle bold36 = TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold);
   static const TextStyle italic36 = TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic);

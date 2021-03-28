@@ -64,6 +64,16 @@ class BottomSlideIn extends StatelessWidget {
               ),
             ]),
           ),
+          Text(
+            AppStrings.tapToRemove,
+            style: Theme.of(context).textTheme.bodyText2!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
+              BoxShadow(
+                color: AppColors.blackTextColor,
+                blurRadius: 2,
+                offset: Offset(1, 1),
+              ),
+            ]),
+          ),
           SizedBox(
             height: 16,
           ),
