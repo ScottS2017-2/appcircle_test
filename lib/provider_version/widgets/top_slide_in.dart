@@ -193,7 +193,7 @@ class TopSlideIn extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final symbol = denominations[index];
                         return TextButton(
-                          onPressed: () => MyApp.appStateOf(context).updateInterestedInPrices(symbol),
+                          onPressed: () => MyApp.appStateOf(context).addToInterestedInPrices(symbol),
                           style: ButtonStyle(
                             overlayColor: MaterialStateProperty.resolveWith((states) {
                               if (states.contains(MaterialState.pressed)) {

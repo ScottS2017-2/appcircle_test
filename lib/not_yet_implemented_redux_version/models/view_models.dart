@@ -1,5 +1,5 @@
 import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/app_state.dart';
-import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/price_check.dart';
+import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/price_check_model.dart';
 import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/redux/actions.dart';
 import 'package:redux/redux.dart';
 

@@ -80,7 +80,7 @@ class AppStateModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateInterestedInPrices(SymbolModel symbol) {
+  void addToInterestedInPrices(SymbolModel symbol) {
     interestedInPrices.putIfAbsent(symbol, () => allCommoditiesHistory[symbol]!.last);
     _fetchAndProcessUpdates();
     notifyListeners();
