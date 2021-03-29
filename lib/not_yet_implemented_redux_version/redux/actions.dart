@@ -1,4 +1,4 @@
-import 'package:crypto_tracker_redux/redux_version/models/price_check.dart';
+import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/price_check.dart';
 
 class AddPriceCheckAction {
   AddPriceCheckAction();

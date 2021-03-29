@@ -5,6 +5,12 @@ import 'package:flutter/material.dart';
 class AppTextStyles {
   const AppTextStyles._();
 
+  static const TextStyle normal64 = TextStyle(fontSize: 64.0, fontWeight: FontWeight.normal);
+  static const TextStyle bold64 = TextStyle(fontSize: 64.0, fontWeight: FontWeight.bold);
+  static const TextStyle italic64 = TextStyle(fontSize: 64.0, fontStyle: FontStyle.italic);
+  static const TextStyle boldItalic64 =
+  TextStyle(fontSize: 64.0, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic);
+
   static const TextStyle normal36 = TextStyle(fontSize: 36.0, fontWeight: FontWeight.normal);
   static const TextStyle bold36 = TextStyle(fontSize: 36.0, fontWeight: FontWeight.bold);
   static const TextStyle italic36 = TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic);

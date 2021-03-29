@@ -1,6 +1,6 @@
-import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
-import 'package:crypto_tracker_redux/redux_version/models/view_models.dart';
-import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
+import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/app_state.dart';
+import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/view_models.dart';
+import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/redux/actions.dart';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 

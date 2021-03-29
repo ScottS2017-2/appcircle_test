@@ -1,9 +1,6 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
-import 'package:crypto_tracker_redux/app/app_textstyles.dart';
-
 import 'package:crypto_tracker_redux/provider_version/pages/provider_home.dart';
-import 'package:crypto_tracker_redux/redux_version/my_app_redux.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -20,7 +17,7 @@ class _HomeState extends State<Home> {
 
   List<Widget> pages = [
     ProviderHome(),
-    const MyAppRedux(),
+    // Other pages will include Redux, BLoC and other versions
   ];
 
   String titleString = AppStrings.appBarTitle;

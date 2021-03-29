@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
-import 'package:crypto_tracker_redux/redux_version/models/price_check.dart';
-import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
+import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/app_state.dart';
+import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/price_check.dart';
+import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/redux/actions.dart';
 import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
 

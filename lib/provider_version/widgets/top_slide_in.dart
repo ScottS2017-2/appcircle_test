@@ -1,5 +1,4 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
-import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/main.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
