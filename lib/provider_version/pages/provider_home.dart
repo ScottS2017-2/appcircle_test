@@ -21,6 +21,7 @@ class ProviderHome extends StatefulWidget {
 class _ProviderHomeState extends State<ProviderHome> {
   bool onStage = false;
 
+  // TODO finish implementing responsive layout for larger screens
   static const double _largeScreenTopSlideHeight = 300;
   static const double _largeScreenTopSlideWidth = 600;
   static const double _largeScreenBottomSlideHeight = 600;

@@ -84,8 +84,8 @@ class AppState {
           'YFI-USDT': [],
         },
         interestedInPrices = <String, double>{
-          'BTC-USD': 100,
-          'ETC-USD': 50,
+          'BTC-USD': 0,
+          'ETC-USD': 0,
         },
         // TODO change the below initialization to be empty
         isLoading = true;

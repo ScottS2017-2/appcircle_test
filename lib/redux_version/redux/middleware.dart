@@ -14,7 +14,8 @@ Future<void> appStateMiddleware(
   if (action is FetchUpdatesAction) {
     // Get the latest PriceChecks
     await _getTicker().then((value) {
-      store.dispatch(UpdatePricesAction(updatedListings: value));
+      print('Get ticker completed');
+      next(UpdatePricesAction(updatedListings: value));
     });
   }
 }

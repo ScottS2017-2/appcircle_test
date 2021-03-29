@@ -12,12 +12,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
-class AnimationTests extends StatefulWidget {
+class SplashScreen extends StatefulWidget {
   @override
   _HomeState createState() => new _HomeState();
 }
 
-class _HomeState extends State<AnimationTests> with SingleTickerProviderStateMixin {
+class _HomeState extends State<SplashScreen> with SingleTickerProviderStateMixin {
   late Animation<double> animation;
   late AnimationController _controller;
   double _topAlignment = 0;

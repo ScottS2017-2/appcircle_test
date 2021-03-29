@@ -21,7 +21,7 @@ class ContentArea extends StatefulWidget {
 class _ContentAreaState extends State<ContentArea> {
   final _scrollController = ScrollController();
 
-  void didTheButtonGetPressedOrNot() {
+  void fetchUpdates() {
     widget.store.dispatch(FetchUpdatesAction());
   }
 
@@ -30,7 +30,7 @@ class _ContentAreaState extends State<ContentArea> {
     if (widget.store.state.isLoading == true) {
       return Center(
         child: ElevatedButton(
-          onPressed: didTheButtonGetPressedOrNot,
+          onPressed: fetchUpdates,
           child: Text('Fetch Latest Prices'),
         ),
       );

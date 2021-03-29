@@ -3,8 +3,9 @@ import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 
 AppState appStateReducer(AppState state, dynamic action) {
-
+  print('appStateReducer called');
   if (action is UpdatePricesAction) {
+    print('action is UpdatePricesAction');
     var _currentHistory = state.allCommoditiesHistory;
     var _updatesList = action.updatedListings;
     Map<String, List<PriceCheck>> _updatedHistory = Map.from(_currentHistory);
