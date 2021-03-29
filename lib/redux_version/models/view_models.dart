@@ -1,6 +1,6 @@
-import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/app_state.dart';
-import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/price_check_model.dart';
-import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/redux/actions.dart';
+import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
+import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 import 'package:redux/redux.dart';
 
 class ViewModel {
@@ -17,7 +17,7 @@ class ViewModel {
   });
 
   factory ViewModel.create(Store<AppState> store) {
-    _onGetPriceCheck() => store.dispatch(AddPriceCheckAction());
+    _onGetPriceCheck() => store.dispatch(FetchUpdatesAction());
 
     return ViewModel(
       allCommoditiesHistory: store.state.allCommoditiesHistory,

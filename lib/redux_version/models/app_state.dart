@@ -1,4 +1,4 @@
-import 'package:crypto_tracker_redux/not_yet_implemented_redux_version/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart';
 
 class AppState {
   AppState({
