@@ -26,7 +26,7 @@ class MyAppRedux extends StatelessWidget {
       store: store,
       child: StoreBuilder<AppState>(
           onInit: (store) => store.dispatch(FetchUpdatesAction()),
-          builder: (BuildContext context, Store<AppState> store) => ReduxHome(store: store)),
+          builder: (BuildContext context, Store<AppState> store) => ReduxHome()),
     );
   }
 }

@@ -1,13 +1,12 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
-import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
 import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
 import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
-import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
+import 'package:crypto_tracker_redux/redux_version/widgets/bottom_slide_in.dart';
 import 'package:crypto_tracker_redux/redux_version/widgets/custom_border_button.dart';
+import 'package:crypto_tracker_redux/redux_version/widgets/top_slide_in.dart';
 import 'package:flutter/material.dart';
-import 'package:redux/redux.dart';
 
 class ContentArea extends StatefulWidget {
   const ContentArea({
@@ -22,8 +21,26 @@ class ContentArea extends StatefulWidget {
 }
 
 class _ContentAreaState extends State<ContentArea> {
-  final _scrollController = ScrollController();
-  bool onStage = false;
+
+  // TODO finish implementing responsive layout for larger screens
+  static const double _largeScreenTopSlideHeight = 300;
+  static const double _largeScreenTopSlideWidth = 600;
+  static const double _largeScreenBottomSlideHeight = 600;
+  static const double _largeScreenBottomSlideWidth = 600;
+  static const double _largeScreenTopSlideExtendedPosition = -1;
+  static const double _largeScreenTopSlideRetractedPosition = -2;
+  static const double _largeScreenBottomSlideExtendedPosition = 4.0;
+  static const double _largeScreenBottomSlideRetractedPosition = .4;
+
+  static const double _smallScreenTopSlideHeight = 400;
+  static const double _smallScreenTopSlideWidth = 300;
+  static const double _smallScreenBottomSlideHeight = 200;
+  static const double _smallScreenBottomSlideWidth = 300;
+  static const double _smallScreenTopSlideExtendedPosition = -1.1;
+  static const double _smallScreenTopSlideRetractedPosition = -4.75;
+  static const double _smallScreenBottomSlideExtendedPosition = .75;
+  static const double _smallScreenBottomSlideRetractedPosition = 2;
+
 
   @override
   void initState() {
@@ -126,7 +143,7 @@ class _ContentAreaState extends State<ContentArea> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  if (onStage == false)
+                  if (widget.viewModel.slidersAreOnStage == false)
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 16),
@@ -139,7 +156,7 @@ class _ContentAreaState extends State<ContentArea> {
                   SizedBox(
                     width: 16,
                   ),
-                  if (onStage == false)
+                  if (widget.viewModel.slidersAreOnStage == false)
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 16),
@@ -152,11 +169,11 @@ class _ContentAreaState extends State<ContentArea> {
                         ),
                       ),
                     ),
-                  if (onStage == true)
+                  if (widget.viewModel.slidersAreOnStage == true)
                     Spacer(
                       flex: 25,
                     ),
-                  if (onStage == true)
+                  if (widget.viewModel.slidersAreOnStage == true)
                     Expanded(
                       flex: 50,
                       child: Padding(
@@ -166,11 +183,11 @@ class _ContentAreaState extends State<ContentArea> {
                             widget.viewModel.clearAllDenominationOptions();
                             widget.viewModel.toggleSideSlides();
                           },
-                          child: Text(onStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes),
+                          child: Text(widget.viewModel.slidersAreOnStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes),
                         ),
                       ),
                     ),
-                  if (onStage == true)
+                  if (widget.viewModel.slidersAreOnStage == true)
                     Spacer(
                       flex: 25,
                     ),
@@ -190,19 +207,20 @@ class _ContentAreaState extends State<ContentArea> {
                   AnimatedContainer(
                     alignment: Alignment(
                         0,
-                        onStage == false
+                        widget.viewModel.slidersAreOnStage == false
                             ? _largeScreenTopSlideExtendedPosition
                             : _largeScreenTopSlideRetractedPosition),
                     duration: Duration(milliseconds: 300),
                     child: TopSlideIn(
                       height: _largeScreenTopSlideHeight,
                       width: _largeScreenTopSlideWidth,
+                      viewModel: widget.viewModel,
                     ),
                   ),
                   AnimatedContainer(
                     alignment: Alignment(
                         0,
-                        onStage == true
+                        widget.viewModel.slidersAreOnStage == true
                             ? _largeScreenBottomSlideExtendedPosition
                             : _largeScreenBottomSlideRetractedPosition),
                     duration: Duration(milliseconds: 300),
@@ -222,7 +240,7 @@ class _ContentAreaState extends State<ContentArea> {
                     child: AnimatedContainer(
                       alignment: Alignment(
                           0,
-                          onStage == true
+                          widget.viewModel.slidersAreOnStage == true
                               ? _smallScreenTopSlideExtendedPosition
                               : _smallScreenTopSlideRetractedPosition),
                       duration: Duration(milliseconds: 500),
@@ -230,6 +248,7 @@ class _ContentAreaState extends State<ContentArea> {
                       child: TopSlideIn(
                         height: _smallScreenTopSlideHeight,
                         width: _smallScreenTopSlideWidth,
+                        viewModel: widget.viewModel,
                       ),
                     ),
                   ),
@@ -240,7 +259,7 @@ class _ContentAreaState extends State<ContentArea> {
                       curve: Curves.easeOutBack,
                       alignment: Alignment(
                           0,
-                          onStage == true
+                          widget.viewModel.slidersAreOnStage == true
                               ? _smallScreenBottomSlideExtendedPosition
                               : _smallScreenBottomSlideRetractedPosition),
                       child: BottomSlideIn(
@@ -260,7 +279,7 @@ class _ContentAreaState extends State<ContentArea> {
           right: 0.0,
           top: 0.0,
           child: Builder(builder: (BuildContext context) {
-            final connected = context.select((AppStateModel appState) => appState.isConnected);
+            final connected = widget.viewModel.isConnected;
             return AnimatedSwitcher(
               duration: const Duration(milliseconds: 500),
               layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {

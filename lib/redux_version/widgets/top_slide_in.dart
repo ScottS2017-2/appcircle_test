@@ -1,22 +1,21 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
-import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
 import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
+import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 import 'package:flutter/material.dart';
-import 'package:redux/redux.dart';
 
 class TopSlideIn extends StatelessWidget {
   TopSlideIn({
     Key? key,
     required this.height,
     required this.width,
-    required this.store,
+    required this.viewModel,
   }) : super(key: key);
 
   final double height;
   final double width;
-  final Store<AppState> store;
+  final ViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +84,7 @@ class TopSlideIn extends StatelessWidget {
               ),
               child: Builder(
                 builder: (BuildContext context) {
-                  final commoditiesHistoryKeys = store.state.allCommoditiesHistory.keys.toList();
+                  final commoditiesHistoryKeys = viewModel.allCommoditiesHistory.keys.toList();
                   final uniqueCommodities = commoditiesHistoryKeys.fold<List<SymbolModel>>(
                     <SymbolModel>[],
                     (List<SymbolModel> prev, SymbolModel symbol) {
@@ -106,9 +105,8 @@ class TopSlideIn extends StatelessWidget {
                       final symbol = uniqueCommodities[index];
                       return TextButton(
                         onPressed: () {
-                          store.dispatch(UpdateAvailableDenominationsForThisCurrencyAction(
-                            commodity: symbol,
-                          ));
+                          viewModel.updateApplicableDenominations(commodity: symbol,
+                          );
                         },
                         style: ButtonStyle(
                           overlayColor: MaterialStateProperty.resolveWith((states) {
@@ -177,7 +175,7 @@ class TopSlideIn extends StatelessWidget {
               ),
               child: Builder(
                 builder: (BuildContext context) {
-                  final denominations = store.state.denominationsApplicableToCurrentCommodity;
+                  final denominations = viewModel.denominationsApplicableToCurrentCommodity;
                   if (denominations.isEmpty) {
                     return Center(
                       child: FittedBox(
@@ -207,9 +205,9 @@ class TopSlideIn extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final symbol = denominations[index];
                         return TextButton(
-                          onPressed: () => store.dispatch(AddInterestedInAction(
+                          onPressed: () => viewModel.addInterestedInItem(
                             itemMapKey: symbol,
-                          )),
+                          ),
                           style: ButtonStyle(
                             overlayColor: MaterialStateProperty.resolveWith((states) {
                               if (states.contains(MaterialState.pressed)) {

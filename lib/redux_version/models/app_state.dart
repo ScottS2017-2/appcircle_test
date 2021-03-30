@@ -9,6 +9,7 @@ class AppState {
     required this.itemToAdd,
     required this.itemToRemove,
     required this.slidersAreOnStage,
+    required this.isConnected,
   });
 
   final Map<SymbolModel, List<PriceCheck>> allCommoditiesHistory;
@@ -17,6 +18,7 @@ class AppState {
   final SymbolModel itemToAdd;
   final SymbolModel itemToRemove;
   final bool slidersAreOnStage;
+  final bool isConnected;
 
   AppState copyWith({
     Map<SymbolModel, List<PriceCheck>>? allCommoditiesHistory,
@@ -25,6 +27,7 @@ class AppState {
     SymbolModel? itemToAdd,
     SymbolModel? itemToRemove,
     bool? slidersAreOnStage,
+    bool? isConnected,
   }) {
     var _newAppState = AppState(
       allCommoditiesHistory: allCommoditiesHistory ?? this.allCommoditiesHistory,
@@ -34,6 +37,7 @@ class AppState {
       itemToAdd: itemToAdd ?? this.itemToAdd,
       itemToRemove: itemToRemove ?? this.itemToRemove,
       slidersAreOnStage: slidersAreOnStage ?? this.slidersAreOnStage,
+      isConnected: isConnected ?? this.isConnected,
     );
     return _newAppState;
   }
@@ -44,5 +48,6 @@ class AppState {
         denominationsApplicableToCurrentCommodity = [],
         itemToAdd = SymbolModel.fromString('Default-String'),
         itemToRemove = SymbolModel.fromString('Default-String'),
-        slidersAreOnStage = false;
+        slidersAreOnStage = false,
+        isConnected = false;
 }

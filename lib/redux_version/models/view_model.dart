@@ -13,6 +13,7 @@ class ViewModel {
     required this.itemToAdd,
     required this.itemToRemove,
     required this.slidersAreOnStage,
+    required this.isConnected,
     required this.fetchUpdates,
     required this.addInterestedInItem,
     required this.removeInterestedInItem,
@@ -27,6 +28,7 @@ class ViewModel {
   final SymbolModel itemToAdd;
   final SymbolModel itemToRemove;
   final bool slidersAreOnStage;
+  final bool isConnected;
   final VoidCallback fetchUpdates;
   final VoidCallback addInterestedInItem;
   final VoidCallback removeInterestedInItem;
@@ -42,6 +44,7 @@ class ViewModel {
       itemToAdd: store.state.itemToAdd,
       itemToRemove: store.state.itemToRemove,
       slidersAreOnStage: store.state.slidersAreOnStage,
+      isConnected: store.state.isConnected,
       fetchUpdates: () => store.dispatch(FetchUpdatesAction()),
       addInterestedInItem: () => store.dispatch(AddInterestedInAction(itemMapKey: itemMapKey)),
       removeInterestedInItem: () => store.dispatch(RemoveInterestedInAction(itemMapKey: itemMapKey)),
