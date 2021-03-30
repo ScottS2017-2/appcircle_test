@@ -7,7 +7,7 @@ class UpdatePricesAction {
   UpdatePricesAction({
     required this.updatedListings,
   });
-  List<PriceCheck> updatedListings;
+  final List<PriceCheck> updatedListings;
 }
 
 class AddInterestedInAction {
@@ -29,5 +29,8 @@ class UpdateAvailableDenominationsForThisCurrencyAction{
     required this.commodity,
   });
   final SymbolModel commodity;
-
 }
+
+class ToggleSideSlides{}
+
+class ClearAllDenominationOptions{}

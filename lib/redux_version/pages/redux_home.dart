@@ -8,10 +8,8 @@ import 'package:redux/redux.dart';
 class ReduxHome extends StatelessWidget {
   ReduxHome({
     Key? key,
-    required this.store,
   }) : super(key: key);
 
-  final Store<AppState> store;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,6 @@ class ReduxHome extends StatelessWidget {
       converter: (Store<AppState> store) => ViewModel.create(store),
       builder: (BuildContext context, ViewModel viewModel) {
         return ContentArea(
-          store: store,
           viewModel: viewModel,
         );
       },
