@@ -18,8 +18,7 @@ class _HomeState extends State<Home> {
 
   List<Widget> pages = [
     ProviderHome(),
-    // TODO finish Redux version
-    // const MyAppRedux(),
+    const MyAppRedux(),
   ];
 
   String titleString = AppStrings.appBarTitle;
@@ -57,7 +56,10 @@ class _HomeState extends State<Home> {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         titleString,
-                        style: Theme.of(context).textTheme.headline4!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline4!
+                            .copyWith(color: AppColors.offWhitePageBackground, shadows: [
                           BoxShadow(
                             color: AppColors.blackTextColor,
                             blurRadius: 2,

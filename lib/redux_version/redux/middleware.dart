@@ -12,12 +12,18 @@ import 'package:redux/redux.dart';
 Future<void> appStateMiddleware(
     Store<AppState> store, action, NextDispatcher next) async {
   if (action is FetchUpdatesAction) {
-    // Get the latest PriceChecks
     await _getTicker().then((value) {
-      print('Get ticker completed');
       next(UpdatePricesAction(updatedListings: value));
-    });
+    }, onError: _onFetchError);
   }
+}
+
+bool _isConnected = true;
+bool get isConnected => _isConnected;
+
+void _onFetchError(dynamic error, StackTrace stackTrace) {
+  _isConnected = (error is! SocketException);
+  print('$error\n$stackTrace');
 }
 
 Future<List<PriceCheck>> _getTicker() async {
