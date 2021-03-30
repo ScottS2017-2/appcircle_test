@@ -1,4 +1,4 @@
-import 'package:crypto_tracker_redux/provider_version/models/symbol_model.dart';
+import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
 
 class PriceCheck {
   PriceCheck({

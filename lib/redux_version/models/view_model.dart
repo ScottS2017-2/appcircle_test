@@ -30,9 +30,9 @@ class ViewModel {
   final bool slidersAreOnStage;
   final bool isConnected;
   final VoidCallback fetchUpdates;
-  final VoidCallback addInterestedInItem;
-  final VoidCallback removeInterestedInItem;
-  final VoidCallback updateApplicableDenominations;
+  final Function({required SymbolModel itemMapKey}) addInterestedInItem;
+  final Function({required SymbolModel itemMapKey}) removeInterestedInItem;
+  final Function({required SymbolModel commodity}) updateApplicableDenominations;
   final VoidCallback toggleSideSlides;
   final VoidCallback clearAllDenominationOptions;
 
@@ -40,18 +40,21 @@ class ViewModel {
     return ViewModel(
       allCommoditiesHistory: store.state.allCommoditiesHistory,
       interestedInPrices: store.state.interestedInPrices,
-      denominationsApplicableToCurrentCommodity: store.state.denominationsApplicableToCurrentCommodity,
+      denominationsApplicableToCurrentCommodity: //
+          store.state.denominationsApplicableToCurrentCommodity,
       itemToAdd: store.state.itemToAdd,
       itemToRemove: store.state.itemToRemove,
       slidersAreOnStage: store.state.slidersAreOnStage,
       isConnected: store.state.isConnected,
       fetchUpdates: () => store.dispatch(FetchUpdatesAction()),
-      addInterestedInItem: () => store.dispatch(AddInterestedInAction(itemMapKey: itemMapKey)),
-      removeInterestedInItem: () => store.dispatch(RemoveInterestedInAction(itemMapKey: itemMapKey)),
-      updateApplicableDenominations: () =>
-          store.dispatch(UpdateAvailableDenominationsForThisCurrencyAction(commodity: commodity)),
       toggleSideSlides: () => {},
       clearAllDenominationOptions: () => {},
+      removeInterestedInItem: ({required SymbolModel itemMapKey}) => //
+          (AddInterestedInAction(itemMapKey: itemMapKey)),
+      addInterestedInItem: ({required SymbolModel itemMapKey}) => //
+          (RemoveInterestedInAction(itemMapKey: itemMapKey)),
+      updateApplicableDenominations: ({required SymbolModel commodity}) => //
+          (UpdateAvailableDenominationsForThisCurrencyAction(commodity: commodity)),
     );
   }
 }

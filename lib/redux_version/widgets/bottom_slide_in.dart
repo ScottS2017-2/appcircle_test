@@ -1,21 +1,20 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
-import 'package:crypto_tracker_redux/main.dart';
-import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
+import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BottomSlideIn extends StatelessWidget {
   const BottomSlideIn({
     Key? key,
     required this.height,
     required this.width,
+    required this.viewModel,
   }) : super(key: key);
 
   final double height;
   final double width;
-
+  final ViewModel viewModel;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -94,16 +93,14 @@ class BottomSlideIn extends StatelessWidget {
                     child: Builder(
                       builder: (BuildContext context) {
                         final interestedInPricesSymbols =
-                            context.select((AppStateModel appState) => appState.interestedInPrices.keys.toList());
+                            viewModel.interestedInPrices.keys.toList();
                         return ListView.separated(
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           itemCount: interestedInPricesSymbols.length,
                           itemBuilder: (BuildContext context, int index) {
                             final symbol = interestedInPricesSymbols[index];
                             return TextButton(
-                              onPressed: () {
-                                MyApp.appStateOf(context).removeFromInterestedInPrices(symbol);
-                              },
+                              onPressed: () => viewModel.removeInterestedInItem(itemMapKey: symbol),
                               style: ButtonStyle(
                                 overlayColor: MaterialStateProperty.resolveWith((states) {
                                   if (states.contains(MaterialState.pressed)) {

@@ -45,6 +45,7 @@ class _ContentAreaState extends State<ContentArea> {
   @override
   void initState() {
     super.initState();
+    widget.viewModel.fetchUpdates();
   }
 
   @override
@@ -227,6 +228,7 @@ class _ContentAreaState extends State<ContentArea> {
                     child: BottomSlideIn(
                       height: _largeScreenBottomSlideHeight,
                       width: _largeScreenBottomSlideWidth,
+                      viewModel: widget.viewModel,
                     ),
                   ),
                 ],
@@ -265,6 +267,7 @@ class _ContentAreaState extends State<ContentArea> {
                       child: BottomSlideIn(
                         height: _smallScreenBottomSlideHeight,
                         width: _smallScreenBottomSlideWidth,
+                        viewModel: widget.viewModel,
                       ),
                     ),
                   ),
@@ -279,7 +282,9 @@ class _ContentAreaState extends State<ContentArea> {
           right: 0.0,
           top: 0.0,
           child: Builder(builder: (BuildContext context) {
-            final connected = widget.viewModel.isConnected;
+            // TODO fix connected
+            //  final connected = widget.viewModel.isConnected;
+            final connected = true;
             return AnimatedSwitcher(
               duration: const Duration(milliseconds: 500),
               layoutBuilder: (Widget? currentChild, List<Widget> previousChildren) {

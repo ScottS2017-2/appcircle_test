@@ -5,11 +5,16 @@ import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 
 AppState appStateReducer(AppState state, dynamic action) {
   if (action is UpdatePricesAction) {
-    var _currentHistory = state.allCommoditiesHistory;
-    var _updatesList = action.updatedListings;
+    final Map<SymbolModel, List<PriceCheck>> _currentHistory = Map.from(state.allCommoditiesHistory);
+    final List<PriceCheck> _updatesList = action.updatedListings;
+    print('First check is ${_updatesList.first.symbol.toString()}');
     Map<SymbolModel, List<PriceCheck>> _updatedHistory = Map.from(_currentHistory);
     for (final update in _updatesList) {
-      _updatedHistory[update.symbol]!.add(update);
+      if(_updatedHistory.containsKey(update.symbol)) {
+        _updatedHistory[update.symbol]!.add(update);
+      } else {
+        _updatedHistory.putIfAbsent(update.symbol, () => [update]);
+      }
     }
     return state.copyWith(
       allCommoditiesHistory: _updatedHistory,

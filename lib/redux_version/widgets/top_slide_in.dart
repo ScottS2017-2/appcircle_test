@@ -43,7 +43,6 @@ class TopSlideIn extends StatelessWidget {
           colors: [
             AppColors.oliveAccent,
             Theme.of(context).primaryColor,
-
           ],
           stops: [
             0,
@@ -105,8 +104,7 @@ class TopSlideIn extends StatelessWidget {
                       final symbol = uniqueCommodities[index];
                       return TextButton(
                         onPressed: () {
-                          viewModel.updateApplicableDenominations(commodity: symbol,
-                          );
+                          viewModel.updateApplicableDenominations(commodity: symbol);
                         },
                         style: ButtonStyle(
                           overlayColor: MaterialStateProperty.resolveWith((states) {
@@ -188,7 +186,7 @@ class TopSlideIn extends StatelessWidget {
                   } else {
                     final uniqueDenominations = denominations.fold<List<SymbolModel>>(
                       <SymbolModel>[],
-                          (List<SymbolModel> prev, SymbolModel symbol) {
+                      (List<SymbolModel> prev, SymbolModel symbol) {
                         if (prev.any((element) => element.commodity == symbol.commodity)) {
                           return prev;
                         }
@@ -205,9 +203,7 @@ class TopSlideIn extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final symbol = denominations[index];
                         return TextButton(
-                          onPressed: () => viewModel.addInterestedInItem(
-                            itemMapKey: symbol,
-                          ),
+                          onPressed: () => viewModel.addInterestedInItem(itemMapKey: symbol),
                           style: ButtonStyle(
                             overlayColor: MaterialStateProperty.resolveWith((states) {
                               if (states.contains(MaterialState.pressed)) {
