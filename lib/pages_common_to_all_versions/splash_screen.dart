@@ -107,7 +107,21 @@ class _HomeState extends State<SplashScreen> with SingleTickerProviderStateMixin
                   onPressed: () => Navigator.push(
                     context,
                     MaterialPageRoute(builder:
-                        (context) => ChangeNotifierProvider(
+                        (context) =>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            ChangeNotifierProvider(
                           create: (BuildContext context) => AppStateModel(),
                           child:Home(),
                         ),

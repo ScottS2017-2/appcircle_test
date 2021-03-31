@@ -1,6 +1,5 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
-import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/provider_version/pages/provider_home.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/store.dart';
 
@@ -11,7 +10,6 @@ import 'package:crypto_tracker_redux/redux_version/pages/redux_home.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
 
 class Home extends StatefulWidget {
@@ -27,10 +25,7 @@ class _HomeState extends State<Home> {
   );
 
   List<Widget> pages = [
-    ChangeNotifierProvider(
-      create: (BuildContext context) => AppStateModel(),
-      child: ProviderHome(),
-    ),
+    ProviderHome(),
     StoreProvider<AppState>(
       store: createStore(),
       child: StoreBuilder<AppState>(
