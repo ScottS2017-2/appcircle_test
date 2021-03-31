@@ -10,11 +10,14 @@ class ReduxHome extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ViewModel>(
       converter: (Store<AppState> store) => ViewModel.create(store),
+      distinct: true,
+      onWillChange: (_, viewModel) {
+        print('${viewModel.toString()}');
+      },
       builder: (BuildContext context, ViewModel viewModel) {
         return ContentArea(
           viewModel: viewModel,

@@ -30,31 +30,31 @@ class ViewModel {
   final bool slidersAreOnStage;
   final bool isConnected;
   final VoidCallback fetchUpdates;
+  final VoidCallback toggleSideSlides;
+  final VoidCallback clearAllDenominationOptions;
   final Function({required SymbolModel itemMapKey}) addInterestedInItem;
   final Function({required SymbolModel itemMapKey}) removeInterestedInItem;
   final Function({required SymbolModel commodity}) updateApplicableDenominations;
-  final VoidCallback toggleSideSlides;
-  final VoidCallback clearAllDenominationOptions;
 
   factory ViewModel.create(Store<AppState> store) {
     return ViewModel(
       allCommoditiesHistory: store.state.allCommoditiesHistory,
       interestedInPrices: store.state.interestedInPrices,
-      denominationsApplicableToCurrentCommodity: //
-          store.state.denominationsApplicableToCurrentCommodity,
       itemToAdd: store.state.itemToAdd,
       itemToRemove: store.state.itemToRemove,
       slidersAreOnStage: store.state.slidersAreOnStage,
       isConnected: store.state.isConnected,
+      denominationsApplicableToCurrentCommodity: //
+          store.state.denominationsApplicableToCurrentCommodity,
       fetchUpdates: () => store.dispatch(FetchUpdatesAction()),
-      toggleSideSlides: () => {},
-      clearAllDenominationOptions: () => {},
+      toggleSideSlides: () => store.dispatch(ToggleSideSlides()),
+      clearAllDenominationOptions: () => store.dispatch(ClearAllDenominationOptions()),
       removeInterestedInItem: ({required SymbolModel itemMapKey}) => //
-          (AddInterestedInAction(itemMapKey: itemMapKey)),
+          store.dispatch(AddInterestedInAction(itemMapKey: itemMapKey)),
       addInterestedInItem: ({required SymbolModel itemMapKey}) => //
-          (RemoveInterestedInAction(itemMapKey: itemMapKey)),
+          store.dispatch(RemoveInterestedInAction(itemMapKey: itemMapKey)),
       updateApplicableDenominations: ({required SymbolModel commodity}) => //
-          (UpdateAvailableDenominationsForThisCurrencyAction(commodity: commodity)),
+          store.dispatch(UpdateAvailableDenominationsForThisCurrencyAction(commodity: commodity)),
     );
   }
 }

@@ -29,7 +29,7 @@ class AppState {
     bool? slidersAreOnStage,
     bool? isConnected,
   }) {
-    var _newAppState = AppState(
+    final _newAppState = AppState(
       allCommoditiesHistory: allCommoditiesHistory ?? this.allCommoditiesHistory,
       interestedInPrices: interestedInPrices ?? this.interestedInPrices,
       denominationsApplicableToCurrentCommodity:

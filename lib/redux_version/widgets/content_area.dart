@@ -21,7 +21,6 @@ class ContentArea extends StatefulWidget {
 }
 
 class _ContentAreaState extends State<ContentArea> {
-
   // TODO finish implementing responsive layout for larger screens
   static const double _largeScreenTopSlideHeight = 300;
   static const double _largeScreenTopSlideWidth = 600;
@@ -41,11 +40,9 @@ class _ContentAreaState extends State<ContentArea> {
   static const double _smallScreenBottomSlideExtendedPosition = .75;
   static const double _smallScreenBottomSlideRetractedPosition = 2;
 
-
   @override
   void initState() {
     super.initState();
-    widget.viewModel.fetchUpdates();
   }
 
   @override
@@ -55,10 +52,13 @@ class _ContentAreaState extends State<ContentArea> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<SymbolModel, double> interestedInPrices =  widget.viewModel.interestedInPrices;
+    final Map<SymbolModel, double> interestedInPrices = widget.viewModel.interestedInPrices;
     return Stack(
       fit: StackFit.expand,
       children: [
+        //-------
+        // The main page
+        //-------
         Padding(
           padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
           child: Column(
@@ -66,8 +66,9 @@ class _ContentAreaState extends State<ContentArea> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Expanded(
-                //
+                //-------
                 // List of tracked items
+                //-------
                 child: ListView.builder(
                   itemCount: interestedInPrices.length,
                   itemBuilder: (BuildContext context, int index) {
@@ -120,7 +121,6 @@ class _ContentAreaState extends State<ContentArea> {
                                     '${interestedInPrices[index]!.toString().padRight(2)} ${interestedInPrices.keys.elementAt(index).denominationFull.toUpperCase()}',
                                     textAlign: TextAlign.center,
                                     style: AppTextStyles.normal24.copyWith(
-                                      //
                                       color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
                                       shadows: [
                                         Shadow(
@@ -144,12 +144,19 @@ class _ContentAreaState extends State<ContentArea> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
+                  //-------
+                  // If the sliders aren't on stage, show the update
+                  // and edit watchlist buttons at the bottom of the page
+                  //-------
                   if (widget.viewModel.slidersAreOnStage == false)
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 16),
                         child: CustomBorderButton(
-                          onPressed: () => widget.viewModel.fetchUpdates,
+                          onPressed: widget.viewModel.fetchUpdates,
+                          gradientColorOne: AppColors.oliveAccent,
+                          gradientColorTwo: Theme.of(context).primaryColor,
+                          insetColor: Theme.of(context).scaffoldBackgroundColor,
                           child: Text('Update Prices'),
                         ),
                       ),
@@ -158,18 +165,25 @@ class _ContentAreaState extends State<ContentArea> {
                     width: 16,
                   ),
                   if (widget.viewModel.slidersAreOnStage == false)
+                    //
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 16),
                         child: CustomBorderButton(
-                          onPressed: () {
-                                widget.viewModel.clearAllDenominationOptions();
-                                widget.viewModel.toggleSideSlides();
-                          },
-                          child: Text(widget.viewModel.slidersAreOnStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes),
+                          onPressed: () => widget.viewModel.toggleSideSlides(),
+                          gradientColorOne: AppColors.oliveAccent,
+                          gradientColorTwo: Theme.of(context).primaryColor,
+                          insetColor: Theme.of(context).scaffoldBackgroundColor,
+                          child: Text(
+                            AppStrings.editWatchlist,
+                          ),
                         ),
                       ),
                     ),
+                  //-------
+                  // If the sliders are on stage, show a return button that's
+                  // centered horizontally
+                  //-------
                   if (widget.viewModel.slidersAreOnStage == true)
                     Spacer(
                       flex: 25,
@@ -184,7 +198,12 @@ class _ContentAreaState extends State<ContentArea> {
                             widget.viewModel.clearAllDenominationOptions();
                             widget.viewModel.toggleSideSlides();
                           },
-                          child: Text(widget.viewModel.slidersAreOnStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes),
+                          gradientColorOne: AppColors.oliveAccent,
+                          gradientColorTwo: Theme.of(context).primaryColor,
+                          insetColor: Theme.of(context).scaffoldBackgroundColor,
+                          child: Text(widget.viewModel.slidersAreOnStage == false
+                              ? AppStrings.editWatchlist
+                              : AppStrings.closeEditBoxes),
                         ),
                       ),
                     ),
@@ -200,11 +219,17 @@ class _ContentAreaState extends State<ContentArea> {
         LayoutBuilder(
           builder: (context, BoxConstraints constraints) {
             late Widget _result;
-            // If the screen width > 1440
+            //-------
+            // Top and Bottom Slides
+            // Layout for screen width > 1440
+            //-------
             if (constraints.maxHeight > 1440) {
               _result = Stack(
                 fit: StackFit.expand,
                 children: [
+                  //-------
+                  // Top Slide-In
+                  //-------
                   AnimatedContainer(
                     alignment: Alignment(
                         0,
@@ -218,6 +243,9 @@ class _ContentAreaState extends State<ContentArea> {
                       viewModel: widget.viewModel,
                     ),
                   ),
+                  //-------
+                  // Bottom Slide-In
+                  //-------
                   AnimatedContainer(
                     alignment: Alignment(
                         0,
@@ -233,10 +261,16 @@ class _ContentAreaState extends State<ContentArea> {
                   ),
                 ],
               );
+              //-------
+              // Layout for screen width <= 1440
+              //-------
             } else if (constraints.maxHeight <= 1140) {
               _result = Stack(
                 fit: StackFit.expand,
                 children: [
+                  //-------
+                  // Top Slide-In
+                  //-------
                   Offstage(
                     offstage: false,
                     child: AnimatedContainer(
@@ -254,6 +288,9 @@ class _ContentAreaState extends State<ContentArea> {
                       ),
                     ),
                   ),
+                  //-------
+                  // Bottom Slide-In
+                  //-------
                   Offstage(
                     offstage: false,
                     child: AnimatedContainer(
@@ -277,12 +314,15 @@ class _ContentAreaState extends State<ContentArea> {
             return _result;
           },
         ),
+        //-------
+        // Not Connected Banner
+        //-------
         Positioned(
           left: 0.0,
           right: 0.0,
           top: 0.0,
           child: Builder(builder: (BuildContext context) {
-            // TODO fix connected
+            // FIXME the banner is always showing
             //  final connected = widget.viewModel.isConnected;
             final connected = true;
             return AnimatedSwitcher(

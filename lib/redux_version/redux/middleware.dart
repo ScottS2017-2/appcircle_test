@@ -15,6 +15,8 @@ Future<void> appStateMiddleware(
     await _getTicker().then((value) {
       next(UpdatePricesAction(updatedListings: value));
     }, onError: _onFetchError);
+  } else {
+    next(action);
   }
 }
 
