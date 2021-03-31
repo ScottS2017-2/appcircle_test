@@ -2,7 +2,6 @@ import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
 import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
-import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 import 'package:flutter/material.dart';
 
 class TopSlideIn extends StatelessWidget {
@@ -67,9 +66,9 @@ class TopSlideIn extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          //////////////////////////////////////////////////////////////
-          // Top List Box
-          //////////////////////////////////////////////////////////////
+          //-------
+          // Commodities List Box
+          //-------
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -104,6 +103,7 @@ class TopSlideIn extends StatelessWidget {
                       final symbol = uniqueCommodities[index];
                       return TextButton(
                         onPressed: () {
+                          print('triggered');
                           viewModel.updateApplicableDenominations(commodity: symbol);
                         },
                         style: ButtonStyle(
@@ -157,9 +157,9 @@ class TopSlideIn extends StatelessWidget {
           SizedBox(
             height: 16,
           ),
-          //////////////////////////////////////////////////////////////
-          // Bottom List Box
-          //////////////////////////////////////////////////////////////
+          //-------
+          // Denominations List Box
+          //-------
           Expanded(
             child: Container(
               decoration: BoxDecoration(
