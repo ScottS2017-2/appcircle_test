@@ -1,10 +1,11 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
+import 'package:crypto_tracker_redux/app/responsive_design_constants.dart';
 import 'package:crypto_tracker_redux/main.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/provider_version/widgets/bottom_slide_in.dart';
-import 'package:crypto_tracker_redux/provider_version/widgets/custom_border_button.dart';
+import 'package:crypto_tracker_redux/widgets/custom_border_button.dart';
 import 'package:crypto_tracker_redux/provider_version/widgets/top_slide_in.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,28 +21,6 @@ class ProviderHome extends StatefulWidget {
 
 class _ProviderHomeState extends State<ProviderHome> {
   bool onStage = false;
-
-  static const double _largeScreenTopSlideHeight = 600;
-  static const double _largeScreenTopSlideWidth = 600;
-  static const double _largeScreenBottomSlideHeight = 400;
-  static const double _largeScreenBottomSlideWidth = 600;
-  static const double _largeScreenTopSlideExtendedPosition = -1;
-  static const double _largeScreenTopSlideRetractedPosition = -4;
-  static const double _largeScreenBottomSlideExtendedPosition = 0.82;
-  static const double _largeScreenBottomSlideRetractedPosition = 3.75;
-  static const double _largeListItemsSidePadding = 136.0;
-  static const double _largeListItemsTopPadding = 3.75;
-
-  static const double _smallScreenTopSlideHeight = 400;
-  static const double _smallScreenTopSlideWidth = 300;
-  static const double _smallScreenBottomSlideHeight = 200;
-  static const double _smallScreenBottomSlideWidth = 300;
-  static const double _smallScreenTopSlideExtendedPosition = -1.1;
-  static const double _smallScreenTopSlideRetractedPosition = -4.75;
-  static const double _smallScreenBottomSlideExtendedPosition = .75;
-  static const double _smallScreenBottomSlideRetractedPosition = 2;
-  static const double _smallListItemsSidePadding = 48.0;
-  static const double _smallListItemsTopPadding = 3.75;
 
   late Future _initialLoad;
 
@@ -98,9 +77,9 @@ class _ProviderHomeState extends State<ProviderHome> {
                                 return Container(
                                   margin: constraints.maxWidth > 500
                                       ? EdgeInsets.symmetric(
-                                      horizontal: _largeListItemsSidePadding, vertical: _largeListItemsTopPadding)
+                                      horizontal: ResponsiveDesignConstants.largeListItemsSidePadding, vertical: ResponsiveDesignConstants.largeListItemsTopPadding)
                                       : EdgeInsets.symmetric(
-                                      horizontal: _smallListItemsSidePadding, vertical: _smallListItemsTopPadding),
+                                      horizontal: ResponsiveDesignConstants.smallListItemsSidePadding, vertical: ResponsiveDesignConstants.smallListItemsTopPadding),
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       width: 1,
@@ -180,6 +159,9 @@ class _ProviderHomeState extends State<ProviderHome> {
                                 padding: const EdgeInsets.only(bottom: 16),
                                 child: CustomBorderButton(
                                   onPressed: () => MyApp.appStateOf(context).manualUpdatePrices(),
+                                  gradientColorOne: AppColors.oliveAccent,
+                                  gradientColorTwo: Theme.of(context).primaryColor,
+                                  insetColor: Theme.of(context).scaffoldBackgroundColor,
                                   child: Text('Update Prices'),
                                 ),
                               ),
@@ -196,6 +178,9 @@ class _ProviderHomeState extends State<ProviderHome> {
                                     MyApp.appStateOf(context).clearDenominationsApplicableToCurrentCommodity();
                                     toggleSideSlides();
                                   },
+                                  gradientColorOne: AppColors.oliveAccent,
+                                  gradientColorTwo: Theme.of(context).primaryColor,
+                                  insetColor: Theme.of(context).scaffoldBackgroundColor,
                                   child: Text(onStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes),
                                 ),
                               ),
@@ -214,6 +199,9 @@ class _ProviderHomeState extends State<ProviderHome> {
                                     MyApp.appStateOf(context).clearDenominationsApplicableToCurrentCommodity();
                                     toggleSideSlides();
                                   },
+                                  gradientColorOne: AppColors.oliveAccent,
+                                  gradientColorTwo: Theme.of(context).primaryColor,
+                                  insetColor: Theme.of(context).scaffoldBackgroundColor,
                                   child: Text(onStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes),
                                 ),
                               ),
@@ -238,24 +226,24 @@ class _ProviderHomeState extends State<ProviderHome> {
                             alignment: Alignment(
                                 0,
                                 onStage == false
-                                    ? _largeScreenTopSlideRetractedPosition
-                                    : _largeScreenTopSlideExtendedPosition),
+                                    ? ResponsiveDesignConstants.largeScreenTopSlideRetractedPosition
+                                    : ResponsiveDesignConstants.largeScreenTopSlideExtendedPosition),
                             duration: Duration(milliseconds: 300),
                             child: TopSlideIn(
-                              height: _largeScreenTopSlideHeight,
-                              width: _largeScreenTopSlideWidth,
+                              height: ResponsiveDesignConstants.largeScreenTopSlideHeight,
+                              width: ResponsiveDesignConstants.largeScreenTopSlideWidth,
                             ),
                           ),
                           AnimatedContainer(
                             alignment: Alignment(
                                 0,
                                 onStage == true
-                                    ? _largeScreenBottomSlideExtendedPosition
-                                    : _largeScreenBottomSlideRetractedPosition),
+                                    ? ResponsiveDesignConstants.largeScreenBottomSlideExtendedPosition
+                                    : ResponsiveDesignConstants.largeScreenBottomSlideRetractedPosition),
                             duration: Duration(milliseconds: 300),
                             child: BottomSlideIn(
-                              height: _largeScreenBottomSlideHeight,
-                              width: _largeScreenBottomSlideWidth,
+                              height: ResponsiveDesignConstants.largeScreenBottomSlideHeight,
+                              width: ResponsiveDesignConstants.largeScreenBottomSlideWidth,
                             ),
                           ),
                         ],
@@ -270,13 +258,13 @@ class _ProviderHomeState extends State<ProviderHome> {
                               alignment: Alignment(
                                   0,
                                   onStage == true
-                                      ? _smallScreenTopSlideExtendedPosition
-                                      : _smallScreenTopSlideRetractedPosition),
+                                      ? ResponsiveDesignConstants.smallScreenTopSlideExtendedPosition
+                                      : ResponsiveDesignConstants.smallScreenTopSlideRetractedPosition),
                               duration: Duration(milliseconds: 500),
                               curve: Curves.easeOutBack,
                               child: TopSlideIn(
-                                height: _smallScreenTopSlideHeight,
-                                width: _smallScreenTopSlideWidth,
+                                height: ResponsiveDesignConstants.smallScreenTopSlideHeight,
+                                width: ResponsiveDesignConstants.smallScreenTopSlideWidth,
                               ),
                             ),
                           ),
@@ -288,11 +276,11 @@ class _ProviderHomeState extends State<ProviderHome> {
                               alignment: Alignment(
                                   0,
                                   onStage == true
-                                      ? _smallScreenBottomSlideExtendedPosition
-                                      : _smallScreenBottomSlideRetractedPosition),
+                                      ? ResponsiveDesignConstants.smallScreenBottomSlideExtendedPosition
+                                      : ResponsiveDesignConstants.smallScreenBottomSlideRetractedPosition),
                               child: BottomSlideIn(
-                                height: _smallScreenBottomSlideHeight,
-                                width: _smallScreenBottomSlideWidth,
+                                height: ResponsiveDesignConstants.smallScreenBottomSlideHeight,
+                                width: ResponsiveDesignConstants.smallScreenBottomSlideWidth,
                               ),
                             ),
                           ),

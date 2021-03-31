@@ -1,11 +1,12 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
+import 'package:crypto_tracker_redux/app/responsive_design_constants.dart';
 import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart';
 import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
 import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
 import 'package:crypto_tracker_redux/redux_version/widgets/bottom_slide_in.dart';
-import 'package:crypto_tracker_redux/redux_version/widgets/custom_border_button.dart';
+import 'file:///E:/Flutter/myprojects/crypto_tracker_redux/lib/widgets/custom_border_button.dart';
 import 'package:crypto_tracker_redux/redux_version/widgets/top_slide_in.dart';
 import 'package:flutter/material.dart';
 
@@ -22,27 +23,6 @@ class ContentArea extends StatefulWidget {
 }
 
 class _ContentAreaState extends State<ContentArea> {
-  static const double _largeScreenTopSlideHeight = 600;
-  static const double _largeScreenTopSlideWidth = 600;
-  static const double _largeScreenBottomSlideHeight = 400;
-  static const double _largeScreenBottomSlideWidth = 600;
-  static const double _largeScreenTopSlideExtendedPosition = -1;
-  static const double _largeScreenTopSlideRetractedPosition = -4;
-  static const double _largeScreenBottomSlideExtendedPosition = 0.82;
-  static const double _largeScreenBottomSlideRetractedPosition = 3.75;
-  static const double _largeListItemsSidePadding = 136.0;
-  static const double _largeListItemsTopPadding = 3.75;
-
-  static const double _smallScreenTopSlideHeight = 400;
-  static const double _smallScreenTopSlideWidth = 300;
-  static const double _smallScreenBottomSlideHeight = 200;
-  static const double _smallScreenBottomSlideWidth = 300;
-  static const double _smallScreenTopSlideExtendedPosition = -1.1;
-  static const double _smallScreenTopSlideRetractedPosition = -4.75;
-  static const double _smallScreenBottomSlideExtendedPosition = .75;
-  static const double _smallScreenBottomSlideRetractedPosition = 2;
-  static const double _smallListItemsSidePadding = 48.0;
-  static const double _smallListItemsTopPadding = 3.75;
 
   @override
   void initState() {
@@ -85,9 +65,9 @@ class _ContentAreaState extends State<ContentArea> {
                         return Container(
                           margin: constraints.maxWidth > 500
                               ? EdgeInsets.symmetric(
-                                  horizontal: _largeListItemsSidePadding, vertical: _largeListItemsTopPadding)
+                                  horizontal: ResponsiveDesignConstants.largeListItemsSidePadding, vertical: ResponsiveDesignConstants.largeListItemsTopPadding)
                               : EdgeInsets.symmetric(
-                                  horizontal: _smallListItemsSidePadding, vertical: _smallListItemsTopPadding),
+                                  horizontal: ResponsiveDesignConstants.smallListItemsSidePadding, vertical: ResponsiveDesignConstants.smallListItemsTopPadding),
                           decoration: BoxDecoration(
                             border: Border.all(
                               width: 1,
@@ -233,7 +213,6 @@ class _ContentAreaState extends State<ContentArea> {
             LayoutBuilder(
               builder: (context, BoxConstraints constraints) {
                 //-------
-                // Top and Bottom Slides
                 // Layout for screen width > 1440
                 //-------
                 if (constraints.maxWidth > 500) {
@@ -247,12 +226,12 @@ class _ContentAreaState extends State<ContentArea> {
                         alignment: Alignment(
                             0,
                             widget.viewModel.slidersAreOnStage == false
-                                ? _largeScreenTopSlideRetractedPosition
-                                : _largeScreenTopSlideExtendedPosition),
+                                ? ResponsiveDesignConstants.largeScreenTopSlideRetractedPosition
+                                : ResponsiveDesignConstants.largeScreenTopSlideExtendedPosition),
                         duration: Duration(milliseconds: 300),
                         child: TopSlideIn(
-                          height: _largeScreenTopSlideHeight,
-                          width: _largeScreenTopSlideWidth,
+                          height: ResponsiveDesignConstants.largeScreenTopSlideHeight,
+                          width: ResponsiveDesignConstants.largeScreenTopSlideWidth,
                           viewModel: widget.viewModel,
                         ),
                       ),
@@ -263,12 +242,12 @@ class _ContentAreaState extends State<ContentArea> {
                         alignment: Alignment(
                             0,
                             widget.viewModel.slidersAreOnStage == true
-                                ? _largeScreenBottomSlideExtendedPosition
-                                : _largeScreenBottomSlideRetractedPosition),
+                                ? ResponsiveDesignConstants.largeScreenBottomSlideExtendedPosition
+                                : ResponsiveDesignConstants.largeScreenBottomSlideRetractedPosition),
                         duration: Duration(milliseconds: 300),
                         child: BottomSlideIn(
-                          height: _largeScreenBottomSlideHeight,
-                          width: _largeScreenBottomSlideWidth,
+                          height: ResponsiveDesignConstants.largeScreenBottomSlideHeight,
+                          width: ResponsiveDesignConstants.largeScreenBottomSlideWidth,
                           viewModel: widget.viewModel,
                         ),
                       ),
@@ -290,13 +269,13 @@ class _ContentAreaState extends State<ContentArea> {
                           alignment: Alignment(
                               0,
                               widget.viewModel.slidersAreOnStage == true
-                                  ? _smallScreenTopSlideExtendedPosition
-                                  : _smallScreenTopSlideRetractedPosition),
+                                  ? ResponsiveDesignConstants.smallScreenTopSlideExtendedPosition
+                                  : ResponsiveDesignConstants.smallScreenTopSlideRetractedPosition),
                           duration: Duration(milliseconds: 500),
                           curve: Curves.easeOutBack,
                           child: TopSlideIn(
-                            height: _smallScreenTopSlideHeight,
-                            width: _smallScreenTopSlideWidth,
+                            height: ResponsiveDesignConstants.smallScreenTopSlideHeight,
+                            width: ResponsiveDesignConstants.smallScreenTopSlideWidth,
                             viewModel: widget.viewModel,
                           ),
                         ),
@@ -312,11 +291,11 @@ class _ContentAreaState extends State<ContentArea> {
                           alignment: Alignment(
                               0,
                               widget.viewModel.slidersAreOnStage == true
-                                  ? _smallScreenBottomSlideExtendedPosition
-                                  : _smallScreenBottomSlideRetractedPosition),
+                                  ? ResponsiveDesignConstants.smallScreenBottomSlideExtendedPosition
+                                  : ResponsiveDesignConstants.smallScreenBottomSlideRetractedPosition),
                           child: BottomSlideIn(
-                            height: _smallScreenBottomSlideHeight,
-                            width: _smallScreenBottomSlideWidth,
+                            height: ResponsiveDesignConstants.smallScreenBottomSlideHeight,
+                            width: ResponsiveDesignConstants.smallScreenBottomSlideWidth,
                             viewModel: widget.viewModel,
                           ),
                         ),

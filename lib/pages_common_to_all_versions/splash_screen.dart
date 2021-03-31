@@ -2,7 +2,7 @@ import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/pages_common_to_all_versions/home.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
-import 'package:crypto_tracker_redux/provider_version/widgets/custom_border_button.dart';
+import 'package:crypto_tracker_redux/widgets/custom_border_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/animation.dart';
 
@@ -77,19 +77,21 @@ class _HomeState extends State<SplashScreen> with SingleTickerProviderStateMixin
                 const Spacer(
                   flex: 1,
                 ),
-                if (_controller.value < 1) Text(
-                  _controller.value.toString(),
-                  textAlign: TextAlign.center,
-                  style: AppTextStyles.normal64.copyWith(
-                    color: Colors.white.withOpacity(_controller.value),
+                if (_controller.value < 1)
+                  Text(
+                    _controller.value.toString(),
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.normal64.copyWith(
+                      color: Colors.white.withOpacity(_controller.value),
+                    ),
                   ),
-                ),
-                if(_controller.value == 1) Text(
-                  'v0.1',
-                  style: AppTextStyles.normal36.copyWith(
-                    color: _controller.value == 1 ? Colors.white.withOpacity(_controller.value) : Colors.transparent,
+                if (_controller.value == 1)
+                  Text(
+                    'v0.1',
+                    style: AppTextStyles.normal36.copyWith(
+                      color: _controller.value == 1 ? Colors.white.withOpacity(_controller.value) : Colors.transparent,
+                    ),
                   ),
-                ),
                 const Spacer(
                   flex: 5,
                 ),
@@ -103,32 +105,22 @@ class _HomeState extends State<SplashScreen> with SingleTickerProviderStateMixin
                 const Spacer(
                   flex: 5,
                 ),
-                if (_controller.value == 1)CustomBorderButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder:
-                        (context) =>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            ChangeNotifierProvider(
+                if (_controller.value == 1)
+                  CustomBorderButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider(
                           create: (BuildContext context) => AppStateModel(),
-                          child:Home(),
+                          child: Home(),
                         ),
+                      ),
                     ),
+                    gradientColorOne: AppColors.oliveAccent,
+                    gradientColorTwo: Theme.of(context).primaryColor,
+                    insetColor: Theme.of(context).scaffoldBackgroundColor,
+                    child: Text('Continue'),
                   ),
-                  child: Text('Continue'),
-                ),
                 const Spacer(
                   flex: 5,
                 ),
@@ -140,5 +132,3 @@ class _HomeState extends State<SplashScreen> with SingleTickerProviderStateMixin
     );
   }
 }
-
-
