@@ -1,5 +1,5 @@
 import 'package:crypto_tracker_redux/app/app_themes.dart';
-import 'package:crypto_tracker_redux/pages_common_to_all_versions/home.dart';
+import 'package:crypto_tracker_redux/pages_common_to_all_versions/splash_screen.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,11 +38,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Crypto Tracker',
       theme: AppTheme.light(),
-        home:ChangeNotifierProvider(
-          create: (BuildContext context) => AppStateModel(),
-          child:Home(),
-        ),
-       // home:SplashScreen(),
+       home:SplashScreen(),
     );
   }
 }

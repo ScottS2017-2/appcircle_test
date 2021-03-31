@@ -19,6 +19,11 @@ class RemoveInterestedInAction {
   final SymbolModel mapKey;
 }
 //-------
+class StartUpdateTimer{
+
+
+}
+//-------
 class ToggleSideSlides {}
 //-------
 class UpdateDenominationsApplicableToThisCurrencyAction {

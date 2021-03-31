@@ -1,11 +1,21 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
+import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/provider_version/pages/provider_home.dart';
-import 'package:crypto_tracker_redux/redux_version/my_app_redux.dart';
+import 'package:crypto_tracker_redux/redux_version/redux/store.dart';
+
 import 'package:flutter/material.dart';
 
+import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
+import 'package:crypto_tracker_redux/redux_version/pages/redux_home.dart';
+import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
+
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:provider/provider.dart';
+import 'package:redux/redux.dart';
+
 class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+  Home({Key? key}) : super(key: key);
 
   @override
   _HomeState createState() => _HomeState();
@@ -17,8 +27,17 @@ class _HomeState extends State<Home> {
   );
 
   List<Widget> pages = [
-    ProviderHome(),
-    const MyAppRedux(),
+    ChangeNotifierProvider(
+      create: (BuildContext context) => AppStateModel(),
+      child: ProviderHome(),
+    ),
+    StoreProvider<AppState>(
+      store: createStore(),
+      child: StoreBuilder<AppState>(
+        onInit: (store) => store.dispatch(FetchUpdatesAction()),
+        builder: (BuildContext context, Store<AppState> store) => ReduxHome(),
+      ),
+    ),
   ];
 
   String titleString = AppStrings.appBarTitle;
