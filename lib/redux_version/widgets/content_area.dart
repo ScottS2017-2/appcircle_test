@@ -1,6 +1,7 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
+import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart';
 import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
 import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
 import 'package:crypto_tracker_redux/redux_version/widgets/bottom_slide_in.dart';
@@ -52,7 +53,7 @@ class _ContentAreaState extends State<ContentArea> {
 
   @override
   Widget build(BuildContext context) {
-    final Map<SymbolModel, double> interestedInPrices = widget.viewModel.interestedInPrices;
+    final Map<SymbolModel, PriceCheck> interestedInPrices = widget.viewModel.interestedInPrices;
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -72,6 +73,7 @@ class _ContentAreaState extends State<ContentArea> {
                 child: ListView.builder(
                   itemCount: interestedInPrices.length,
                   itemBuilder: (BuildContext context, int index) {
+                    print('${interestedInPrices[interestedInPrices.keys.first]!.lastTradePrice.toString()}');
                     return Container(
                       margin: const EdgeInsets.only(bottom: 16),
                       decoration: BoxDecoration(
@@ -104,7 +106,7 @@ class _ContentAreaState extends State<ContentArea> {
                               Column(
                                 children: [
                                   Text(
-                                    '${interestedInPrices.keys.elementAt(index).denominationFull.toUpperCase()}',
+                                    '${interestedInPrices.keys.elementAt(index).commodityFull.toUpperCase()}',
                                     textAlign: TextAlign.center,
                                     style: AppTextStyles.boldItalic26.copyWith(
                                       color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
@@ -118,7 +120,7 @@ class _ContentAreaState extends State<ContentArea> {
                                     ),
                                   ),
                                   Text(
-                                    '${interestedInPrices[index]!.toString().padRight(2)} ${interestedInPrices.keys.elementAt(index).denominationFull.toUpperCase()}',
+                                    '${interestedInPrices[interestedInPrices.keys.elementAt(index)]!.lastTradePrice.toString().padRight(2)} ${interestedInPrices.keys.elementAt(index).denominationFull.toUpperCase()}',
                                     textAlign: TextAlign.center,
                                     style: AppTextStyles.normal24.copyWith(
                                       color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),

@@ -3,9 +3,9 @@ import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
 
 class AddInterestedInAction {
   AddInterestedInAction({
-    required this.itemMapKey,
+    required this.mapKey,
   });
-  final SymbolModel itemMapKey;
+  final SymbolModel mapKey;
 }
 //-------
 class ClearAllDenominationOptions {}
@@ -14,18 +14,18 @@ class FetchUpdatesAction {}
 //-------
 class RemoveInterestedInAction {
   RemoveInterestedInAction({
-    required this.itemMapKey,
+    required this.mapKey,
   });
-  final SymbolModel itemMapKey;
+  final SymbolModel mapKey;
 }
 //-------
 class ToggleSideSlides {}
 //-------
-class UpdateAvailableDenominationsForThisCurrencyAction {
-  UpdateAvailableDenominationsForThisCurrencyAction({
-    required this.commodity,
+class UpdateDenominationsApplicableToThisCurrencyAction {
+  UpdateDenominationsApplicableToThisCurrencyAction({
+    required this.mapKey,
   });
-  final SymbolModel commodity;
+  final SymbolModel mapKey;
 }
 //-------
 class UpdatePricesAction {

@@ -1,4 +1,3 @@
-import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:flutter/material.dart';
 
 /// Text Styles

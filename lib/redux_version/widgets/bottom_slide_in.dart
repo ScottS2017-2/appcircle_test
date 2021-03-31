@@ -100,7 +100,7 @@ class BottomSlideIn extends StatelessWidget {
                           itemBuilder: (BuildContext context, int index) {
                             final symbol = interestedInPricesSymbols[index];
                             return TextButton(
-                              onPressed: () => viewModel.removeInterestedInItem(itemMapKey: symbol),
+                              onPressed: () => viewModel.removeInterestedInItem(mapKey: symbol),
                               style: ButtonStyle(
                                 overlayColor: MaterialStateProperty.resolveWith((states) {
                                   if (states.contains(MaterialState.pressed)) {

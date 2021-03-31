@@ -22,22 +22,25 @@ class ViewModel {
     required this.clearAllDenominationOptions,
   });
 
+  // members
   final Map<SymbolModel, List<PriceCheck>> allCommoditiesHistory;
-  final Map<SymbolModel, double> interestedInPrices;
+  final Map<SymbolModel, PriceCheck> interestedInPrices;
   final List<SymbolModel> denominationsApplicableToCurrentCommodity;
   final SymbolModel itemToAdd;
   final SymbolModel itemToRemove;
   final bool slidersAreOnStage;
   final bool isConnected;
+  // methods
   final VoidCallback fetchUpdates;
   final VoidCallback toggleSideSlides;
   final VoidCallback clearAllDenominationOptions;
-  final Function({required SymbolModel itemMapKey}) addInterestedInItem;
-  final Function({required SymbolModel itemMapKey}) removeInterestedInItem;
-  final Function({required SymbolModel commodity}) updateApplicableDenominations;
+  final Function({required SymbolModel mapKey}) addInterestedInItem;
+  final Function({required SymbolModel mapKey}) removeInterestedInItem;
+  final Function({required SymbolModel mapKey}) updateApplicableDenominations;
 
   factory ViewModel.create(Store<AppState> store) {
     return ViewModel(
+      // members
       allCommoditiesHistory: store.state.allCommoditiesHistory,
       interestedInPrices: store.state.interestedInPrices,
       itemToAdd: store.state.itemToAdd,
@@ -46,15 +49,16 @@ class ViewModel {
       isConnected: store.state.isConnected,
       denominationsApplicableToCurrentCommodity: //
           store.state.denominationsApplicableToCurrentCommodity,
+      // methods
       fetchUpdates: () => store.dispatch(FetchUpdatesAction()),
       toggleSideSlides: () => store.dispatch(ToggleSideSlides()),
       clearAllDenominationOptions: () => store.dispatch(ClearAllDenominationOptions()),
-      removeInterestedInItem: ({required SymbolModel itemMapKey}) => //
-          store.dispatch(AddInterestedInAction(itemMapKey: itemMapKey)),
-      addInterestedInItem: ({required SymbolModel itemMapKey}) => //
-          store.dispatch(RemoveInterestedInAction(itemMapKey: itemMapKey)),
-      updateApplicableDenominations: ({required SymbolModel commodity}) => //
-          store.dispatch(UpdateAvailableDenominationsForThisCurrencyAction(commodity: commodity)),
+      addInterestedInItem: ({required SymbolModel mapKey}) => //
+          store.dispatch(AddInterestedInAction(mapKey: mapKey)),
+      removeInterestedInItem: ({required SymbolModel mapKey}) => //
+          store.dispatch(RemoveInterestedInAction(mapKey: mapKey)),
+      updateApplicableDenominations: ({required SymbolModel mapKey}) => //
+          store.dispatch(UpdateDenominationsApplicableToThisCurrencyAction(mapKey: mapKey)),
     );
   }
 }

@@ -26,27 +26,30 @@ AppState appStateReducer(AppState state, dynamic action) {
     return state.copyWith(slidersAreOnStage: !state.slidersAreOnStage);
   }
   //-------
-  if (action is UpdateAvailableDenominationsForThisCurrencyAction) {
-    // TODO implement me
+  if (action is UpdateDenominationsApplicableToThisCurrencyAction) {
+    final _symbolToAdd = action.mapKey;
+    List<SymbolModel> newApplicableDenominations  = state.allCommoditiesHistory.keys //
+          .where((key) => key.commodity == _symbolToAdd.commodity)
+          .toList();
+    newApplicableDenominations.sort((SymbolModel left, SymbolModel right) {
+        return left.denominationFull.toLowerCase().compareTo(right.denominationFull.toLowerCase());
+      });
+    return state.copyWith(denominationsApplicableToCurrentCommodity: newApplicableDenominations);
   }
   //-------
   if (action is AddInterestedInAction) {
-    final Map<SymbolModel, double> _oldPricesInterestedInList = state.interestedInPrices;
-    final _symbolToAdd = action.itemMapKey;
-    final Map<SymbolModel, double> _result = Map.from(_oldPricesInterestedInList);
-    _result.putIfAbsent(_symbolToAdd, () => _oldPricesInterestedInList[_symbolToAdd]!);
+    final Map<SymbolModel, PriceCheck> _currentPricesInterestedInList = state.interestedInPrices;
+    _currentPricesInterestedInList.putIfAbsent(action.mapKey, () => state.allCommoditiesHistory[action.mapKey]!.last);
     return state.copyWith(
-      interestedInPrices: _result,
+      interestedInPrices: _currentPricesInterestedInList,
     );
   }
   //-------
   if (action is RemoveInterestedInAction) {
-    final Map<SymbolModel, double> _oldPricesInterestedInList = state.interestedInPrices;
-    final _symbolToRemove = action.itemMapKey;
-    final Map<SymbolModel, double> _result = Map.from(_oldPricesInterestedInList);
-    _result.remove(_symbolToRemove);
+    final Map<SymbolModel, PriceCheck> _currentPricesInterestedInList = state.interestedInPrices;
+    _currentPricesInterestedInList.remove(action.mapKey);
     return state.copyWith(
-      interestedInPrices: _result,
+      interestedInPrices: _currentPricesInterestedInList,
     );
   }
   //-------

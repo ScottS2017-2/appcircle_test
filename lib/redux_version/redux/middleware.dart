@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
 import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
@@ -15,7 +16,30 @@ Future<void> appStateMiddleware(
     await _getTicker().then((value) {
       next(UpdatePricesAction(updatedListings: value));
     }, onError: _onFetchError);
-  } else {
+  } else if (action is AddInterestedInAction) {
+    final Map<SymbolModel, PriceCheck> _currentPricesInterestedInList = store.state.interestedInPrices;
+    _currentPricesInterestedInList.putIfAbsent(action.mapKey, () => store.state.allCommoditiesHistory[action.mapKey]!.last);
+    store.state.copyWith(
+      interestedInPrices: _currentPricesInterestedInList,
+    );
+    next(FetchUpdatesAction);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   else {
     next(action);
   }
 }

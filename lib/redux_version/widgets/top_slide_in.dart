@@ -104,7 +104,7 @@ class TopSlideIn extends StatelessWidget {
                       return TextButton(
                         onPressed: () {
                           print('triggered');
-                          viewModel.updateApplicableDenominations(commodity: symbol);
+                          viewModel.updateApplicableDenominations(mapKey: symbol);
                         },
                         style: ButtonStyle(
                           overlayColor: MaterialStateProperty.resolveWith((states) {
@@ -203,7 +203,7 @@ class TopSlideIn extends StatelessWidget {
                       itemBuilder: (BuildContext context, int index) {
                         final symbol = denominations[index];
                         return TextButton(
-                          onPressed: () => viewModel.addInterestedInItem(itemMapKey: symbol),
+                          onPressed: () => viewModel.addInterestedInItem(mapKey: symbol),
                           style: ButtonStyle(
                             overlayColor: MaterialStateProperty.resolveWith((states) {
                               if (states.contains(MaterialState.pressed)) {

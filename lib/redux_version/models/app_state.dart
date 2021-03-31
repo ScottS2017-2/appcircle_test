@@ -13,7 +13,7 @@ class AppState {
   });
 
   final Map<SymbolModel, List<PriceCheck>> allCommoditiesHistory;
-  final Map<SymbolModel, double> interestedInPrices;
+  final Map<SymbolModel, PriceCheck> interestedInPrices;
   final List<SymbolModel> denominationsApplicableToCurrentCommodity;
   final SymbolModel itemToAdd;
   final SymbolModel itemToRemove;
@@ -22,7 +22,7 @@ class AppState {
 
   AppState copyWith({
     Map<SymbolModel, List<PriceCheck>>? allCommoditiesHistory,
-    Map<SymbolModel, double>? interestedInPrices,
+    Map<SymbolModel, PriceCheck>? interestedInPrices,
     List<SymbolModel>? denominationsApplicableToCurrentCommodity,
     SymbolModel? itemToAdd,
     SymbolModel? itemToRemove,
@@ -44,7 +44,7 @@ class AppState {
 
   AppState.initialState()
       : allCommoditiesHistory = {},
-        interestedInPrices = <SymbolModel, double>{},
+        interestedInPrices = <SymbolModel, PriceCheck>{},
         denominationsApplicableToCurrentCommodity = [],
         itemToAdd = SymbolModel.fromString('Default-String'),
         itemToRemove = SymbolModel.fromString('Default-String'),
