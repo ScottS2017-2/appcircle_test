@@ -26,6 +26,9 @@ class CustomBorderButton extends StatelessWidget {
       gradientColorOne: gradientColorOne,
       gradientColorTwo: gradientColorTwo,
       insetColor: insetColor,
+      innerBorderThickness: 1,
+      outerCornerRadius: 10,
+      innerCornerRadius: 9,
       child: Container(
         padding: const EdgeInsets.all(12),
         height: 48,

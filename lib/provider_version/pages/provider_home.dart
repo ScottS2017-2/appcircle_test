@@ -5,6 +5,7 @@ import 'package:crypto_tracker_redux/app/responsive_design_constants.dart';
 import 'package:crypto_tracker_redux/main.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/provider_version/widgets/bottom_slide_in.dart';
+import 'package:crypto_tracker_redux/widgets/custom_border_box.dart';
 import 'package:crypto_tracker_redux/widgets/custom_border_button.dart';
 import 'package:crypto_tracker_redux/provider_version/widgets/top_slide_in.dart';
 import 'package:flutter/material.dart';
@@ -75,32 +76,14 @@ class _ProviderHomeState extends State<ProviderHome> {
                               itemBuilder: (BuildContext context, int index) {
                                 final value = interestedInPrices[index];
                                 return Container(
-                                  margin: constraints.maxWidth > 500
-                                      ? EdgeInsets.symmetric(
-                                      horizontal: ResponsiveDesignConstants.largeListItemsSidePadding, vertical: ResponsiveDesignConstants.largeListItemsTopPadding)
-                                      : EdgeInsets.symmetric(
-                                      horizontal: ResponsiveDesignConstants.smallListItemsSidePadding, vertical: ResponsiveDesignConstants.smallListItemsTopPadding),
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      width: 1,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Container(
-                                    margin: const EdgeInsets.all(1),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          AppColors.oliveAccent,
-                                          Theme.of(context).primaryColor,
-                                        ],
-                                        begin: Alignment(-2, -1.75),
-                                        end: Alignment(2, 1.75),
-                                        stops: [0, 1],
-                                      ),
-                                    ),
+                                  child: CustomBorderBox(
+                                    onPressed: () => {},
+                                    gradientColorOne: AppColors.oliveAccent,
+                                    gradientColorTwo: Theme.of(context).primaryColor,
+                                    insetColor: Theme.of(context).scaffoldBackgroundColor,
+                                    innerBorderThickness: 1,
+                                    outerCornerRadius: 20,
+                                    innerCornerRadius: 10,
                                     child: Container(
                                       padding: const EdgeInsets.symmetric(vertical: 8),
                                       alignment: Alignment.center,
@@ -123,19 +106,21 @@ class _ProviderHomeState extends State<ProviderHome> {
                                                   ],
                                                 ),
                                               ),
-                                              Text(
-                                                '${value.lastTradePrice.toString().padRight(2)} ${value.symbol.denominationFull}',
-                                                textAlign: TextAlign.center,
-                                                style: AppTextStyles.normal24.copyWith(
-                                                  //
-                                                  color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
-                                                  shadows: [
-                                                    Shadow(
-                                                      color: AppColors.dropShadowColor,
-                                                      offset: Offset(2, 2),
-                                                      blurRadius: 1,
-                                                    ),
-                                                  ],
+                                              FittedBox(
+                                                child: Text(
+                                                  '${value.lastTradePrice.toString().padRight(2)} ${value.symbol.denominationFull}',
+                                                  textAlign: TextAlign.center,
+                                                  style: AppTextStyles.normal24.copyWith(
+                                                    //
+                                                    color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
+                                                    shadows: [
+                                                      Shadow(
+                                                        color: AppColors.dropShadowColor,
+                                                        offset: Offset(2, 2),
+                                                        blurRadius: 1,
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ],

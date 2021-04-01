@@ -10,6 +10,9 @@ class CustomBorderBox extends StatelessWidget {
     required this.gradientColorOne,
     required this.gradientColorTwo,
     required this.insetColor,
+    required this.innerBorderThickness,
+    required this.outerCornerRadius,
+    required this.innerCornerRadius,
   }) : super(key: key);
 
   final VoidCallback onPressed;
@@ -17,6 +20,9 @@ class CustomBorderBox extends StatelessWidget {
   final Color gradientColorOne;
   final Color gradientColorTwo;
   final Color insetColor;
+  final double innerBorderThickness;
+  final double outerCornerRadius;
+  final double innerCornerRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +31,7 @@ class CustomBorderBox extends StatelessWidget {
     // unique, double-bordered look (the white edge)
     //-------
     return Material(
-      borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(outerCornerRadius),
       elevation: 2,
       child: InkWell(
         onTap: onPressed,
@@ -34,7 +40,7 @@ class CustomBorderBox extends StatelessWidget {
         //-------
         child: Ink(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(innerCornerRadius),
             gradient: LinearGradient(
               colors: [
                 gradientColorOne,
@@ -57,10 +63,10 @@ class CustomBorderBox extends StatelessWidget {
                       // This border creates the inset look
                       //-------
                       border: Border.all(
-                        width: 1,
+                        width: innerBorderThickness,
                         color: insetColor,
                       ),
-                      borderRadius: BorderRadius.circular(9),
+                      borderRadius: BorderRadius.circular(innerCornerRadius),
                     ),
                   ),
                 ),

@@ -8,6 +8,7 @@ import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
 import 'package:crypto_tracker_redux/redux_version/widgets/bottom_slide_in.dart';
 import 'file:///E:/Flutter/myprojects/crypto_tracker_redux/lib/widgets/custom_border_button.dart';
 import 'package:crypto_tracker_redux/redux_version/widgets/top_slide_in.dart';
+import 'package:crypto_tracker_redux/widgets/custom_border_box.dart';
 import 'package:flutter/material.dart';
 
 class ContentArea extends StatefulWidget {
@@ -23,7 +24,6 @@ class ContentArea extends StatefulWidget {
 }
 
 class _ContentAreaState extends State<ContentArea> {
-
   @override
   void initState() {
     super.initState();
@@ -62,56 +62,38 @@ class _ContentAreaState extends State<ContentArea> {
                     child: ListView.builder(
                       itemCount: interestedInPrices.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: constraints.maxWidth > 500
-                              ? EdgeInsets.symmetric(
-                                  horizontal: ResponsiveDesignConstants.largeListItemsSidePadding, vertical: ResponsiveDesignConstants.largeListItemsTopPadding)
-                              : EdgeInsets.symmetric(
-                                  horizontal: ResponsiveDesignConstants.smallListItemsSidePadding, vertical: ResponsiveDesignConstants.smallListItemsTopPadding),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              width: 1,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
+                        return CustomBorderBox(
+                          onPressed: () => {},
+                          gradientColorOne: AppColors.oliveAccent,
+                          gradientColorTwo: Theme.of(context).primaryColor,
+                          insetColor: Theme.of(context).scaffoldBackgroundColor,
+                          innerBorderThickness: 1,
+                          outerCornerRadius: 20,
+                          innerCornerRadius: 10,
                           child: Container(
-                            margin: const EdgeInsets.all(1),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              gradient: LinearGradient(
-                                colors: [
-                                  AppColors.oliveAccent,
-                                  Theme.of(context).primaryColor,
-                                ],
-                                begin: Alignment(-2, -1.75),
-                                end: Alignment(2, 1.75),
-                                stops: [0, 1],
-                              ),
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 8),
-                              alignment: Alignment.center,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Column(
-                                    children: [
-                                      Text(
-                                        '${interestedInPrices.keys.elementAt(index).commodityFull.toUpperCase()}',
-                                        textAlign: TextAlign.center,
-                                        style: AppTextStyles.boldItalic26.copyWith(
-                                          color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
-                                          shadows: [
-                                            Shadow(
-                                              color: AppColors.dropShadowColor,
-                                              offset: Offset(2, 2),
-                                              blurRadius: 1,
-                                            ),
-                                          ],
-                                        ),
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Column(
+                                  children: [
+                                    Text(
+                                      '${interestedInPrices.keys.elementAt(index).commodityFull.toUpperCase()}',
+                                      textAlign: TextAlign.center,
+                                      style: AppTextStyles.boldItalic26.copyWith(
+                                        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
+                                        shadows: [
+                                          Shadow(
+                                            color: AppColors.dropShadowColor,
+                                            offset: Offset(2, 2),
+                                            blurRadius: 1,
+                                          ),
+                                        ],
                                       ),
-                                      Text(
+                                    ),
+                                    FittedBox(
+                                      child: Text(
                                         '${interestedInPrices[interestedInPrices.keys.elementAt(index)]!.lastTradePrice.toString().padRight(2)} ${interestedInPrices.keys.elementAt(index).denominationFull.toUpperCase()}',
                                         textAlign: TextAlign.center,
                                         style: AppTextStyles.normal24.copyWith(
@@ -125,10 +107,10 @@ class _ContentAreaState extends State<ContentArea> {
                                           ],
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         );
