@@ -3,7 +3,7 @@ import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/main.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
-import 'package:crypto_tracker_redux/widgets/custom_border_box.dart';
+import 'package:crypto_tracker_redux/widgets_common_to_all_versions/custom_border_box.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -6,9 +6,10 @@ import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart
 import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
 import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
 import 'package:crypto_tracker_redux/redux_version/widgets/bottom_slide_in.dart';
-import 'file:///E:/Flutter/myprojects/crypto_tracker_redux/lib/widgets/custom_border_button.dart';
+
 import 'package:crypto_tracker_redux/redux_version/widgets/top_slide_in.dart';
-import 'package:crypto_tracker_redux/widgets/custom_border_box.dart';
+import 'package:crypto_tracker_redux/widgets_common_to_all_versions/custom_border_box.dart';
+import 'package:crypto_tracker_redux/widgets_common_to_all_versions/custom_border_button.dart';
 import 'package:flutter/material.dart';
 
 class ContentArea extends StatefulWidget {
@@ -130,6 +131,7 @@ class _ContentAreaState extends State<ContentArea> {
                             padding: const EdgeInsets.only(bottom: 16),
                             child: CustomBorderButton(
                               onPressed: widget.viewModel.fetchUpdates,
+                              height: 48,
                               gradientColorOne: AppColors.oliveAccent,
                               gradientColorTwo: Theme.of(context).primaryColor,
                               insetColor: Theme.of(context).scaffoldBackgroundColor,
@@ -147,6 +149,7 @@ class _ContentAreaState extends State<ContentArea> {
                             padding: const EdgeInsets.only(bottom: 16),
                             child: CustomBorderButton(
                               onPressed: () => widget.viewModel.toggleSideSlides(),
+                              height: 48,
                               gradientColorOne: AppColors.oliveAccent,
                               gradientColorTwo: Theme.of(context).primaryColor,
                               insetColor: Theme.of(context).scaffoldBackgroundColor,
@@ -174,6 +177,7 @@ class _ContentAreaState extends State<ContentArea> {
                                 widget.viewModel.clearAllDenominationOptions();
                                 widget.viewModel.toggleSideSlides();
                               },
+                              height: 48,
                               gradientColorOne: AppColors.oliveAccent,
                               gradientColorTwo: Theme.of(context).primaryColor,
                               insetColor: Theme.of(context).scaffoldBackgroundColor,

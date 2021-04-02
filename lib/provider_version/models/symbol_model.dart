@@ -1,10 +1,10 @@
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 
 class SymbolModel {
-  const SymbolModel(
-    this.commodity,
-    this.denomination,
-  );
+  const SymbolModel({
+    required this.commodity,
+    required this.denomination,
+  });
 
   final String commodity;
   final String denomination;
@@ -13,7 +13,7 @@ class SymbolModel {
     final splitStrings = symbol.split('-');
     final commodity = splitStrings[0];
     final denomination = splitStrings[1];
-    return SymbolModel(commodity, denomination);
+    return SymbolModel(commodity: commodity, denomination: denomination);
   }
 
   String get commodityFull => AppStrings.unabbreviatedTerms[commodity] ?? commodity;

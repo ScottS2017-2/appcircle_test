@@ -2,7 +2,7 @@ import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
 import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
-import 'package:crypto_tracker_redux/widgets/custom_border_box.dart';
+import 'package:crypto_tracker_redux/widgets_common_to_all_versions/custom_border_box.dart';
 import 'package:flutter/material.dart';
 
 class TopSlideIn extends StatelessWidget {

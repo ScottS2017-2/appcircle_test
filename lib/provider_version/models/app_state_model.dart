@@ -19,11 +19,15 @@ class AppStateModel extends ChangeNotifier {
 
   bool get isConnected => _isConnected;
 
-  Future<void> manualUpdatePrices() => _fetchAndProcessUpdates();
+  // TestWritten
+  Future<void> manualUpdatePrices() => fetchAndProcessUpdates();
 
-  Future<void> _fetchAndProcessUpdates() async {
-    await _getTicker().then((newestUpdates) {
-      _addUpdatesToHistory(newestUpdates);
+  @visibleForTesting
+  // The visibleForTesting annotation makes the method private, except for testing
+  Future<void> fetchAndProcessUpdates() async {
+    await getTicker().then((newestUpdates) {
+      addUpdatesToHistory(newestUpdates);
+      updateInterestedInList();
       _isConnected = true;
           _timer?.cancel();
       _startUpdateTimer();
@@ -37,7 +41,9 @@ class AppStateModel extends ChangeNotifier {
   }
 
   // Returns a list of the latest PriceCheck objects
-  Future<List<PriceCheck>> _getTicker() async {
+  // TestWritten
+  @visibleForTesting
+  Future<List<PriceCheck>> getTicker() async {
     final url = Uri.parse('https://api.blockchain.com/v3/exchange/tickers');
     final response = await http.get(url);
     if (response.statusCode != 200) {
@@ -49,20 +55,27 @@ class AppStateModel extends ChangeNotifier {
         .toList();
   }
 
-  void _addUpdatesToHistory(List<PriceCheck> newestUpdates) {
+  // TestWritten
+  @visibleForTesting
+  void addUpdatesToHistory(List<PriceCheck> newestUpdates) {
     // Add each new listing to the result
     for (final update in newestUpdates) {
       final _prices = allCommoditiesHistory.putIfAbsent(update.symbol, () => <PriceCheck>[]);
       _prices.add(update);
-      if (interestedInPrices.containsKey(update.symbol)) {
-        interestedInPrices[update.symbol] = update;
-      }
     }
     notifyListeners();
   }
 
+  // TestWritten
+  @visibleForTesting
+  void updateInterestedInList(){
+    for (final key in interestedInPrices.keys) {
+      interestedInPrices[key] = allCommoditiesHistory[key]!.last;
+    }
+  }
+
   void _startUpdateTimer() {
-    _timer = Timer(Duration(seconds: 5), _fetchAndProcessUpdates);
+    _timer = Timer(Duration(seconds: 5), fetchAndProcessUpdates);
   }
 
   void clearDenominationsApplicableToCurrentCommodity() {
@@ -82,7 +95,7 @@ class AppStateModel extends ChangeNotifier {
 
   void addToInterestedInPrices(SymbolModel symbol) {
     interestedInPrices.putIfAbsent(symbol, () => allCommoditiesHistory[symbol]!.last);
-    _fetchAndProcessUpdates();
+    fetchAndProcessUpdates();
     notifyListeners();
   }
 

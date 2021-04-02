@@ -2,7 +2,7 @@ import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
-import 'package:crypto_tracker_redux/widgets/custom_border_box.dart';
+import 'package:crypto_tracker_redux/widgets_common_to_all_versions/custom_border_box.dart';
 import 'package:flutter/material.dart';
 
 class BottomSlideIn extends StatelessWidget {
@@ -22,20 +22,8 @@ class BottomSlideIn extends StatelessWidget {
       height: height,
       width: width,
       alignment: Alignment.topCenter,
-
-
-
-
-
-
-
-
-
-
-
-
-      child:  CustomBorderBox(
-        onPressed: ()=>{},
+      child: CustomBorderBox(
+        onPressed: () => {},
         gradientColorOne: AppColors.oliveAccent,
         gradientColorTwo: Theme.of(context).primaryColor,
         insetColor: Theme.of(context).scaffoldBackgroundColor,
@@ -48,7 +36,8 @@ class BottomSlideIn extends StatelessWidget {
             children: [
               Text(
                 AppStrings.following,
-                style: Theme.of(context).textTheme.headline5!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
+                style:
+                    Theme.of(context).textTheme.headline5!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
                   BoxShadow(
                     color: AppColors.blackTextColor,
                     blurRadius: 2,
@@ -58,7 +47,8 @@ class BottomSlideIn extends StatelessWidget {
               ),
               Text(
                 AppStrings.tapToRemove,
-                style: Theme.of(context).textTheme.bodyText2!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
+                style:
+                    Theme.of(context).textTheme.bodyText2!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
                   BoxShadow(
                     color: AppColors.blackTextColor,
                     blurRadius: 2,
@@ -85,8 +75,7 @@ class BottomSlideIn extends StatelessWidget {
                       Expanded(
                         child: Builder(
                           builder: (BuildContext context) {
-                            final interestedInPricesSymbols =
-                                viewModel.interestedInPrices.keys.toList();
+                            final interestedInPricesSymbols = viewModel.interestedInPrices.keys.toList();
                             return ListView.separated(
                               padding: const EdgeInsets.symmetric(horizontal: 8),
                               itemCount: interestedInPricesSymbols.length,

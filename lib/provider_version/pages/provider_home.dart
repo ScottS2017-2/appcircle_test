@@ -5,9 +5,9 @@ import 'package:crypto_tracker_redux/app/responsive_design_constants.dart';
 import 'package:crypto_tracker_redux/main.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/provider_version/widgets/bottom_slide_in.dart';
-import 'package:crypto_tracker_redux/widgets/custom_border_box.dart';
-import 'package:crypto_tracker_redux/widgets/custom_border_button.dart';
 import 'package:crypto_tracker_redux/provider_version/widgets/top_slide_in.dart';
+import 'package:crypto_tracker_redux/widgets_common_to_all_versions/custom_border_box.dart';
+import 'package:crypto_tracker_redux/widgets_common_to_all_versions/custom_border_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -144,6 +144,7 @@ class _ProviderHomeState extends State<ProviderHome> {
                                 padding: const EdgeInsets.only(bottom: 16),
                                 child: CustomBorderButton(
                                   onPressed: () => MyApp.appStateOf(context).manualUpdatePrices(),
+                                  height: 48,
                                   gradientColorOne: AppColors.oliveAccent,
                                   gradientColorTwo: Theme.of(context).primaryColor,
                                   insetColor: Theme.of(context).scaffoldBackgroundColor,
@@ -163,6 +164,7 @@ class _ProviderHomeState extends State<ProviderHome> {
                                     MyApp.appStateOf(context).clearDenominationsApplicableToCurrentCommodity();
                                     toggleSideSlides();
                                   },
+                                  height: 48,
                                   gradientColorOne: AppColors.oliveAccent,
                                   gradientColorTwo: Theme.of(context).primaryColor,
                                   insetColor: Theme.of(context).scaffoldBackgroundColor,
@@ -184,6 +186,7 @@ class _ProviderHomeState extends State<ProviderHome> {
                                     MyApp.appStateOf(context).clearDenominationsApplicableToCurrentCommodity();
                                     toggleSideSlides();
                                   },
+                                  height: 48,
                                   gradientColorOne: AppColors.oliveAccent,
                                   gradientColorTwo: Theme.of(context).primaryColor,
                                   insetColor: Theme.of(context).scaffoldBackgroundColor,
