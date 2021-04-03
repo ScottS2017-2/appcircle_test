@@ -6,12 +6,13 @@ import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
 import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
 import 'package:crypto_tracker_redux/redux_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
 
 Future<void> appStateMiddleware(Store<AppStateModel> store, action, NextDispatcher next) async {
   if (action is FetchUpdatesAction) {
-    await _getTicker().then((value) {
+    await getTicker().then((value) {
       next(UpdatePricesAction(updatedListings: value));
     }, onError: _onFetchError);
   } else if (action is AddInterestedInAction) {
@@ -35,7 +36,8 @@ void _onFetchError(dynamic error, StackTrace stackTrace) {
   print('$error\n$stackTrace');
 }
 
-Future<List<PriceCheck>> _getTicker() async {
+@visibleForTesting
+Future<List<PriceCheck>> getTicker() async {
   final url = Uri.parse('https://api.blockchain.com/v3/exchange/tickers');
   final response = await http.get(url);
   if (response.statusCode != 200) {

@@ -1,6 +1,13 @@
 import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
-import 'file:///E:/Flutter/myprojects/crypto_tracker_redux/lib/common/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/pages_common_to_all_versions/home.dart';
+import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart' as providerVersion;
+import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
+import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/redux_version/redux/store.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+// Common
 final testPriceCheckList = <PriceCheck>[
   PriceCheck(
       symbol: SymbolModel(commodity: 'BTC', denomination: 'GBP'),
@@ -37,3 +44,14 @@ final symbol2 = testSymbolModelList[2];
 final priceCheck0 = testPriceCheckList[0];
 final priceCheck1 = testPriceCheckList[1];
 final priceCheck2 = testPriceCheckList[2];
+
+// Redux Specific
+final testStore = createStore();
+final testViewModel = ViewModel.create(testStore);
+
+Widget createHomeScreen() => ChangeNotifierProvider<providerVersion.AppStateModel>(
+  create: (context) => providerVersion.AppStateModel(),
+  child: MaterialApp(
+    home: Home(),
+  ),
+);

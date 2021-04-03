@@ -1,5 +1,6 @@
+import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
-import 'file:///E:/Flutter/myprojects/crypto_tracker_redux/lib/common/models/price_check_model.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../variablesForTesting.dart';

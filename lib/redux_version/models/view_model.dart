@@ -5,6 +5,7 @@ import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 import 'package:flutter/material.dart';
 import 'package:redux/redux.dart';
 
+@immutable
 class ViewModel {
   ViewModel({
     required this.allCommoditiesHistory,

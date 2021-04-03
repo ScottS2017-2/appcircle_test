@@ -2,8 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
 import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
-import 'file:///E:/Flutter/myprojects/crypto_tracker_redux/lib/common/models/price_check_model.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
