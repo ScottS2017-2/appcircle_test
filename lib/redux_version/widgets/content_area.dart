@@ -144,6 +144,8 @@ class _ContentAreaState extends State<ContentArea> {
                       ),
                       if (widget.viewModel.slidersAreOnStage == false)
                         //
+                        
+                        // ElevatedButton(onPressed: onPressed, child: child),
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 16),

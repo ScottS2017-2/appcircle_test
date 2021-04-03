@@ -8,7 +8,7 @@ final testPriceCheckList = <PriceCheck>[
       volume24h: 1111,
       lastTradePrice: 1111),
   PriceCheck(
-      symbol: SymbolModel(commodity: 'BTC', denomination: 'ETH'),
+      symbol: SymbolModel(commodity: 'BTC', denomination: 'EUR'),
       price24h: 2222,
       volume24h: 2222,
       lastTradePrice: 2222),
@@ -17,12 +17,18 @@ final testPriceCheckList = <PriceCheck>[
       price24h: 3333,
       volume24h: 3333,
       lastTradePrice: 3333),
+  PriceCheck(
+      symbol: SymbolModel(commodity: 'ALGO', denomination: 'USD'),
+      price24h: 4444,
+      volume24h: 4444,
+      lastTradePrice: 4444),
 ];
 
 final testSymbolModelList = <SymbolModel>[
-  SymbolModel(commodity: 'BTC', denomination: 'BP'),
-  SymbolModel(commodity: 'BTC', denomination: 'ETH'),
+  SymbolModel(commodity: 'BTC', denomination: 'GBP'),
+  SymbolModel(commodity: 'BTC', denomination: 'EUR'),
   SymbolModel(commodity: 'ETH', denomination: 'USD'),
+  SymbolModel(commodity: 'ALGO', denomination: 'USD'),
 ];
 
 final symbol0 = testSymbolModelList[0];

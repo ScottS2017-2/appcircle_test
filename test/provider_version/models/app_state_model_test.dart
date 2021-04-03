@@ -1,6 +1,5 @@
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/provider_version/models/price_check_model.dart';
-import 'package:crypto_tracker_redux/provider_version/models/symbol_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../variablesForTesting.dart';
@@ -8,6 +7,15 @@ import '../../variablesForTesting.dart';
 void main() {
   group('Fetching and processing updates', () {
     var appStateModel = AppStateModel();
+    //-------
+    test(
+        'fetchAndProcessUpdates test, combines the above tests to ensure the sequence functions correctly from end to end',
+        () async {
+      appStateModel.allCommoditiesHistory.clear();
+      expect(appStateModel.allCommoditiesHistory.isEmpty, true);
+      await appStateModel.fetchAndProcessUpdates();
+      expect(appStateModel.allCommoditiesHistory.isEmpty, false);
+    });
     //-------
     test('getTicker: Make an http call and parse the json into a list of PriceChecks', () async {
       List<PriceCheck> _result = [];
@@ -21,7 +29,7 @@ void main() {
       expect(appStateModel.allCommoditiesHistory.entries.first.value.first.symbol.commodityFull, 'Bitcoin');
       expect(appStateModel.allCommoditiesHistory.entries.first.value.first.lastTradePrice, 1111);
       expect(appStateModel.allCommoditiesHistory.entries.last.value.last.symbol.denominationFull, 'US Dollars');
-      expect(appStateModel.allCommoditiesHistory.entries.last.value.last.price24h, 3333);
+      expect(appStateModel.allCommoditiesHistory.entries.elementAt(2).value.last.price24h, 3333);
     });
     //-------
     test('updateInterestedInList', () {
@@ -33,13 +41,50 @@ void main() {
       expect(appStateModel.allCommoditiesHistory.entries.first.value.first.lastTradePrice, 1111);
     });
     //-------
-    test(
-        'fetchAndProcessUpdates test, combines the above tests to ensure the sequence functions correctly from end to end',
-        () async {
-      appStateModel.allCommoditiesHistory.clear();
-      expect(appStateModel.allCommoditiesHistory.isEmpty, true);
-      await appStateModel.manualUpdatePrices();
-      expect(appStateModel.allCommoditiesHistory.isEmpty, false);
+    test('clearDenominationsApplicableToCurrentCommodity', () {
+      appStateModel.denominationsApplicableToCurrentCommodity.addAll(testSymbolModelList);
+      appStateModel.clearDenominationsApplicableToCurrentCommodity();
+      expect(appStateModel.denominationsApplicableToCurrentCommodity.isEmpty, true);
+    });
+    //-------
+    test('clearDenominationsApplicableToCurrentCommodity', () async {
+      appStateModel.denominationsApplicableToCurrentCommodity.clear();
+      await appStateModel.fetchAndProcessUpdates();
+      appStateModel.updateDenominationsApplicableToCurrentCommodity(testSymbolModelList[3]);
+      expect(appStateModel.denominationsApplicableToCurrentCommodity.length == 3, true);
+      expect(appStateModel.denominationsApplicableToCurrentCommodity[0].denominationFull == 'Bitcoin', true);
+      expect(appStateModel.denominationsApplicableToCurrentCommodity[1].denominationFull == 'Tether', true);
+      expect(appStateModel.denominationsApplicableToCurrentCommodity[2].denominationFull == 'US Dollars', true);
+    });
+    //-------
+    test('addToInterestedInPrices', () async {
+      await appStateModel.fetchAndProcessUpdates();
+      appStateModel.interestedInPrices.clear();
+      appStateModel.addToInterestedInPrices(testSymbolModelList[0]);
+      appStateModel.addToInterestedInPrices(testSymbolModelList[1]);
+      appStateModel.addToInterestedInPrices(testSymbolModelList[2]);
+      appStateModel.addToInterestedInPrices(testSymbolModelList[3]);
+      expect(appStateModel.interestedInPrices.length == 4, true);
+      expect(appStateModel.interestedInPrices[testSymbolModelList[0]]!.lastTradePrice > 0, true);
+      expect(appStateModel.interestedInPrices[testSymbolModelList[1]]!.price24h > 0, true);
+      expect(appStateModel.interestedInPrices[testSymbolModelList[2]]!.volume24h > 0, true);
+      expect(appStateModel.interestedInPrices[testSymbolModelList[3]]!.volume24h > 0, true);
+    });
+
+    //-------
+    test('removeFromInterestedInPrices', () {
+      appStateModel.interestedInPrices.clear();
+      appStateModel.interestedInPrices.putIfAbsent(testSymbolModelList[0], () => testPriceCheckList[0]);
+      appStateModel.interestedInPrices.putIfAbsent(testSymbolModelList[1], () => testPriceCheckList[1]);
+      appStateModel.interestedInPrices.putIfAbsent(testSymbolModelList[2], () => testPriceCheckList[2]);
+      appStateModel.interestedInPrices.putIfAbsent(testSymbolModelList[3], () => testPriceCheckList[3]);
+      expect(appStateModel.interestedInPrices.length == 4, true);
+      appStateModel.removeFromInterestedInPrices(testSymbolModelList[2]);
+      expect(appStateModel.interestedInPrices.length == 3, true);
+      appStateModel.removeFromInterestedInPrices(testSymbolModelList[0]);
+      expect(appStateModel.interestedInPrices.length == 2, true);
+      appStateModel.removeFromInterestedInPrices(testSymbolModelList[1]);
+      expect(appStateModel.interestedInPrices.containsKey(testSymbolModelList[3]), true);
     });
   });
 }

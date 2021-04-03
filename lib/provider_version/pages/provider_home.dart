@@ -28,7 +28,7 @@ class _ProviderHomeState extends State<ProviderHome> {
   @override
   void initState() {
     super.initState();
-    _initialLoad = MyApp.appStateOf(context).manualUpdatePrices();
+    _initialLoad = MyApp.appStateOf(context).fetchAndProcessUpdates();
   }
 
   @override
@@ -143,7 +143,7 @@ class _ProviderHomeState extends State<ProviderHome> {
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 16),
                                 child: CustomBorderButton(
-                                  onPressed: () => MyApp.appStateOf(context).manualUpdatePrices(),
+                                  onPressed: () => MyApp.appStateOf(context).fetchAndProcessUpdates(),
                                   height: 48,
                                   gradientColorOne: AppColors.oliveAccent,
                                   gradientColorTwo: Theme.of(context).primaryColor,

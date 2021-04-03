@@ -20,8 +20,6 @@ class AppStateModel extends ChangeNotifier {
   bool get isConnected => _isConnected;
 
   // TestWritten
-  Future<void> manualUpdatePrices() => fetchAndProcessUpdates();
-
   @visibleForTesting
   // The visibleForTesting annotation makes the method private, except for testing
   Future<void> fetchAndProcessUpdates() async {
@@ -74,15 +72,13 @@ class AppStateModel extends ChangeNotifier {
     }
   }
 
-  void _startUpdateTimer() {
-    _timer = Timer(Duration(seconds: 5), fetchAndProcessUpdates);
-  }
-
+  // TestWritten
   void clearDenominationsApplicableToCurrentCommodity() {
-    denominationsApplicableToCurrentCommodity = [];
+    denominationsApplicableToCurrentCommodity.clear();
     notifyListeners();
   }
 
+// TestWritten
   void updateDenominationsApplicableToCurrentCommodity(SymbolModel symbol) {
     denominationsApplicableToCurrentCommodity = allCommoditiesHistory.keys //
         .where((key) => key.commodity == symbol.commodity)
@@ -93,12 +89,13 @@ class AppStateModel extends ChangeNotifier {
     notifyListeners();
   }
 
+//TestWritten
   void addToInterestedInPrices(SymbolModel symbol) {
     interestedInPrices.putIfAbsent(symbol, () => allCommoditiesHistory[symbol]!.last);
-    fetchAndProcessUpdates();
     notifyListeners();
   }
 
+  // TestWritten
   void removeFromInterestedInPrices(SymbolModel symbol) {
     interestedInPrices.remove(symbol);
     if (interestedInPrices.isEmpty) {
@@ -108,5 +105,9 @@ class AppStateModel extends ChangeNotifier {
       _startUpdateTimer();
     }
     notifyListeners();
+  }
+
+  void _startUpdateTimer() {
+    _timer = Timer(Duration(minutes: 15), fetchAndProcessUpdates);
   }
 }
