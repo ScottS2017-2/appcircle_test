@@ -5,7 +5,7 @@ import 'package:crypto_tracker_redux/redux_version/redux/store.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
+import 'package:crypto_tracker_redux/redux_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/redux_version/pages/redux_home.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 
@@ -26,11 +26,11 @@ class _HomeState extends State<Home> {
 
   List<Widget> pages = [
     ProviderHome(),
-    StoreProvider<AppState>(
+    StoreProvider<AppStateModel>(
       store: createStore(),
-      child: StoreBuilder<AppState>(
+      child: StoreBuilder<AppStateModel>(
         onInit: (store) => store.dispatch(FetchUpdatesAction()),
-        builder: (BuildContext context, Store<AppState> store) => ReduxHome(),
+        builder: (BuildContext context, Store<AppStateModel> store) => ReduxHome(),
       ),
     ),
   ];

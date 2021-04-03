@@ -2,8 +2,9 @@ import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/app/responsive_design_constants.dart';
-import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart';
-import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
+import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
+
 import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
 import 'package:crypto_tracker_redux/redux_version/widgets/bottom_slide_in.dart';
 

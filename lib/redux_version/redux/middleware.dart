@@ -2,14 +2,14 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
-import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart';
-import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
+import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
+import 'package:crypto_tracker_redux/redux_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
 
-Future<void> appStateMiddleware(Store<AppState> store, action, NextDispatcher next) async {
+Future<void> appStateMiddleware(Store<AppStateModel> store, action, NextDispatcher next) async {
   if (action is FetchUpdatesAction) {
     await _getTicker().then((value) {
       next(UpdatePricesAction(updatedListings: value));

@@ -1,12 +1,12 @@
-import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
-import 'file:///E:/Flutter/myprojects/crypto_tracker_redux/lib/common/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../variablesForTesting.dart';
 
 void main() {
   group('Fetching and processing updates', () {
-    var appStateModel = AppStateModel();
+    var appStateModel = AppState.initialState();
     //-------
     test(
         'fetchAndProcessUpdates test, combines the above tests to ensure the sequence functions correctly from end to end',

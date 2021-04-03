@@ -1,5 +1,5 @@
-import 'package:crypto_tracker_redux/provider_version/models/price_check_model.dart';
-import 'package:crypto_tracker_redux/provider_version/models/symbol_model.dart';
+import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
+import 'file:///E:/Flutter/myprojects/crypto_tracker_redux/lib/common/models/price_check_model.dart';
 
 final testPriceCheckList = <PriceCheck>[
   PriceCheck(

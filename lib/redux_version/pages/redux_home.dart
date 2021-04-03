@@ -1,4 +1,4 @@
-import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
+import 'package:crypto_tracker_redux/redux_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
 import 'package:crypto_tracker_redux/redux_version/widgets/content_area.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +12,8 @@ class ReduxHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<AppState, ViewModel>(
-      converter: (Store<AppState> store) => ViewModel.create(store),
+    return StoreConnector<AppStateModel, ViewModel>(
+      converter: (Store<AppStateModel> store) => ViewModel.create(store),
       distinct: true,
       builder: (BuildContext context, ViewModel viewModel) {
         return ContentArea(

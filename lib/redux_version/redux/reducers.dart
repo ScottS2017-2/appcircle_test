@@ -1,9 +1,9 @@
-import 'package:crypto_tracker_redux/redux_version/models/app_state.dart';
-import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart';
-import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
+import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
+import 'package:crypto_tracker_redux/redux_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 
-AppState appStateReducer(AppState state, dynamic action) {
+AppStateModel appStateReducer(AppStateModel state, dynamic action) {
   //-------
   // TypedMiddleware<AppState, SubscribeToChangesAction> listenToChanges() =>
   //     TypedMiddleware<AppState, SubscribeToChangesAction>((store, action, next) {

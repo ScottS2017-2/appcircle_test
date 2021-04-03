@@ -1,5 +1,5 @@
-import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart';
-import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
+import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
 
 class AddInterestedInAction {
   AddInterestedInAction({

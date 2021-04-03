@@ -1,8 +1,8 @@
-import 'package:crypto_tracker_redux/redux_version/models/price_check_model.dart';
-import 'package:crypto_tracker_redux/redux_version/models/symbol_model.dart';
+import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
+import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
 
-class AppState {
-  AppState({
+class AppStateModel {
+  AppStateModel({
     required this.allCommoditiesHistory,
     required this.interestedInPrices,
     required this.denominationsApplicableToCurrentCommodity,
@@ -20,7 +20,7 @@ class AppState {
   final bool slidersAreOnStage;
   final bool isConnected;
 
-  AppState copyWith({
+  AppStateModel copyWith({
     Map<SymbolModel, List<PriceCheck>>? allCommoditiesHistory,
     Map<SymbolModel, PriceCheck>? interestedInPrices,
     List<SymbolModel>? denominationsApplicableToCurrentCommodity,
@@ -29,7 +29,7 @@ class AppState {
     bool? slidersAreOnStage,
     bool? isConnected,
   }) {
-    final _newAppState = AppState(
+    final _newAppState = AppStateModel(
       allCommoditiesHistory: allCommoditiesHistory ?? this.allCommoditiesHistory,
       interestedInPrices: interestedInPrices ?? this.interestedInPrices,
       denominationsApplicableToCurrentCommodity:
@@ -42,7 +42,7 @@ class AppState {
     return _newAppState;
   }
 
-  AppState.initialState()
+  AppStateModel.initialState()
       : allCommoditiesHistory = {},
         interestedInPrices = <SymbolModel, PriceCheck>{},
         denominationsApplicableToCurrentCommodity = [],
