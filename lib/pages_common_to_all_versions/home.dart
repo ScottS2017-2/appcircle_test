@@ -21,9 +21,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  PageController controller = PageController(
-    initialPage: 1,
-  );
+  late PageController _controller;
 
   List<Widget> pages = [
     ProviderHome(),
@@ -42,6 +40,13 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    _controller = PageController(initialPage: 1);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -93,6 +98,7 @@ class _HomeState extends State<Home> {
                 context: context,
                 removeTop: true,
                 child: PageView(
+                  controller: _controller,
                   children: pages,
                 ),
               ),

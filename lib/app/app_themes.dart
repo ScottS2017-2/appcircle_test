@@ -19,23 +19,6 @@ class AppTheme {
     );
   }
 
-// static ThemeData dark() {
-//   final textTheme = _getTextTheme(brightness: Brightness.dark);
-
-//   return ThemeData(
-//     brightness: Brightness.dark,
-//     primaryColor: _primaryColor,
-//     accentColor: _accentColor,
-//     textTheme: textTheme,
-//     primaryTextTheme: textTheme,
-//     dividerTheme: _dividerTheme,
-//     elevatedButtonTheme: _elevatedButtonTheme,
-//   );
-// }
-
-  // static const _primaryColor = Colors.black;
-  // static const _accentColor = Colors.white;
-
   static const _dividerTheme = DividerThemeData(
     indent: 16,
     space: 0,
@@ -56,8 +39,6 @@ class AppTheme {
       headline2: GoogleFonts.orbitron(),
       headline3: GoogleFonts.orbitron(),
       headline4: GoogleFonts.orbitron(),
-      headline5: GoogleFonts.orbitron(),
-      headline6: GoogleFonts.orbitron(),
     );
   }
 }
