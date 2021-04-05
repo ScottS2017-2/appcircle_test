@@ -1,4 +1,5 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
+import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
 import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
 import 'package:crypto_tracker_redux/main.dart';
@@ -36,7 +37,7 @@ class TopSlideIn extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                'Commodities',
+                AppStrings.commodities,
                 style:
                     Theme.of(context).textTheme.headline5!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
                   BoxShadow(
@@ -81,6 +82,7 @@ class TopSlideIn extends StatelessWidget {
                         return left.commodityFull.toLowerCase().compareTo(right.commodityFull.toLowerCase());
                       });
                       return ListView.separated(
+                        key: Key('TopSlideInTopListView'),
                         padding: const EdgeInsets.symmetric(horizontal: 8),
                         itemCount: uniqueCommodities.length,
                         itemBuilder: (BuildContext context, int index) {
@@ -89,6 +91,7 @@ class TopSlideIn extends StatelessWidget {
                             onPressed: () {
                               MyApp.appStateOf(context).updateDenominationsApplicableToCurrentCommodity(symbol);
                             },
+                           key: Key(symbol.commodityFull),
                             style: ButtonStyle(
                               overlayColor: MaterialStateProperty.resolveWith((states) {
                                 if (states.contains(MaterialState.pressed)) {
@@ -100,6 +103,7 @@ class TopSlideIn extends StatelessWidget {
                             ),
                             child: Text(
                               symbol.commodityFull,
+                              semanticsLabel: symbol.commodityFull,
                               textAlign: TextAlign.center,
                               style: AppTextStyles.normal16.copyWith(color: AppColors.blackTextColor),
                             ),
@@ -128,7 +132,7 @@ class TopSlideIn extends StatelessWidget {
                 height: 16,
               ),
               Text(
-                'Denominations',
+                AppStrings.denominations,
                 style:
                     Theme.of(context).textTheme.headline5!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
                   BoxShadow(
@@ -164,19 +168,21 @@ class TopSlideIn extends StatelessWidget {
                         return Center(
                           child: FittedBox(
                             child: Text(
-                              'Select a Commodity from Above',
+                              AppStrings.selectCommodity,
                               style: AppTextStyles.normal16,
                             ),
                           ),
                         );
                       } else {
                         return ListView.separated(
+                          key: Key('TopSlideInBottomListView'),
                           padding: const EdgeInsets.symmetric(horizontal: 8),
                           itemCount: denominations.length,
                           itemBuilder: (BuildContext context, int index) {
                             final symbol = denominations[index];
                             return TextButton(
                               onPressed: () => MyApp.appStateOf(context).addToInterestedInPrices(symbol),
+                              key: Key(symbol.denominationFull),
                               style: ButtonStyle(
                                 overlayColor: MaterialStateProperty.resolveWith((states) {
                                   if (states.contains(MaterialState.pressed)) {
@@ -188,6 +194,7 @@ class TopSlideIn extends StatelessWidget {
                               ),
                               child: Text(
                                 symbol.denominationFull,
+                                semanticsLabel: symbol.denominationFull,
                                 textAlign: TextAlign.center,
                                 style: AppTextStyles.normal16.copyWith(color: AppColors.blackTextColor),
                               ),

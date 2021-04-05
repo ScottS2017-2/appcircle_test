@@ -4,6 +4,7 @@ class AppStrings {
   static const String following = 'Following';
   static const String commodities = 'Commodities';
   static const String denominations = 'Denominations';
+  static const String selectCommodity = 'Select a Commodity from Above';
   static const String tapToRemove = '(Tap to Remove)';
   static const String editWatchlist = 'Edit Watchlist';
   static const String closeEditBoxes = 'RETURN';

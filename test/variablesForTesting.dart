@@ -1,14 +1,11 @@
 import 'package:crypto_tracker_redux/common/models/symbol_model.dart';
-import 'package:crypto_tracker_redux/pages_common_to_all_versions/home.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart' as providerVersion;
-import 'package:crypto_tracker_redux/redux_version/models/view_model.dart';
 import 'package:crypto_tracker_redux/common/models/price_check_model.dart';
-import 'package:crypto_tracker_redux/redux_version/redux/store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // Common
-final testPriceCheckList = <PriceCheck>[
+final mockPriceCheckList = <PriceCheck>[
   PriceCheck(
       symbol: SymbolModel(commodity: 'BTC', denomination: 'GBP'),
       price24h: 1111,
@@ -31,27 +28,49 @@ final testPriceCheckList = <PriceCheck>[
       lastTradePrice: 4444),
 ];
 
-final testSymbolModelList = <SymbolModel>[
+final mockSymbolModelList = <SymbolModel>[
   SymbolModel(commodity: 'BTC', denomination: 'GBP'),
   SymbolModel(commodity: 'BTC', denomination: 'EUR'),
   SymbolModel(commodity: 'ETH', denomination: 'USD'),
   SymbolModel(commodity: 'ALGO', denomination: 'USD'),
 ];
 
-final symbol0 = testSymbolModelList[0];
-final symbol1 = testSymbolModelList[1];
-final symbol2 = testSymbolModelList[2];
-final priceCheck0 = testPriceCheckList[0];
-final priceCheck1 = testPriceCheckList[1];
-final priceCheck2 = testPriceCheckList[2];
+final mockSymbol0 = mockSymbolModelList[0];
+final mockSymbol1 = mockSymbolModelList[1];
+final mockSymbol2 = mockSymbolModelList[2];
+final mockPriceCheck0 = mockPriceCheckList[0];
+final mockPriceCheck1 = mockPriceCheckList[1];
+final mockPriceCheck2 = mockPriceCheckList[2];
 
-// Redux Specific
-final testStore = createStore();
-final testViewModel = ViewModel.create(testStore);
+final testAllCommoditiesHistory2 = <SymbolModel, List<PriceCheck>>{
+  mockSymbol0 : [mockPriceCheck0],
+  mockSymbol2 : [mockPriceCheck2],
+};
 
-Widget createHomeScreen() => ChangeNotifierProvider<providerVersion.AppStateModel>(
-  create: (context) => providerVersion.AppStateModel(),
-  child: MaterialApp(
-    home: Home(),
-  ),
-);
+final testAllCommoditiesHistory3 = <SymbolModel, List<PriceCheck>>{
+mockSymbol0 : [mockPriceCheck0],
+mockSymbol1 : [mockPriceCheck1],
+mockSymbol2 : [mockPriceCheck2],
+};
+
+final testInterestedInPrices = <SymbolModel, PriceCheck>{
+  mockSymbol0 : mockPriceCheck0,
+  mockSymbol1 : mockPriceCheck1,
+  mockSymbol2 : mockPriceCheck2,
+};
+
+//Provider Specific
+var mockAppStateModel = providerVersion.AppStateModel();
+
+Widget mockMaterialApp({required Widget child}) {
+  return MaterialApp(
+    home: child,
+  );
+}
+
+Widget mockProvider({required Widget child}) => ChangeNotifierProvider<providerVersion.AppStateModel>(
+      create: (context) => mockAppStateModel,
+      child: MaterialApp(
+        home: child,
+      ),
+    );

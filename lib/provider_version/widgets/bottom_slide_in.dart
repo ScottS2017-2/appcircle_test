@@ -44,7 +44,7 @@ class BottomSlideIn extends StatelessWidget {
                   ),
                 ]),
               ),
-              Text(
+             Text(
                 AppStrings.tapToRemove,
                 style: Theme.of(context).textTheme.bodyText2!.copyWith(color: AppColors.offWhitePageBackground, shadows: [
                   BoxShadow(
@@ -76,6 +76,7 @@ class BottomSlideIn extends StatelessWidget {
                             final interestedInPricesSymbols =
                                 context.select((AppStateModel appState) => appState.interestedInPrices.keys.toList());
                             return ListView.separated(
+                              key: Key('BottomSlideInTopListView'),
                               padding: const EdgeInsets.symmetric(horizontal: 8),
                               itemCount: interestedInPricesSymbols.length,
                               itemBuilder: (BuildContext context, int index) {
