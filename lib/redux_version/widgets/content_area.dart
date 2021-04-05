@@ -65,7 +65,6 @@ class _ContentAreaState extends State<ContentArea> {
                       itemCount: interestedInPrices.length,
                       itemBuilder: (BuildContext context, int index) {
                         return CustomBorderBox(
-                          onPressed: () => {},
                           gradientColorOne: AppColors.oliveAccent,
                           gradientColorTwo: Theme.of(context).primaryColor,
                           insetColor: Theme.of(context).scaffoldBackgroundColor,
@@ -136,6 +135,9 @@ class _ContentAreaState extends State<ContentArea> {
                               gradientColorOne: AppColors.oliveAccent,
                               gradientColorTwo: Theme.of(context).primaryColor,
                               insetColor: Theme.of(context).scaffoldBackgroundColor,
+                              innerBorderThickness: 1,
+                              outerCornerRadius: 20,
+                              innerCornerRadius: 20,
                               child: Text('Update Prices'),
                             ),
                           ),
@@ -156,6 +158,9 @@ class _ContentAreaState extends State<ContentArea> {
                               gradientColorOne: AppColors.oliveAccent,
                               gradientColorTwo: Theme.of(context).primaryColor,
                               insetColor: Theme.of(context).scaffoldBackgroundColor,
+                              innerBorderThickness: 1,
+                              outerCornerRadius: 20,
+                              innerCornerRadius: 20,
                               child: Text(
                                 AppStrings.editWatchlist,
                               ),
@@ -184,6 +189,9 @@ class _ContentAreaState extends State<ContentArea> {
                               gradientColorOne: AppColors.oliveAccent,
                               gradientColorTwo: Theme.of(context).primaryColor,
                               insetColor: Theme.of(context).scaffoldBackgroundColor,
+                              innerBorderThickness: 1,
+                              outerCornerRadius: 20,
+                              innerCornerRadius: 20,
                               child: Text(widget.viewModel.slidersAreOnStage == false
                                   ? AppStrings.editWatchlist
                                   : AppStrings.closeEditBoxes),

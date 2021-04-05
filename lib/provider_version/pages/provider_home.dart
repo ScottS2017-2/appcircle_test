@@ -77,7 +77,6 @@ class _ProviderHomeState extends State<ProviderHome> {
                                 final value = interestedInPrices[index];
                                 return Container(
                                   child: CustomBorderBox(
-                                    onPressed: () => {},
                                     gradientColorOne: AppColors.oliveAccent,
                                     gradientColorTwo: Theme.of(context).primaryColor,
                                     insetColor: Theme.of(context).scaffoldBackgroundColor,
@@ -148,6 +147,9 @@ class _ProviderHomeState extends State<ProviderHome> {
                                   gradientColorOne: AppColors.oliveAccent,
                                   gradientColorTwo: Theme.of(context).primaryColor,
                                   insetColor: Theme.of(context).scaffoldBackgroundColor,
+                                  innerBorderThickness: 1,
+                                  outerCornerRadius: 20,
+                                  innerCornerRadius: 20,
                                   child: Text('Update Prices'),
                                 ),
                               ),
@@ -168,6 +170,9 @@ class _ProviderHomeState extends State<ProviderHome> {
                                   gradientColorOne: AppColors.oliveAccent,
                                   gradientColorTwo: Theme.of(context).primaryColor,
                                   insetColor: Theme.of(context).scaffoldBackgroundColor,
+                                  innerBorderThickness: 1,
+                                  outerCornerRadius: 20,
+                                  innerCornerRadius: 20,
                                   child: Text(onStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes),
                                 ),
                               ),
@@ -190,6 +195,9 @@ class _ProviderHomeState extends State<ProviderHome> {
                                   gradientColorOne: AppColors.oliveAccent,
                                   gradientColorTwo: Theme.of(context).primaryColor,
                                   insetColor: Theme.of(context).scaffoldBackgroundColor,
+                                  innerBorderThickness: 1,
+                                  outerCornerRadius: 20,
+                                  innerCornerRadius: 20,
                                   child: Text(onStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes),
                                 ),
                               ),

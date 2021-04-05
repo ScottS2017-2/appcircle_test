@@ -23,7 +23,6 @@ class BottomSlideIn extends StatelessWidget {
       width: width,
       alignment: Alignment.topCenter,
       child: CustomBorderBox(
-        onPressed: () => {},
         gradientColorOne: AppColors.oliveAccent,
         gradientColorTwo: Theme.of(context).primaryColor,
         insetColor: Theme.of(context).scaffoldBackgroundColor,

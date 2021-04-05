@@ -1,5 +1,6 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
+import 'package:crypto_tracker_redux/pages_common_to_all_versions/welcome_page.dart';
 import 'package:crypto_tracker_redux/provider_version/pages/provider_home.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/store.dart';
 
@@ -21,11 +22,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   PageController controller = PageController(
-    initialPage: 0,
+    initialPage: 1,
   );
 
   List<Widget> pages = [
     ProviderHome(),
+    Welcome(),
     StoreProvider<AppStateModel>(
       store: createStore(),
       child: StoreBuilder<AppStateModel>(
