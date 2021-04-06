@@ -26,6 +26,12 @@ class ContentArea extends StatefulWidget {
 }
 
 class _ContentAreaState extends State<ContentArea> {
+
+  void updatePrices(){
+    setState(() {
+      widget.viewModel.fetchUpdates();
+    });
+  }
   @override
   void initState() {
     super.initState();
@@ -64,40 +70,27 @@ class _ContentAreaState extends State<ContentArea> {
                     child: ListView.builder(
                       itemCount: interestedInPrices.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return CustomBorderBox(
-                          gradientColorOne: AppColors.oliveAccent,
-                          gradientColorTwo: Theme.of(context).primaryColor,
-                          insetColor: Theme.of(context).scaffoldBackgroundColor,
-                          innerBorderThickness: 1,
-                          outerCornerRadius: 20,
-                          innerCornerRadius: 10,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            alignment: Alignment.center,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Column(
-                                  children: [
-                                    Text(
-                                      '${interestedInPrices.keys.elementAt(index).commodityFull.toUpperCase()}',
-                                      textAlign: TextAlign.center,
-                                      style: AppTextStyles.boldItalic26.copyWith(
-                                        color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
-                                        shadows: [
-                                          Shadow(
-                                            color: AppColors.dropShadowColor,
-                                            offset: Offset(2, 2),
-                                            blurRadius: 1,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    FittedBox(
-                                      child: Text(
-                                        '${interestedInPrices[interestedInPrices.keys.elementAt(index)]!.lastTradePrice.toString().padRight(2)} ${interestedInPrices.keys.elementAt(index).denominationFull.toUpperCase()}',
+                        return Container(
+                          margin: const EdgeInsets.only(bottom: 16),
+                          child: CustomBorderBox(
+                            gradientColorOne: AppColors.oliveAccent,
+                            gradientColorTwo: Theme.of(context).primaryColor,
+                            insetColor: Theme.of(context).scaffoldBackgroundColor,
+                            innerBorderThickness: 1,
+                            outerCornerRadius: 20,
+                            innerCornerRadius: 10,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              alignment: Alignment.center,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Column(
+                                    children: [
+                                      Text(
+                                        '${interestedInPrices.keys.elementAt(index).commodityFull.toUpperCase()}',
                                         textAlign: TextAlign.center,
-                                        style: AppTextStyles.normal24.copyWith(
+                                        style: AppTextStyles.boldItalic26.copyWith(
                                           color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
                                           shadows: [
                                             Shadow(
@@ -108,29 +101,42 @@ class _ContentAreaState extends State<ContentArea> {
                                           ],
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                      FittedBox(
+                                        child: Text(
+                                          '${interestedInPrices[interestedInPrices.keys.elementAt(index)]!.lastTradePrice.toString().padRight(2)} ${interestedInPrices.keys.elementAt(index).denominationFull.toUpperCase()}',
+                                          textAlign: TextAlign.center,
+                                          style: AppTextStyles.normal24.copyWith(
+                                            color: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.95),
+                                            shadows: [
+                                              Shadow(
+                                                color: AppColors.dropShadowColor,
+                                                offset: Offset(2, 2),
+                                                blurRadius: 1,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         );
                       },
                     ),
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      //-------
-                      // If the sliders aren't on stage, show the update
-                      // and edit watchlist buttons at the bottom of the page
-                      //-------
                       if (widget.viewModel.slidersAreOnStage == false)
                         Expanded(
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 16),
                             child: CustomBorderButton(
-                              onPressed: widget.viewModel.fetchUpdates,
+                              onPressed: updatePrices,
                               height: 48,
                               gradientColorOne: AppColors.oliveAccent,
                               gradientColorTwo: Theme.of(context).primaryColor,
@@ -138,66 +144,42 @@ class _ContentAreaState extends State<ContentArea> {
                               innerBorderThickness: 1,
                               outerCornerRadius: 20,
                               innerCornerRadius: 20,
-                              child: Text('Update Prices'),
+                              child: Text(AppStrings.updatePrices),
                             ),
                           ),
                         ),
                       SizedBox(
                         width: 16,
                       ),
-                      if (widget.viewModel.slidersAreOnStage == false)
-                        //
-                        
-                        // ElevatedButton(onPressed: onPressed, child: child),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: CustomBorderButton(
-                              onPressed: () => widget.viewModel.toggleSideSlides(),
-                              height: 48,
-                              gradientColorOne: AppColors.oliveAccent,
-                              gradientColorTwo: Theme.of(context).primaryColor,
-                              insetColor: Theme.of(context).scaffoldBackgroundColor,
-                              innerBorderThickness: 1,
-                              outerCornerRadius: 20,
-                              innerCornerRadius: 20,
-                              child: Text(
-                                AppStrings.editWatchlist,
-                              ),
-                            ),
-                          ),
-                        ),
-                      //-------
-                      // If the sliders are on stage, show a return button that's
-                      // centered horizontally
-                      //-------
                       if (widget.viewModel.slidersAreOnStage == true)
                         Spacer(
                           flex: 25,
                         ),
-                      if (widget.viewModel.slidersAreOnStage == true)
-                        Expanded(
-                          flex: 50,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: CustomBorderButton(
-                              onPressed: () {
-                                widget.viewModel.clearAllDenominationOptions();
-                                widget.viewModel.toggleSideSlides();
-                              },
-                              height: 48,
-                              gradientColorOne: AppColors.oliveAccent,
-                              gradientColorTwo: Theme.of(context).primaryColor,
-                              insetColor: Theme.of(context).scaffoldBackgroundColor,
-                              innerBorderThickness: 1,
-                              outerCornerRadius: 20,
-                              innerCornerRadius: 20,
-                              child: Text(widget.viewModel.slidersAreOnStage == false
+                      //  if (onStage == true)
+                      Expanded(
+                        flex: widget.viewModel.slidersAreOnStage == true ? 50 : 1,
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: CustomBorderButton(
+                            onPressed: () {
+                              widget.viewModel.clearAllDenominationOptions();
+                              widget.viewModel.toggleSideSlides();
+                            },
+                            height: 48,
+                            gradientColorOne: AppColors.oliveAccent,
+                            gradientColorTwo: Theme.of(context).primaryColor,
+                            insetColor: Theme.of(context).scaffoldBackgroundColor,
+                            innerBorderThickness: 1,
+                            outerCornerRadius: 20,
+                            innerCornerRadius: 20,
+                            child: Text(
+                              widget.viewModel.slidersAreOnStage == false
                                   ? AppStrings.editWatchlist
-                                  : AppStrings.closeEditBoxes),
+                                  : AppStrings.closeEditBoxes,
                             ),
                           ),
                         ),
+                      ),
                       if (widget.viewModel.slidersAreOnStage == true)
                         Spacer(
                           flex: 25,
@@ -343,7 +325,7 @@ class _ContentAreaState extends State<ContentArea> {
                             color: Theme.of(context).accentColor,
                             padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
                             child: Text(
-                              'Sorry, not connected',
+                              AppStrings.sorryNotConnected,
                               style: Theme.of(context).accentTextTheme.bodyText2,
                             ),
                           );

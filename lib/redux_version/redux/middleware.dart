@@ -10,11 +10,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:redux/redux.dart';
 
+
+//-------
+// TypedMiddleware<AppState, SubscribeToChangesAction> listenToChanges() =>
+//     TypedMiddleware<AppState, SubscribeToChangesAction>((store, action, next) {
+//       // Call the timer
+//       Timer.periodic(duration: Duration(minutes: 15), (){
+//         repository.getValue().then((value){
+//           store.dispatch(ValueReceivedAction(value));
+//         });
+//       });
+//       next(action);
+//     });
+//-------
+
 Future<void> appStateMiddleware(Store<AppStateModel> store, action, NextDispatcher next) async {
   if (action is FetchUpdatesAction) {
     await getTicker().then((value) {
       next(UpdatePricesAction(updatedListings: value));
     }, onError: _onFetchError);
+    for (final key in store.state.interestedInPrices.keys) {
+      store.state.interestedInPrices[key] = store.state.allCommoditiesHistory[key]!.last;
+    }
   } else if (action is AddInterestedInAction) {
     final Map<SymbolModel, PriceCheck> _currentPricesInterestedInList = store.state.interestedInPrices;
     _currentPricesInterestedInList.putIfAbsent(
@@ -23,7 +40,7 @@ Future<void> appStateMiddleware(Store<AppStateModel> store, action, NextDispatch
       interestedInPrices: _currentPricesInterestedInList,
     );
     next(FetchUpdatesAction);
-  } else {
+  }  else {
     next(action);
   }
 }

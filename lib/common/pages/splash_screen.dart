@@ -1,7 +1,7 @@
 import 'package:crypto_tracker_redux/app/app_colors.dart';
 import 'package:crypto_tracker_redux/app/app_strings.dart';
 import 'package:crypto_tracker_redux/app/app_textstyles.dart';
-import 'package:crypto_tracker_redux/pages_common_to_all_versions/home.dart';
+import 'package:crypto_tracker_redux/common/pages/home.dart';
 import 'package:crypto_tracker_redux/provider_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/widgets_common_to_all_versions/custom_border_button.dart';
 import 'package:flutter/material.dart';

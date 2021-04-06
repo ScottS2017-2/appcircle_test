@@ -7,10 +7,11 @@ class AppStrings {
   static const String selectCommodity = 'Select a Commodity from Above';
   static const String tapToRemove = '(Tap to Remove)';
   static const String editWatchlist = 'Edit Watchlist';
+  static const String updatePrices = 'Update Prices';
   static const String closeEditBoxes = 'RETURN';
   static const String continueText = 'Continue';
   static const String skip = 'Skip';
-
+  static const String sorryNotConnected = 'Sorry, not connected';
 
   // Abbreviations to Full names
   static const unabbreviatedTerms = <String, String>{

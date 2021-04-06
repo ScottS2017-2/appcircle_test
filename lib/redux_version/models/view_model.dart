@@ -51,7 +51,8 @@ class ViewModel {
       denominationsApplicableToCurrentCommodity: //
           store.state.denominationsApplicableToCurrentCommodity,
       // methods
-      fetchUpdates: () => store.dispatch(FetchUpdatesAction()),
+
+      fetchUpdates: () =>  store.dispatch(FetchUpdatesAction()),
       toggleSideSlides: () => store.dispatch(ToggleSideSlides()),
       clearAllDenominationOptions: () => store.dispatch(ClearAllDenominationOptions()),
       addInterestedInItem: ({required SymbolModel mapKey}) => //

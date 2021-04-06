@@ -4,18 +4,7 @@ import 'package:crypto_tracker_redux/redux_version/models/app_state_model.dart';
 import 'package:crypto_tracker_redux/redux_version/redux/actions.dart';
 
 AppStateModel appStateReducer(AppStateModel state, dynamic action) {
-  //-------
-  // TypedMiddleware<AppState, SubscribeToChangesAction> listenToChanges() =>
-  //     TypedMiddleware<AppState, SubscribeToChangesAction>((store, action, next) {
-  //       // Call the timer
-  //       Timer.periodic(duration: Duration(minutes: 5), (){
-  //         repository.getValue().then((value){
-  //           store.dispatch(ValueReceivedAction(value));
-  //         });
-  //       });
-  //       next(action);
-  //     });
-  //-------
+
   if (action is UpdatePricesAction) {
 
     final Map<SymbolModel, List<PriceCheck>> _currentHistory = Map.from(state.allCommoditiesHistory);

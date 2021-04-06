@@ -21,8 +21,6 @@ class AppStateModel extends ChangeNotifier {
   bool get isConnected => _isConnected;
 
   // TestWritten
-  @visibleForTesting
-  // The visibleForTesting annotation makes the method private, except for testing
   Future<void> fetchAndProcessUpdates() async {
     await getTicker().then((newestUpdates) {
       addUpdatesToHistory(newestUpdates);

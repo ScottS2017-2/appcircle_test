@@ -50,6 +50,7 @@ class _ProviderHomeState extends State<ProviderHome> {
         }
         return LayoutBuilder(
           builder: (context, BoxConstraints constraints) {
+            final rightSideButtonText = onStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes ;
             return Stack(
               fit: StackFit.expand,
               children: [
@@ -76,6 +77,7 @@ class _ProviderHomeState extends State<ProviderHome> {
                               itemBuilder: (BuildContext context, int index) {
                                 final value = interestedInPrices[index];
                                 return Container(
+                                  margin: const EdgeInsets.only(bottom: 16),
                                   child: CustomBorderBox(
                                     gradientColorOne: AppColors.oliveAccent,
                                     gradientColorTwo: Theme.of(context).primaryColor,
@@ -150,40 +152,20 @@ class _ProviderHomeState extends State<ProviderHome> {
                                   innerBorderThickness: 1,
                                   outerCornerRadius: 20,
                                   innerCornerRadius: 20,
-                                  child: Text('Update Prices'),
+                                  child: Text(AppStrings.updatePrices),
                                 ),
                               ),
                             ),
                           SizedBox(
                             width: 16,
                           ),
-                          if (onStage == false)
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(bottom: 16),
-                                child: CustomBorderButton(
-                                  onPressed: () {
-                                    MyApp.appStateOf(context).clearDenominationsApplicableToCurrentCommodity();
-                                    toggleSideSlides();
-                                  },
-                                  height: 48,
-                                  gradientColorOne: AppColors.oliveAccent,
-                                  gradientColorTwo: Theme.of(context).primaryColor,
-                                  insetColor: Theme.of(context).scaffoldBackgroundColor,
-                                  innerBorderThickness: 1,
-                                  outerCornerRadius: 20,
-                                  innerCornerRadius: 20,
-                                  child: Text(onStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes),
-                                ),
-                              ),
-                            ),
                           if (onStage == true)
                             Spacer(
                               flex: 25,
                             ),
-                          if (onStage == true)
+                        //  if (onStage == true)
                             Expanded(
-                              flex: 50,
+                              flex: onStage == true ? 50 : 1,
                               child: Padding(
                                 padding: const EdgeInsets.only(bottom: 16),
                                 child: CustomBorderButton(
@@ -198,7 +180,8 @@ class _ProviderHomeState extends State<ProviderHome> {
                                   innerBorderThickness: 1,
                                   outerCornerRadius: 20,
                                   innerCornerRadius: 20,
-                                  child: Text(onStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes),
+                                  child: Text(onStage == false ? AppStrings.editWatchlist : AppStrings.closeEditBoxes,
+                                  ),
                                 ),
                               ),
                             ),
