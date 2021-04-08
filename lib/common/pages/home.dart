@@ -52,58 +52,61 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox.expand(
-        child: Column(
-          children: [
-            Material(
-              elevation: 4,
-              child: Ink(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      AppColors.oliveAccent,
-                      Theme.of(context).primaryColor,
-                    ],
-                    begin: Alignment(-2, -1.75),
-                    end: Alignment(2, 1.75),
-                    stops: [0, 1],
+      body: SafeArea(
+        top: false,
+        child: SizedBox.expand(
+          child: Column(
+            children: [
+              Material(
+                elevation: 4,
+                child: Ink(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        AppColors.oliveAccent,
+                        Theme.of(context).primaryColor,
+                      ],
+                      begin: Alignment(-2, -1.75),
+                      end: Alignment(2, 1.75),
+                      stops: [0, 1],
+                    ),
                   ),
-                ),
-                child: SafeArea(
-                  bottom: false,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        titleString,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline4!
-                            .copyWith(color: AppColors.offWhitePageBackground, shadows: [
-                          BoxShadow(
-                            color: AppColors.blackTextColor,
-                            blurRadius: 2,
-                            offset: Offset(1, 1),
-                          ),
-                        ]),
+                  child: SafeArea(
+                    bottom: false,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          titleString,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4!
+                              .copyWith(color: AppColors.offWhitePageBackground, shadows: [
+                            BoxShadow(
+                              color: AppColors.blackTextColor,
+                              blurRadius: 2,
+                              offset: Offset(1, 1),
+                            ),
+                          ]),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              child: MediaQuery.removePadding(
-                context: context,
-                removeTop: true,
-                child: PageView(
-                  controller: _controller,
-                  children: pages,
+              Expanded(
+                child: MediaQuery.removePadding(
+                  context: context,
+                  removeTop: true,
+                  child: PageView(
+                    controller: _controller,
+                    children: pages,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

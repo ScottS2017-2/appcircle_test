@@ -30,8 +30,7 @@ class AppStateModel {
     SymbolModel? itemToRemove,
     bool? slidersAreOnStage,
     bool? isConnected,
-  }) {
-    final _newAppState = AppStateModel(
+  }) => AppStateModel(
       allCommoditiesHistory: allCommoditiesHistory ?? this.allCommoditiesHistory,
       interestedInPrices: interestedInPrices ?? this.interestedInPrices,
       denominationsApplicableToCurrentCommodity:
@@ -41,8 +40,7 @@ class AppStateModel {
       slidersAreOnStage: slidersAreOnStage ?? this.slidersAreOnStage,
       isConnected: isConnected ?? this.isConnected,
     );
-    return _newAppState;
-  }
+
 
   AppStateModel.initialState()
       : allCommoditiesHistory = {},

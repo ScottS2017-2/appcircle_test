@@ -67,7 +67,7 @@ class Welcome extends StatelessWidget {
                       children: <Widget>[
                       RotatedBox(quarterTurns: 2, child:  Icon(Icons.double_arrow_outlined),),
                         Text(
-                          'Swipe Left for Provider',
+                          'This way for Provider',
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             color: AppColors.blackTextColor,
@@ -88,7 +88,7 @@ class Welcome extends StatelessWidget {
                       children: <Widget>[
 
                         Text(
-                          'Swipe Right for Redux',
+                          'That way for Redux',
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.bodyText2!.copyWith(
                             color: AppColors.blackTextColor,

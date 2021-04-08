@@ -14,20 +14,16 @@ class AppStateModel extends ChangeNotifier {
   final allCommoditiesHistory = <SymbolModel, List<PriceCheck>>{};
   final interestedInPrices = <SymbolModel, PriceCheck>{};
   List<SymbolModel> denominationsApplicableToCurrentCommodity = [];
-  Timer? _timer;
 
   bool _isConnected = true;
 
   bool get isConnected => _isConnected;
 
-  // TestWritten
   Future<void> fetchAndProcessUpdates() async {
     await getTicker().then((newestUpdates) {
       addUpdatesToHistory(newestUpdates);
       updateInterestedInList();
       _isConnected = true;
-          _timer?.cancel();
-      _startUpdateTimer();
     }, onError: _onFetchError);
   }
 
@@ -38,7 +34,6 @@ class AppStateModel extends ChangeNotifier {
   }
 
   // Returns a list of the latest PriceCheck objects
-  // TestWritten
   @visibleForTesting
   Future<List<PriceCheck>> getTicker() async {
     final url = Uri.parse('https://api.blockchain.com/v3/exchange/tickers');
@@ -52,7 +47,6 @@ class AppStateModel extends ChangeNotifier {
         .toList();
   }
 
-  // TestWritten
   @visibleForTesting
   void addUpdatesToHistory(List<PriceCheck> newestUpdates) {
     // Add each new listing to the result
@@ -63,7 +57,6 @@ class AppStateModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // TestWritten
   @visibleForTesting
   void updateInterestedInList(){
     for (final key in interestedInPrices.keys) {
@@ -71,13 +64,11 @@ class AppStateModel extends ChangeNotifier {
     }
   }
 
-  // TestWritten
   void clearDenominationsApplicableToCurrentCommodity() {
     denominationsApplicableToCurrentCommodity.clear();
     notifyListeners();
   }
 
-// TestWritten
   void updateDenominationsApplicableToCurrentCommodity(SymbolModel symbol) {
     denominationsApplicableToCurrentCommodity = allCommoditiesHistory.keys //
         .where((key) => key.commodity == symbol.commodity)
@@ -88,25 +79,13 @@ class AppStateModel extends ChangeNotifier {
     notifyListeners();
   }
 
-//TestWritten
   void addToInterestedInPrices(SymbolModel symbol) {
     interestedInPrices.putIfAbsent(symbol, () => allCommoditiesHistory[symbol]!.last);
     notifyListeners();
   }
 
-  // TestWritten
   void removeFromInterestedInPrices(SymbolModel symbol) {
     interestedInPrices.remove(symbol);
-    if (interestedInPrices.isEmpty) {
-      _timer?.cancel();
-    } else {
-      _timer?.cancel();
-      _startUpdateTimer();
-    }
     notifyListeners();
-  }
-
-  void _startUpdateTimer() {
-    _timer = Timer(Duration(minutes: 15), fetchAndProcessUpdates);
   }
 }

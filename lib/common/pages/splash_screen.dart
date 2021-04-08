@@ -119,27 +119,29 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
               ),
             ),
             Positioned(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
-                child: CustomBorderButton(
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ChangeNotifierProvider(
-                        create: (BuildContext context) => AppStateModel(),
-                        child: Home(),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: CustomBorderButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChangeNotifierProvider(
+                          create: (BuildContext context) => AppStateModel(),
+                          child: Home(),
+                        ),
                       ),
                     ),
+                    height: 48,
+                    width: 150,
+                    gradientColorOne: AppColors.oliveAccent,
+                    gradientColorTwo: Theme.of(context).primaryColor,
+                    insetColor: Theme.of(context).scaffoldBackgroundColor,
+                    innerBorderThickness: 1,
+                    outerCornerRadius: 20,
+                    innerCornerRadius: 20,
+                    child: Text(_controller.value == 1 ? AppStrings.continueText : AppStrings.skip),
                   ),
-                  height: 48,
-                  width: 150,
-                  gradientColorOne: AppColors.oliveAccent,
-                  gradientColorTwo: Theme.of(context).primaryColor,
-                  insetColor: Theme.of(context).scaffoldBackgroundColor,
-                  innerBorderThickness: 1,
-                  outerCornerRadius: 20,
-                  innerCornerRadius: 20,
-                  child: Text(_controller.value == 1 ? AppStrings.continueText : AppStrings.skip),
                 ),
               ),
             ),
