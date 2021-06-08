@@ -36,7 +36,7 @@ class _HomeState extends State<Home> {
   ];
 
   // String titleString = AppStrings.appBarTitle;
-  String titleString = 'Appcircle Testing Again';
+  String titleString = 'Appcircle Testing';
 
   @override
   void initState() {
